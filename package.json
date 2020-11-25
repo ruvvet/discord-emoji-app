@@ -1,0 +1,32 @@
+{
+  "name": "discord-emoji-app",
+  "version": "1.0.0",
+  "description": "uwumoji",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruvvet/discord-emoji-app.git"
+  },
+  "author": "Jenny Feng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruvvet/discord-emoji-app/issues"
+  },
+  "homepage": "https://github.com/ruvvet/discord-emoji-app#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.1",
+    "passport": "^0.4.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.3.5"
+  }
+}
