@@ -1,4 +1,6 @@
 
+ SDK vs api?
+
 
 API's :
 
@@ -64,3 +66,25 @@ discord colors palette:
 	#99aab5	rgb(153, 170, 181)
     #2c2f33	rgb(44, 47, 51)
     #23272a	rgb(35, 39, 42)
+
+
+
+
+
+TO DO:
+Discord OAauth login / login + link  -- discord/passport https://www.npmjs.com/package/passport-discord
+Decide how to build out library
+set up all routes
+test discord api call
+determine table structure + create MODELS
+how to handle tags
+
+
+
+
+
+
+
+    stretch:
+    edit emoji options
+    light/dark mode settings
