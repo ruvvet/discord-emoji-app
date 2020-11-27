@@ -158,3 +158,14 @@ body{
     stroke-dasharray: 196, 543;
     stroke-dashoffset: 437;
 }
+
+
+
+
+/* EMOJI */
+.emoji{
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    border: 3px solid white;
+}
