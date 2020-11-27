@@ -1,0 +1,9 @@
+<%guild_owner.forEach(guild =>{ %>
+<div class="guild">
+  <img
+    class="guild-icon"
+    src="<%=`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`%>"
+  />
+  <div class="guild-name"><%=guild.name.toUpperCase()%></div>
+</div>
+<%})%>

@@ -2,38 +2,25 @@
 
 require('dotenv').config();
 
+const { COOKIE } = require('./constants');
+const cookie = require('cookie-parser');
+const ejs = require('ejs');
 const express = require('express');
 const layouts = require('express-ejs-layouts');
-const session = require('express-session');
-const passport = require('//filelocationhere');
-const flash = require('connect-flash');
+const routes = require('./routes');
 
 // APP
 const app = express();
 
 // MIDDLEWARE
+app.use(cookie());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+app.set('layout', './layout')
 
 
+app.use('/', routes);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(process.env.PORT || 7000);
-
-// const server = app.listen(PORT);
-// module.exports = server;
+app.listen(process.env.PORT || 5000);
