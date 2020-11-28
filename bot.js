@@ -5,9 +5,41 @@ const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
 
-// bot.on('ready', () => {
-//   console.info(`Logged in as ${bot.user.tag}!`);
-// });
+bot.on('ready', () => {
+  console.info(`Logged in as ${bot.user.tag}!`);
+});
+
+
+  function addemoji(guildid, url, name) {
+
+      console.info(`Logged in as ${bot.user.tag}!`);
+
+      const guild = bot.guilds.cache.get(guildid);
+
+      guild.emojis
+        .create(url, name)
+        .then((emoji) => console.log('created new emoji'))
+        .catch(console.error);
+    };
+
+
+  module.exports = {addemoji}
+//module.exports = EmojiBot;
+
+
+// function addemoji (guildid, url, name){
+
+//   bot.on('ready', () => {
+//     console.info(`Logged in as ${bot.user.tag}!`);
+
+//     const guild = bot.guilds.cache.get(guildid);
+
+//     guild.emojis.create(url, name).then(emoji=>console.log('created new emoji')).catch(console.error);
+//   });
+
+// }
+
+// send a reply/message
 
 // bot.on('message', msg => {
 //   if (msg.content === 'hi') {
@@ -17,12 +49,10 @@ bot.login(TOKEN);
 
 // });
 
-
-
+// create an emoji based on a message
 // bot.on('message', msg=>{
 //   if (msg.content === 'emoji') {
 //   msg.channel.send('adding an emoji');
-
 
 //   const guild = bot.guilds.cache.get("781353966574370816");
 
@@ -33,20 +63,3 @@ bot.login(TOKEN);
 //   }
 // })
 
-
-
-
-function addemoji (url, name){
-
-bot.on('ready', async ()=>{
-
-    const guild = bot.guilds.cache.get("781353966574370816");
-
-    const addemoji = await guild.emojis.create(url, name);
-
-
-    }
-  )
-}
-
-module.exports = bot;

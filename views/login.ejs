@@ -1,18 +1,8 @@
 <div class="login">
 
-<a href=<%=`https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=identify%20email%20guilds`%> class="btn">
-
-    <svg width="410" height="62">
-        <defs>
-            <linearGradient id="grad1">
-                <stop offset="0%" stop-color="#7289da"/>
-                <stop offset="100%" stop-color="#99aab5" />
-            </linearGradient>
-        </defs>
-         <rect x="5" y="5" rx="26" fill="none" stroke="url(#grad1)" width="400" height="50"></rect>
-      </svg>
-
-    LOGIN WITH DISCORD</a>
+<a href=<%=`https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=identify%20email%20guilds`%> class="login-btn">
+LOGIN
+</a>
 
 
 </div>

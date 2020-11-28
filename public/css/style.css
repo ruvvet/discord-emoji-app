@@ -39,6 +39,7 @@ body{
 .main {
   grid-area: main;
   background-color:#2c2f33;
+  overflow: auto;
 }
 
 /* profile */
@@ -102,70 +103,64 @@ body{
     height: 50%;
  margin-top: 5%;
     border-radius: 10px;
-    background-color: white;
+    background-color: #DEDEDE;
 }
 
-.btn {
-    margin: 0 auto;
-    color: black;
-    margin-left: 20%;
-    margin-top: 20%;
+.login-btn{
     position: relative;
-    display: inline-block;
-    width:400px;
-    height: 10%;
-    font-size: 1em;
-    font-weight: bold;
-    line-height: 60px;
+    width: 100px;
+    height: 60px;
+    display: block;
     text-align: center;
-    text-transform: uppercase;
-    background-color: transparent;
-    cursor: pointer;
-    text-decoration:none;
-    font-weight:900;
-    font-size:30px;
-    letter-spacing: 0.045em;
+    margin: 0 10px;
+    border-radius: 10px;
+    padding: 6px;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, .3);
+    background: linear-gradient(0deg, #DDDDDD, #FFFFFF);
+    transition: .5s;
 }
 
-.btn svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.btn svg rect {
-    //stroke: #EC0033;
-    stroke-width: 4;
-    stroke-dasharray: 353, 0;
-    stroke-dashoffset: 0;
-    -webkit-transition: all 600ms ease;
-    transition: all 600ms ease;
-}
-
-.btn span{
-  background: rgb(114, 137, 218);
-  background: -moz-linear-gradient(left,  rgba(114, 137, 218,1 ) 0%, rgba(153, 170, 181, 1) 100%);
-  background: -webkit-linear-gradient(left,  rgba(114, 137, 218,1 ) 0%,rgba(153, 170, 181, 1) 100%);
-  background: linear-gradient(to right,  rgba(114, 137, 218,1 ) 0%,rgba(153, 170, 181,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7289da', endColorstr='#99aab5',GradientType=1 );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.btn:hover svg rect {
-    stroke-width: 4;
-    stroke-dasharray: 196, 543;
-    stroke-dashoffset: 437;
-}
+.login-btn:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+  }
 
 
 
 
 /* EMOJI */
 .emoji{
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     border-radius: 10px;
     border: 3px solid white;
+    margin: 5px;
 }
+
+.emoji-library{
+    overflow: auto;
+}
+
+.emoji-btn{
+    border-radius: 10px;
+    background-color: transparent;
+    position: relative;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, .3);
+    transition: .5s;
+    border: none;
+}
+.emoji-btn:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+    background: linear-gradient(0deg, #DDDDDD, #FFFFFF);
+  }
+
+  .emoji-btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+  }
+
+  .emoji-btn:focus{background-color:red;}

@@ -1,0 +1,11 @@
+
+<div class = "emoji-library">
+<% allemoji.forEach((emoji) => { %>
+
+    <button onclick ="callAddEmoji()"  class="emoji-btn"><img class="emoji" src="<%=emoji.image%>" alt="<%=emoji.title%>"></button>
+    <% }) %>
+
+</div>
+
+<script src="./eventlistener.js"></script>
+
