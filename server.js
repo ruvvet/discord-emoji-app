@@ -1,5 +1,6 @@
-// DEPENDENCIES
+// MAIN SERVER FILE
 
+// DEPENDENCIES
 require('dotenv').config();
 
 const { COOKIE } = require('./constants');
@@ -13,14 +14,14 @@ const routes = require('./routes');
 const app = express();
 
 // MIDDLEWARE
-app.use(cookie());
+
 app.set('view engine', 'ejs');
+app.set('layout', './layout')
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
-app.set('layout', './layout')
-
-
+app.use(cookie());
 app.use('/', routes);
 
+// LISTEN
 app.listen(process.env.PORT || 5000);

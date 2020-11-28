@@ -1,21 +1,25 @@
-// Router containing all the "protected" routes
+// ROUTER FOR ALL 'PROTECTED' ROUTES
 // User must be logged in through discord oauth
 // in order to access these
 
+// DEPENDENCIES
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
 
-// this sets the 'validate' middleware on all protected routes
+// MIDDLEWARE
+// this sets the 'validate' function on all protected routes
 router.use(validate);
+// requires routes in the create/browse routers
 router.use('/create', require('./create'));
 router.use('/browse', require('./browse'));
 
-// routes
+// ROUTES
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.get('/logout', logout);
 
+// FUNCTIONS
 // Middleware - Validation
 // Checks if user has a cookie.
 // if no cookie, redirect to login
@@ -28,15 +32,15 @@ function validate(req, res, next) {
   }
 }
 
-// gets the user's profile details
+// Gets the user's profile details
 async function getUserDetails(req, res) {
   const user = await oauth.getUser(req.discord_token);
-console.log(user);
+  console.log(user);
   // user pfp = avatars/user_id/user_avatar.png **
   res.render('profile/profile', { user });
 }
 
-// gets all the guilds the user is an owner of
+// Gets all the guilds the user is an owner of
 async function getUserGuilds(req, res) {
   console.log(req.discord_token);
   const guilds = await oauth
@@ -54,18 +58,5 @@ function logout(req, res) {
   res.clearCookie(COOKIE);
   res.redirect('/');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

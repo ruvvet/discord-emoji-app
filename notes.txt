@@ -88,3 +88,7 @@ how to handle tags
     stretch:
     edit emoji options
     light/dark mode settings
+
+
+add public js file
+for partials

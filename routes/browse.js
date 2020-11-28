@@ -1,5 +1,7 @@
-// Router for all routes to brose emoji and add to a guild
-// Routes through 'protected'
+// ROUTER FOR EVERYTHING RELATED TO BROWSING PRE-EXISTING EMOJI LIB
+// ROUTES THROUGH 'PROTECTED' ROUTES
+
+// DEPENDENCIES
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const bot = require('../bot');
@@ -7,13 +9,19 @@ const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
 
+// MIDDLEWARE
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
+// ROUTES
 router.get('/', browseAll);
 router.post('/', addEmoji);
 router.get('/:category', browseCategory);
 
+// FUNCTIONS
+
+// Use emoji.gg api to get all emoji
+// capped at 100 for now
 async function browseAll(req, res) {
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
 
@@ -25,8 +33,8 @@ async function browseAll(req, res) {
   }
 }
 
+// gets emoji by category (#) for emoji.gg api
 async function browseCategory(req, res) {
-  console.log(req.params);
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
 
   if (!allemoji) {
@@ -40,21 +48,13 @@ async function browseCategory(req, res) {
   }
 }
 
+// calls the bot to add an emoji to the guild its in
+// passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 function addEmoji(req, res) {
-    console.log('in the post route')
-    console.log(req.body)
-
-    // const url = req.body.url;
-    // const name = req.body.name;
-    // need to do guildid lookup
   const guildid = '781353966574370816';
-  bot.addemoji(guildid, req.body.url, req.body.name);
+  const channelid = '781353967036661820';
+  bot.addemoji(guildid, channelid, req.body.url, req.body.name);
   res.redirect('/');
 }
 
 module.exports = router;
-
-// add fetch to ejs page
-// that adds a post to route
-// onclick, use the function
-// use an event listener instead of form

@@ -1,24 +1,27 @@
-// PUBLIC ROUTES
+// ROUTER FOR ALL 'PUBLIC' ROUTES
+// User does not need to be logged in
+
+// DEPENDENCIES
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
 
-// THIS IS THE PAGE THEY "SEE" AFTER AUTHORIZING/LOGGING IN
-// THIS PAGE SHOULD ONLY HANDLE LOGIN/OAUTH CREDENTIALS
+// ROUTES
+// they should only 'see' these for logging in/handling oauth cred
 router.get('/callback', oauthCallback);
 router.get('/login', authorize);
-
-// route handler
-// split route + functions
 router.get('/', giveCookie);
 
-// sends back the cookie
+// just looking at the cookie that they were given by us
+// the value of "uwucookie"
 function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
 }
 
+// creates a token request for user
+// once logged in via oauth sets the cookie
+// and creates the user in the db
 async function oauthCallback(req, res) {
-  console.log(req.query.code);
   // We exchange code for access token
   const user = await oauth
     .tokenRequest({
@@ -49,13 +52,13 @@ async function oauthCallback(req, res) {
   // if logged in
   // check if token will expire soon
   // request refresh token
-  //then update access token with refresh token???????????
+  //then update access token with refresh token
 }
 
 
-
+// renders the login page
+// clicking the login button will direct to the callback
 function authorize (req, res){
-
     res.render('login');
 }
 
