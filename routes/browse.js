@@ -1,13 +1,17 @@
 // Router for all routes to brose emoji and add to a guild
 // Routes through 'protected'
 const axios = require('axios');
+const bodyParser = require('body-parser');
+const bot = require('../bot');
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
-const bot = require('../bot');
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', browseAll);
-router.post('/add', addEmoji);
+router.post('/', addEmoji);
 router.get('/:category', browseCategory);
 
 async function browseAll(req, res) {
@@ -37,9 +41,15 @@ async function browseCategory(req, res) {
 }
 
 function addEmoji(req, res) {
+    console.log('in the post route')
+    console.log(req.body)
+
+    // const url = req.body.url;
+    // const name = req.body.name;
+    // need to do guildid lookup
   const guildid = '781353966574370816';
-  bot.addemoji(guildid, url, name);
-  res.redirecT('/');
+  bot.addemoji(guildid, req.body.url, req.body.name);
+  res.redirect('/');
 }
 
 module.exports = router;

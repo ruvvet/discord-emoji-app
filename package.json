@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "discord-oauth2": "^2.6.0",

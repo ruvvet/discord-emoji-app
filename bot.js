@@ -9,23 +9,26 @@ bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 });
 
+function addemoji(guildid, url, name) {
+  console.log('adding emoji now')
 
-  function addemoji(guildid, url, name) {
+  const guild = bot.guilds.cache.get(guildid);
 
-      console.info(`Logged in as ${bot.user.tag}!`);
+  const newEmoji = guild.emojis.create(url, name).catch(()=>null);
 
-      const guild = bot.guilds.cache.get(guildid);
+  // bot.on('ready', msg => {
 
-      guild.emojis
-        .create(url, name)
-        .then((emoji) => console.log('created new emoji'))
-        .catch(console.error);
-    };
+  //   if (newEmoji){
+  //     msg.channel.send('new emoji added')
+  //   }
+
+  // })
 
 
-  module.exports = {addemoji}
+}
+
+module.exports = { addemoji };
 //module.exports = EmojiBot;
-
 
 // function addemoji (guildid, url, name){
 
@@ -62,4 +65,3 @@ bot.on('ready', () => {
 //   guild.emojis.create(url, name).then(emoji=>console.log('created new emoji')).catch(console.error);
 //   }
 // })
-
