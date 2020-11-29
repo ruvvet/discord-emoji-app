@@ -28,7 +28,7 @@ function addEmoji(guildid, url, name) {
 
 
   // get the first text channel in the guild
-  var channel = guild.channels.cache.filter(chx => chx.type === "text").find(x => x.position === 0);
+  var channel = guild.channels.cache.filter(ch => ch.type === "text").find(c => c.position === 0);
   //const channel = bot.channels.cache.get(channelid);
 
   guild.emojis.create(url, name).catch(() => null);
