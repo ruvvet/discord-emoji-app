@@ -1,0 +1,23 @@
+<!-- <script>
+
+  window.addEventListener('DOMContentLoaded', async() => {
+
+    const response = await fetch('http://localhost:5000/profile').catch(console.log)
+    console.log(response)
+
+
+
+  });
+
+  </script> -->
+
+
+
+
+  <div class="profile">
+    <img
+      class="profile-icon"
+      src="<%=`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`%>"
+    />
+    <div class="profile-name uppercase"><%=user.username%></div>
+  </div>

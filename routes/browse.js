@@ -51,9 +51,10 @@ async function browseCategory(req, res) {
 // calls the bot to add an emoji to the guild its in
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 function addEmoji(req, res) {
+
   const guildid = '781353966574370816';
-  const channelid = '781353967036661820';
-  bot.addemoji(guildid, channelid, req.body.url, req.body.name);
+
+  bot.addEmoji(guildid, req.body.url, req.body.name);
   res.redirect('/');
 }
 

@@ -35,14 +35,13 @@ function validate(req, res, next) {
 // Gets the user's profile details
 async function getUserDetails(req, res) {
   const user = await oauth.getUser(req.discord_token);
-  console.log(user);
   // user pfp = avatars/user_id/user_avatar.png **
-  res.render('profile/profile', { user });
+
+  //res.render('profile/profile', { user });
 }
 
 // Gets all the guilds the user is an owner of
 async function getUserGuilds(req, res) {
-  console.log(req.discord_token);
   const guilds = await oauth
     .getUserGuilds(req.discord_token)
     .catch(console.log);

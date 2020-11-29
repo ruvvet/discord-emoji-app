@@ -1,166 +1,204 @@
 @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body{
-    font-family: 'Source Sans Pro', sans-serif;
-    background-color: #23272a;
-    color: white;
+html,
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: #23272a;
+  color: white;
 }
 /* font-family: 'Nerko One', cursive; */
 /* font-family: 'Source Sans Pro', sans-serif; */
 
-
 /* layout */
 .grid-container {
+  height: 98vh;
+  width: 98vw;
   display: grid;
-  grid-template-columns: 0.2fr 1fr;
-  grid-template-rows: 0.2fr 30fr;
+  grid-template-columns: 0.1fr 0.3fr 1fr;
+  grid-template-rows: 0.1fr 0.5fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    'layout-header layout-header'
-    'layout-panel main';
+    'layout-header layout-header layout-header'
+    'layout-panel profile main'
+    'layout-panel guilds main';
 }
+
 .layout-header {
   grid-area: layout-header;
   color: white;
   font-size: 20px;
   background-color: #23272a;
-  /* border: 5px solid black; */
-
+  border: 5px solid black;
 }
 .layout-panel {
   grid-area: layout-panel;
   background-color: #23272a;
   align-self: end;
   text-align: center;
-  /* border: 5px solid black; */
+  border: 5px solid black;
+}
 
+.profile {
+  grid-area: profile;
+  border: 5px solid black;
+}
+.guilds {
+  grid-area: guilds;
+  border: 5px solid black;
 }
 .main {
   grid-area: main;
-  background-color:#2c2f33;
+  background-color: #2c2f33;
   overflow: auto;
 }
 
 /* profile */
 
-.profile-icon{
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 4px 4px 10px 4px #000000;
+.profile-icon {
+  border-radius: 50%;
+  margin: 10px;
+  box-shadow: 4px 4px 10px 4px #000000;
 }
-.profile{
-    color:white;
-    text-align:center;
-    position: relative;
+.profile {
+  color: white;
+  text-align: center;
+  position: relative;
 }
-.profile-name{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 30px;
-    width: 100px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-shadow: 2px 2px 4px #000000;
-
+.profile-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  width: 100px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 /* guilds */
-.guild-icon{
-    border-radius: 50%;
-    border: 3px solid white;
-    margin: 10px;
-    box-shadow: 4px 4px 10px 4px #000000;
-    filter: opacity(50%);
+.guild-icon {
+  border-radius: 50%;
+  border: 3px solid white;
+  margin: 10px;
+  box-shadow: 4px 4px 10px 4px #000000;
+  filter: opacity(50%);
 }
-.guild{
-    color:white;
-    text-align:center;
-    position: relative;
-
-}
-
-.guild-name{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    width: 100px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-shadow: 2px 2px 4px #000000;
-
+.guild {
+  color: white;
+  text-align: center;
+  position: relative;
 }
 
+.guild-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  width: 100px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-shadow: 2px 2px 4px #000000;
+}
 
 /* login */
 .login {
-    margin: 0 auto;
-    width:40%;
-    height: 50%;
- margin-top: 5%;
-    border-radius: 10px;
-    background-color: #DEDEDE;
+  margin: 0 auto;
+  width: 40%;
+  height: 50%;
+  margin-top: 5%;
+  border-radius: 10px;
+  background-color: #dedede;
 }
 
-.login-btn{
-    position: relative;
-    width: 100px;
-    height: 60px;
-    display: block;
-    text-align: center;
-    margin: 0 10px;
-    border-radius: 10px;
-    padding: 6px;
-    box-sizing: border-box;
-    text-decoration: none;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, .3);
-    background: linear-gradient(0deg, #DDDDDD, #FFFFFF);
-    transition: .5s;
+.login-btn {
+  position: relative;
+  width: 100px;
+  height: 60px;
+  display: block;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 10px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #dddddd, #ffffff);
+  transition: 0.5s;
 }
 
 .login-btn:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-  }
-
-
-
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 
 /* EMOJI */
-.emoji{
-    height: 100px;
-    width: 100px;
-    border-radius: 10px;
-    border: 3px solid white;
-    margin: 5px;
+.emoji {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  border: 3px solid white;
+  margin: 5px;
 }
 
-.emoji-library{
-    overflow: auto;
+.emoji-library {
+  overflow: auto;
 }
 
-.emoji-btn{
-    border-radius: 10px;
-    background-color: transparent;
-    position: relative;
-    box-sizing: border-box;
-    text-decoration: none;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, .3);
-    transition: .5s;
-    border: none;
+.emoji-btn {
+  border-radius: 10px;
+  background-color: transparent;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+  border: none;
 }
 .emoji-btn:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-    background: linear-gradient(0deg, #DDDDDD, #FFFFFF);
-  }
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #dddddd, #ffffff);
+}
 
-  .emoji-btn:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    border: none;
-  }
+.emoji-btn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  border: none;
+}
 
-  .emoji-btn:focus{background-color:red;}
+.emoji-btn:focus {
+  background-color: red;
+}
+
+/* random */
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+/* scrollbar */
+.scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
+	background-color:#2c2f33;
+	border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar
+{
+	width: 20px;
+	background-color: #2c2f33;
+}
+
+.scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.10, #7289da05),
+									   color-stop(0.42, #7289da50),
+									   color-stop(0.66, #7289da90));
+}

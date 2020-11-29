@@ -5,9 +5,12 @@
 
 // DEPENDENCIES
 require('dotenv').config();
+const axios = require('axios');
 const Discord = require('discord.js');
+
 const bot = new Discord.Client();
 const TOKEN = process.env.TOKEN;
+const { COOKIE, oauth } = require('./constants');
 
 // logs the bot in with the bot token
 bot.login(TOKEN);
@@ -16,28 +19,30 @@ bot.login(TOKEN);
 // Check that the bot is alive
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
+
 });
 
 // BOT FUNCTIONS
-function addemoji(guildid, channelid, url, name) {
-  const guild = bot.guilds.cache.get(guildid);
-  const channel = bot.channels.cache.get(channelid);
+function addEmoji(guildid, url, name) {
+  const guild = bot.guilds.cache.get(guildid); // need to get guild.id through selection in route or elsewhere and pass through
+
+
+  // get the first text channel in the guild
+  var channel = guild.channels.cache.filter(chx => chx.type === "text").find(x => x.position === 0);
+  //const channel = bot.channels.cache.get(channelid);
 
   guild.emojis.create(url, name).catch(() => null);
 
   channel.send(`Emoji '${name}' added`, { files: [url] });
 }
 
-// function to get main channel of a guild
+module.exports = { addEmoji };
+
+
+
+
+
 //
-
-module.exports = { addemoji };
-
-
-
-
-
-// 
 //module.exports = EmojiBot;
 
 // function addemoji (guildid, url, name){
