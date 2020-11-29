@@ -15,13 +15,13 @@ body {
   height: 98vh;
   width: 98vw;
   display: grid;
-  grid-template-columns: 0.1fr 0.2fr 1fr;
-  grid-template-rows: 0.1fr 0.5fr 1fr;
+  grid-template-columns: 0.08fr 0.2fr 1fr 0.08fr;
+  grid-template-rows: 0.1fr 0.3fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    'layout-header layout-header layout-header'
-    'layout-panel profile main'
-    'layout-panel guilds main';
+    'layout-header layout-header layout-header navbar'
+    'layout-panel profile main navbar'
+    'layout-panel guilds main navbar';
 }
 
 .layout-header {
@@ -60,19 +60,51 @@ body {
 /* border: 5px solid black; */
 }
 
+.navbar{
+  grid-area: navbar;
+  background-color: #202225;
+}
+
+
+
+
+
 
 /* main page stuff */
 .title{
   font-size: 30px;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 
 .credits{
+
   text-transform: uppercase;
   text-align: right;
   padding: 0 10% 0 0;
+
 }
+
+.credits-icon{
+  height: 30px;
+  width: 30px;
+}
+
+.credits-ul{
+  list-style-type:none;
+  display: block;
+
+}
+.credits-li{
+margin: 10px 0 10px 0;
+}
+
+
+
+
+
+
+
 
 
 /* profile */
@@ -80,12 +112,20 @@ body {
   color: white;
   text-align: center;
   position: relative;
-  background-color: blue;
+
+
+}
+.profile-div{
+  margin-top: 5%;
 }
 .profile-icon {
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   margin: 10px;
-  box-shadow: 4px 4px 10px 4px #000000;
+  box-shadow: 4px 4px 10px 4px #00000050;
+  padding: 5px;
+  border: 5px solid #7289da;
 }
 
 .profile-name {
@@ -93,12 +133,23 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 30px;
+  font-size: 2em;
   width: 100px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   text-shadow: 2px 2px 4px #000000;
+  text-transform: uppercase;
 }
+
+.profile-name:hover{
+  color: #7289da;
+}
+
+.profile-icon:hover{
+  filter:grayscale(50%);
+}
+
+
 
 /* guilds */
 
@@ -126,7 +177,7 @@ align-items: center;
   display:flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+
 }
 
 .guild-icon {
@@ -273,11 +324,7 @@ align-items: center;
   background-color: #7289da;
 }
 
-/* random */
 
-.uppercase {
-  text-transform: uppercase;
-}
 
 
 /* scrollbar */
@@ -322,5 +369,35 @@ align-items: center;
   }
 }
 
+
+
+/* navbar */
+.navbar{
+  display: flex;
+justify-content: center;
+margin-top: 20%;
+
+}
+.nav-icon{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #36393f;
+  padding: 10px;
+  box-shadow: 4px 4px 10px 4px #00000050;
+}
+.nav-ul{
+  list-style-type:none;
+  display: block;
+
+}
+.nav-li{
+margin: 20px 0 20px 0;
+
+}
+
+.nav-icon:hover{
+  background-color: #7289da;
+}
 
 

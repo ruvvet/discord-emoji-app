@@ -1,45 +1,31 @@
 <script>
-  // window.addEventListener('DOMContentLoaded', async() => {
+  window.addEventListener('DOMContentLoaded', async () => {
 
-  //   const response = await fetch('http://localhost:5000/profile').catch(console.log)
-  //   const data = await response.json();
-  //   console.log(jsonResponse)  data.user....
+    const response = await fetch('http://localhost:5000/profile').catch(() => null);
+    const data = await response.json();
+    if (!response){
+      document.getElementById("profile").textContent = 'please login';
+    } else {
 
-  // });
+    let profile = document.getElementById('profile');
 
-  window.addEventListener('DOMContentLoaded', () => {
-    fetch('http://localhost:5000/profile')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-// if null, then show nothing or login button
-        let pfp = document.getElementById('pfp');
-        pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
+    let profileDiv = document.createElement('div');
+    profileDiv.setAttribute('class', 'profile-div');
+    profile.appendChild(profileDiv);
 
-        let username = document.getElementById('username');
-        username.textContent = `${data.user.username}`;
-      })
-      .catch((err) => console.error(err));
+    let pfp = document.createElement('img');
+    pfp.setAttribute('class', 'profile-icon');
+    pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
+    profileDiv.appendChild(pfp);
+
+    let username = document.createElement('div');
+    username.setAttribute('class', 'profile-name');
+    username.textContent = `${data.user.username}`;
+    profileDiv.appendChild(username)
+      }
+
   });
 </script>
 
-<div class="profile">
-  <img id="pfp" class="profile-icon" src="#">
+<div class="profile" id="profile"></div>
 
-  <!-- <div id = "pfp" class="profile-icon"></div> -->
-  <div id ="username" class="profile-name uppercase"></div>
-</div>
-
-<div>
-  <p> navigation here maybe?</p>
-  <p> see emojis you uploaded</p>
-  <div class="login-btn">
-
-
-  <a href=<%=`http://localhost:5000/logout`%>>
-    LOGOUT
-    </a>
-    </div>
-  </button>
-</div>

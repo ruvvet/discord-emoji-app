@@ -1,12 +1,7 @@
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    fetch('http://localhost:5000/guilds')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.guilds);
-
+  window.addEventListener('DOMContentLoaded', async () => {
+    const response = await fetch('http://localhost:5000/guilds').catch(() => null);
+    const data = await response.json();
         const guilds = data.guilds;
         guilds.forEach((guild) => {
           let guildList = document.getElementById('guild-ul');
@@ -30,8 +25,6 @@
           guildName.textContent = `${guild.name}`;
           guildDiv.appendChild(guildName);
         });
-      })
-      .catch((err) => console.error(err));
   });
 </script>
 

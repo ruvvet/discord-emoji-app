@@ -10,7 +10,16 @@ const { COOKIE, oauth } = require('../constants');
 // they should only 'see' these for logging in/handling oauth cred
 router.get('/callback', oauthCallback);
 router.get('/login', authorize);
-router.get('/', giveCookie);
+router.get('/', getMain);
+
+function getMain(req, res){
+  // renders the users emojis from db
+  res.render('index')
+}
+
+
+
+
 
 // just looking at the cookie that they were given by us
 // the value of "uwucookie"

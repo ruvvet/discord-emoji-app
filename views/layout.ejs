@@ -9,18 +9,32 @@
   <body>
     <div class="grid-container">
       <div class="layout-header">
-        <span id = "title" class="title">UWUMOJI: DISCORD EMOJI MANAGER</span>
+        <span id="title" class="title">UWUMOJI: DISCORD EMOJI MANAGER</span>
       </div>
       <div class="layout-panel">
-        <p class="credits">Jenny Feng 2020 <br/>
-          made with node, express, sequelize <br/>
-          APIs: Discord, Emojigg, ...
-
-        </p>
+        <div class="credits">
+          <ul class="credits-ul">
+            <li class="credits-li"><a href="https://github.com/ruvvet" target="_blank"
+              ><img class="credits-icon" src="../img/github.png"
+            /></a></li>
+            <li class="credits-li"><a href="https://twitter.com/ruvvet" target="_blank"
+              ><img class="credits-icon" src="../img/twitter.png"
+            /></a></li>
+            <li class="credits-li"><a href="https://instagram.com/ruvvet" target="_blank"
+              ><img class="credits-icon" src="../img/instagram.png"
+            /></a></li>
+            <li class="credits-li"><p>
+              Jenny Feng 2020 <br />
+              made with node, express, sequelize <br />
+              APIs: Discord, Emojigg, ...
+            </p></li>
+          </ul>
+        </div>
       </div>
-      <div class="profile"><%- include('./partials/profile') %> </div>
+      <div class="profile"><%- include('./partials/profile') %></div>
       <div class="guilds"><%- include('./partials/guilds') %></div>
       <div class="main scrollbar"><%- body -%></div>
+      <div class="navbar"><%- include('./partials/navbar') %></div>
     </div>
   </body>
 </html>
