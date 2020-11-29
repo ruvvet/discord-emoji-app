@@ -22,6 +22,17 @@ bot.on('ready', () => {
 
 });
 
+
+bot.on('message', msg => {
+
+  if (msg.content === 'hi') {
+
+    console.log(bot.emojis)
+  }
+
+});
+
+
 // BOT FUNCTIONS
 function addEmoji(guildid, url, name) {
   const guild = bot.guilds.cache.get(guildid); // need to get guild.id through selection in route or elsewhere and pass through
@@ -35,6 +46,13 @@ function addEmoji(guildid, url, name) {
 
   channel.send(`Emoji '${name}' added`, { files: [url] });
 }
+
+
+function getGuildEmoji(guildid){
+  console.log(bot.emojis.cache);
+}
+
+
 
 module.exports = { addEmoji };
 

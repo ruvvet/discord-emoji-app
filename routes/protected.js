@@ -3,6 +3,7 @@
 // in order to access these
 
 // DEPENDENCIES
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const db = require('../models');
 const router = require('express').Router();
@@ -19,9 +20,11 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
+router.get('/', getMain);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.get('/logout', logout);
+
 
 // FUNCTIONS
 // Middleware - Validation
@@ -35,6 +38,43 @@ function validate(req, res, next) {
     res.redirect('/login');
   }
 }
+
+
+// just looking at the cookie that they were given by us
+// the value of "uwucookie"
+function giveCookie(req, res) {
+  res.send(req.cookies[COOKIE]);
+}
+
+
+async function getMain(req, res){
+  // get emojis currently in the guild
+
+//////// OR USE THE BOT TO GET ALL EMOJIS LATER - ANYWAYS
+
+  const allGuilds = await oauth
+  .getUserGuilds(req.discord_token)
+  .catch(console.log);
+
+// guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
+const guilds = allGuilds.filter((guild) => guild.owner);
+console.log(guilds);
+
+  // renders the users emojis from db
+  await guilds.forEach(async (guild)=> {
+    console.log(guild.id);
+    const guildEmojis = await axios.get(`https://discord.com/api/guilds/${guild.id}/emojis`).catch(()=>null);
+    console.log(guildEmojis)
+  })
+
+
+
+  res.render('index')
+}
+
+
+
+
 
 // Gets the user's profile details
 async function getUserDetails(req, res) {

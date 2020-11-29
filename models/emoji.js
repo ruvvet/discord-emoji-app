@@ -1,50 +1,40 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
+  class emoji extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.user.hasMany(models.emoji);
+      models.emoji.belongsTo(models.user, { foreignKey: 'userId' });
+      models.emoji.belongsToMany(models.tag, {
+        through: 'emojitags',
+        foreignKey: 'emojiId',
+      });
     }
   }
-  user.init(
+  emoji.init(
     {
-      id:{
+      id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
       },
-      username: {
+      name: {
         type: DataTypes.STRING,
       },
-      password: {
+      url: {
         type: DataTypes.STRING,
       },
-      email: {
-        type: DataTypes.STRING,
-      },
-      access_token: {
-        type: DataTypes.STRING,
-      },
-      expires_in: {
+      userId: {
         type: DataTypes.INTEGER,
-        validate: { isInt: true },
-      },
-      refresh_token: {
-        type: DataTypes.STRING,
-      },
-      date_visited: {
-        type: DataTypes.DATE,
-        validate: { isDate: true },
       },
     },
     {
       sequelize,
-      modelName: 'user',
+      modelName: 'emoji',
     }
   );
-  return user;
+  return emoji;
 };

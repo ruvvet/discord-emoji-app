@@ -205,15 +205,21 @@ align-items: center;
 
 /* login */
 .login{
+  margin: 0 auto;
+
   display:flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   background-color: #dedede;
 }
 
+.login-icon{
+  height: 50px;
+  width: 50px;
+}
 
 .log-btn{
   background-color: #7289da;
