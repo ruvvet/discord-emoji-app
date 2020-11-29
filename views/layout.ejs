@@ -9,13 +9,17 @@
   <body>
     <div class="grid-container">
       <div class="layout-header">
-        <span class="title">UWUMOJI: DISCORD EMOJI MANAGER</span>
+        <span id = "title" class="title">UWUMOJI: DISCORD EMOJI MANAGER</span>
       </div>
       <div class="layout-panel">
-        <span class="credits">Jenny Feng 2020</span>
+        <p class="credits">Jenny Feng 2020 <br/>
+          made with node, express, sequelize <br/>
+          APIs: Discord, Emojigg, ...
+
+        </p>
       </div>
-      <div class="profile"> </div>
-      <div class="guilds"></div>
+      <div class="profile"><%- include('./partials/profile') %> </div>
+      <div class="guilds"><%- include('./partials/guilds') %></div>
       <div class="main scrollbar"><%- body -%></div>
     </div>
   </body>

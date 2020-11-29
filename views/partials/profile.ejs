@@ -1,23 +1,44 @@
-<!-- <script>
+<script>
+  // window.addEventListener('DOMContentLoaded', async() => {
 
-  window.addEventListener('DOMContentLoaded', async() => {
+  //   const response = await fetch('http://localhost:5000/profile').catch(console.log)
+  //   const jsonResponse = response.json();
+  //   console.log(jsonResponse)
 
-    const response = await fetch('http://localhost:5000/profile').catch(console.log)
-    console.log(response)
+  // });
 
+  window.addEventListener('DOMContentLoaded', () => {
+    fetch('http://localhost:5000/profile')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
 
+        let pfp = document.getElementById('pfp');
+        pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
 
+        let username = document.getElementById('username');
+        username.textContent = `${data.user.username}`;
+      })
+      .catch((err) => console.error(err));
   });
+</script>
 
-  </script> -->
+<div class="profile">
+  <img id="pfp" class="profile-icon" src="#">
+  <!-- <div id = "pfp" class="profile-icon"></div> -->
+  <div id ="username" class="profile-name uppercase"></div>
+</div>
+
+<div>
+  <p> navigation here maybe?</p>
+  <p> see emojis you uploaded</p>
+  <div class="login-btn">
 
 
-
-
-  <div class="profile">
-    <img
-      class="profile-icon"
-      src="<%=`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`%>"
-    />
-    <div class="profile-name uppercase"><%=user.username%></div>
-  </div>
+  <a href=<%=`http://localhost:5000/logout`%>>
+    LOGOUT
+    </a>
+    </div>
+  </button>
+</div>

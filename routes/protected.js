@@ -3,6 +3,7 @@
 // in order to access these
 
 // DEPENDENCIES
+const bodyParser = require('body-parser');
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
@@ -13,6 +14,9 @@ router.use(validate);
 // requires routes in the create/browse routers
 router.use('/create', require('./create'));
 router.use('/browse', require('./browse'));
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
 router.get('/profile', getUserDetails);
@@ -36,19 +40,21 @@ function validate(req, res, next) {
 async function getUserDetails(req, res) {
   const user = await oauth.getUser(req.discord_token);
   // user pfp = avatars/user_id/user_avatar.png **
-
+  res.send({user})
   //res.render('profile/profile', { user });
 }
 
 // Gets all the guilds the user is an owner of
 async function getUserGuilds(req, res) {
-  const guilds = await oauth
+  const allGuilds = await oauth
     .getUserGuilds(req.discord_token)
     .catch(console.log);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
-  const guild_owner = guilds.filter((guild) => guild.owner);
-  res.render('profile/guilds', { guild_owner });
+  const guilds = allGuilds.filter((guild) => guild.owner);
+
+  res.send({guilds})
+  //res.render('profile/guilds', { guild_owner });
 }
 
 // clears the cookie

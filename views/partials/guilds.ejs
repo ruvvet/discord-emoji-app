@@ -1,0 +1,35 @@
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    fetch('http://localhost:5000/guilds')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data.guilds);
+
+        const guilds = data.guilds;
+        guilds.forEach((guild) => {
+          let guildList = document.getElementById('guild-ul');
+
+          let guildLI = document.createElement('li');
+          guildLI.setAttribute('id', 'guild-li');
+          guildList.appendChild(guildLI);
+
+          let guildIcon = document.createElement('img');
+          guildIcon.setAttribute('class', 'guild-icon');
+          guildIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
+          guildLI.appendChild(guildIcon);
+
+          let guildName = document.createElement('div');
+          guildName.setAttribute('class', 'guild-name');
+          guildName.textContent = `${guild.name}`;
+          guildLI.appendChild(guildName);
+        });
+      })
+      .catch((err) => console.error(err));
+  });
+</script>
+
+<div id="guild" class="guild">
+  <ul id="guild-ul"></ul>
+</div>
