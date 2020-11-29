@@ -2,8 +2,8 @@
   // window.addEventListener('DOMContentLoaded', async() => {
 
   //   const response = await fetch('http://localhost:5000/profile').catch(console.log)
-  //   const jsonResponse = response.json();
-  //   console.log(jsonResponse)
+  //   const data = await response.json();
+  //   console.log(jsonResponse)  data.user....
 
   // });
 
@@ -13,7 +13,7 @@
         return response.json();
       })
       .then((data) => {
-
+// if null, then show nothing or login button
         let pfp = document.getElementById('pfp');
         pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
 
@@ -26,6 +26,7 @@
 
 <div class="profile">
   <img id="pfp" class="profile-icon" src="#">
+
   <!-- <div id = "pfp" class="profile-icon"></div> -->
   <div id ="username" class="profile-name uppercase"></div>
 </div>

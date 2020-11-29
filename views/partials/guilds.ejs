@@ -12,18 +12,23 @@
           let guildList = document.getElementById('guild-ul');
 
           let guildLI = document.createElement('li');
-          guildLI.setAttribute('id', 'guild-li');
+          guildLI.setAttribute('class', 'guild-li');
           guildList.appendChild(guildLI);
+
+          let guildDiv = document.createElement('div');
+          guildDiv.setAttribute('class', 'guild-div');
+          guildLI.appendChild(guildDiv);
+
 
           let guildIcon = document.createElement('img');
           guildIcon.setAttribute('class', 'guild-icon');
           guildIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
-          guildLI.appendChild(guildIcon);
+          guildDiv.appendChild(guildIcon);
 
           let guildName = document.createElement('div');
           guildName.setAttribute('class', 'guild-name');
           guildName.textContent = `${guild.name}`;
-          guildLI.appendChild(guildName);
+          guildDiv.appendChild(guildName);
         });
       })
       .catch((err) => console.error(err));
