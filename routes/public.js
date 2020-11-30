@@ -48,12 +48,10 @@ async function oauthCallback(req, res) {
   //then update access token with refresh token
 }
 
-
 // renders the login page
 // clicking the login button will direct to the callback
-function authorize (req, res){
-    res.render('login');
+function authorize(req, res) {
+  res.render('login');
 }
-
 
 module.exports = router;

@@ -52,7 +52,7 @@ async function getMain(req, res) {
 
   const allGuilds = await oauth
     .getUserGuilds(req.discord_token)
-    .catch(()=>null);
+    .catch(() => null);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
   const guilds = allGuilds.filter((guild) => guild.owner);
@@ -73,11 +73,10 @@ async function getMain(req, res) {
   // })
 
   console.log(emojisByGuild);
-  for(const guild in emojisByGuild){
+  for (const guild in emojisByGuild) {
     // console.log('guild-name test', guild)
     // console.log(emojisByGuild[guild])
-    }
-
+  }
 
   res.render('index', { emojisByGuild });
 }
