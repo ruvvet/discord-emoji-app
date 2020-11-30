@@ -43,6 +43,7 @@ body {
 .profile {
   grid-area: profile;
   background-color: #2f3136;
+  border-top-left-radius:10px;
 
   /* border: 5px solid black; */
 }
@@ -56,82 +57,72 @@ body {
   grid-area: main;
   background-color: #36393f;
   overflow: auto;
+  border-top-right-radius:10px;
 
-/* border: 5px solid black; */
+  /* border: 5px solid black; */
 }
 
-.navbar{
+.navbar {
   grid-area: navbar;
   background-color: #202225;
 }
 
-
-
-
-
-
 /* main page stuff */
-.title{
+.title {
   font-size: 30px;
   letter-spacing: 4px;
   text-transform: uppercase;
 }
 
-.credits{
-
+.credits {
   text-transform: uppercase;
   text-align: right;
   padding: 0 10% 0 0;
-
 }
 
-.credits-icon{
+.credits-icon {
   height: 30px;
   width: 30px;
 }
 
-.credits-ul{
-  list-style-type:none;
+.credits-ul {
+  list-style-type: none;
   display: block;
-
 }
-.credits-li{
-margin: 10px 0 10px 0;
+.credits-li {
+  margin: 10px 0 10px 0;
 }
-
-
-
 
 /* index */
-.guild-emoji{
-  /* background-color: red; */
-  border: 5px solid black;
-  margin: 30px 0 30px 0;
+.main-guild-emoji {
+  color: black;
+  background-color: #dedede50;
+  margin: 30px;
   text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+.main-guild-emoji:hover{
+  background: rgb(114,137,218);
+background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 49%);
 }
 
-.guild-emoji-name{
+
+.main-guild-emoji-name {
   font-size: 40px;
   text-align: center;
 }
 
-.guild-emoji-img{
-
+.main-guild-emoji-img {
 }
-
-
-
-
 
 /* profile */
 .profile {
   color: white;
   text-align: center;
   position: relative;
-
-
 }
-.profile-div{
+.profile-div {
   margin-top: 5%;
 }
 .profile-icon {
@@ -157,15 +148,13 @@ margin: 10px 0 10px 0;
   text-transform: uppercase;
 }
 
-.profile-name:hover{
+.profile-name:hover {
   color: #7289da;
 }
 
-.profile-icon:hover{
-  filter:grayscale(50%);
+.profile-icon:hover {
+  filter: grayscale(50%);
 }
-
-
 
 /* guilds */
 
@@ -173,87 +162,84 @@ margin: 10px 0 10px 0;
   color: white;
   text-align: center;
   position: relative;
-
 }
 
-#guild-ul{
-  list-style-type:none;
+#guild-ul {
+  list-style-type: none;
   display: block;
-
 }
 
-.guild-li{
-margin: 20px;
-display:flex;
-justify-content: center;
-align-items: center;
-}
-
-.guild-div{
-  display:flex;
+.guild-li {
+  margin: 20px;
+  display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.guild-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: opacity(70%);
+}
+
+.guild-div:hover {
+  filter: opacity(100%);
 }
 
 .guild-icon {
   border-radius: 50%;
   /* border: 3px solid white; */
   /* box-shadow: 4px 4px 10px 4px #000000; */
-  filter: opacity(70%);
-  background-color: white;
 
+  background-color: white;
 }
 
 .guild-name {
-
   transform: translate(-100%, 0);
   font-size: 20px;
   width: 100px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   text-shadow: 2px 2px 4px #000000;
-
-
 }
 
-
-
 /* login */
-.login{
+.login {
   margin: 0 auto;
 
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  background-color: #dedede;
+  border-top-right-radius: 10px;
+  background: #dedede;
+  /* background: radial-gradient(circle, rgba(114,137,218,1) 0%, rgba(114,137,218,1) 25%, rgba(222,222,222,1) 50%, rgba(222,222,222,1) 75%); */
 }
 
-.login-icon{
+.login-icon {
   height: 50px;
   width: 50px;
 }
 
-.log-btn{
+.log-btn {
   background-color: #7289da;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2em;
 }
 
-
-.log-btn::before, .log-btn::after {
+.log-btn::before,
+.log-btn::after {
   content: '';
   position: absolute;
   width: 100%;
-	height: 100%;
+  height: 100%;
   bottom: 0;
-	left: 0;
-	z-index: 1;
+  left: 0;
+  z-index: 1;
   transition: all 0.3s;
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
@@ -266,7 +252,8 @@ align-items: center;
   animation-name: rotateccw;
   animation-duration: 3s;
 }
-.log-btn:hover::after, .log-btn:hover::before {
+.log-btn:hover::after,
+.log-btn:hover::before {
   left: 96px;
   width: 64px;
 
@@ -275,17 +262,22 @@ align-items: center;
 }
 
 @keyframes rotatecw {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes rotateccw {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(-360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
-
-
-
 
 .login-btn {
   position: relative;
@@ -304,7 +296,7 @@ align-items: center;
 }
 
 .login-btn:hover {
-  background-color:#7289da;
+  background-color: #7289da;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -346,37 +338,29 @@ align-items: center;
   background-color: #7289da;
 }
 
-
-
-
 /* scrollbar */
-.scrollbar::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
-	background-color:#36393f;
-	border-radius: 5px;
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  background-color: #36393f;
+  border-radius: 5px;
 }
 
-.scrollbar::-webkit-scrollbar
-{
-	width: 20px;
-	background-color: #36393f;
+.scrollbar::-webkit-scrollbar {
+  width: 20px;
+  background-color: #36393f;
 }
 
-.scrollbar::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-image: -webkit-gradient(linear,
-									   left bottom,
-									   left top,
-									   color-stop(0.10, #7289da05),
-									   color-stop(0.42, #7289da50),
-									   color-stop(0.66, #7289da90));
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.1, #7289da05),
+    color-stop(0.42, #7289da50),
+    color-stop(0.66, #7289da90)
+  );
 }
-
-
-
-
 
 .btn {
   position: relative;
@@ -391,35 +375,216 @@ align-items: center;
   }
 }
 
-
-
 /* navbar */
-.navbar{
+.navbar {
   display: flex;
-justify-content: center;
-margin-top: 20%;
-
+  justify-content: center;
+  margin-top: 20%;
 }
-.nav-icon{
+
+/* .nav-ul {
+  list-style-type: none;
+  display: block;
+}
+.nav-li {
+  margin: 20px 0 20px 0;
+}
+.nav-img-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #36393f;
+  box-shadow: 4px 4px 10px 4px #00000050;
+  padding: 5px;
+}
+
+.nav-img-div:hover {
+  background-color: #7289da;
+}
+
+.nav-icon {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: #36393f;
-  padding: 10px;
+  box-shadow: 4px 4px 10px 4px #00000050 inset;
+  padding: 4px;
+  margin-top: 2px;
+}
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Upload */
+.file-upload {
+  background-color: #dedede;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+form {
+  border-radius:10px;
+  width: 380px;
+  margin: 4em auto;
+  padding: 3em 2em 2em 2em;
+  background-color: #2f3136;
   box-shadow: 4px 4px 10px 4px #00000050;
+  /* box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 1px 0px,
+    rgba(0, 0, 0, 0.09804) 0px 1px 2px 0px;
+} */
 }
-.nav-ul{
-  list-style-type:none;
+
+.group {
+  position: relative;
+  margin-bottom: 20px;
+
+}
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  -webkit-appearance: none;
   display: block;
-
+  background: #2f3136;
+  color: #7289da;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #757575;
 }
-.nav-li{
-margin: 20px 0 20px 0;
 
+input:focus {
+  outline: none;
 }
 
-.nav-icon:hover{
-  background-color: #7289da;
+/* Underline */
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
 }
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #7289da;
+  transition: all 0.2s ease;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+/* active */
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+/* Highlight */
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active */
+
+input:focus ~ .highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* Animations */
+
+@keyframes inputHighlighter {
+  from {
+    background: #7289da;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+/* Button */
+
+.upload-button {
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 0.3em 0 1em 0;
+  width: 100%;
+  vertical-align: middle;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #7289da;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+.upload-btn:focus {
+  outline: 0;
+}
+
+.upload-btn:hover {
+  background: #7289da;
+  color: white;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
 
 

@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   tag.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
       name: {
         type: DataTypes.STRING,
       },
