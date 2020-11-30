@@ -102,6 +102,22 @@ margin: 10px 0 10px 0;
 
 
 
+/* index */
+.guild-emoji{
+  /* background-color: red; */
+  border: 5px solid black;
+  margin: 30px 0 30px 0;
+  text-align: center;
+}
+
+.guild-emoji-name{
+  font-size: 40px;
+  text-align: center;
+}
+
+.guild-emoji-img{
+
+}
 
 
 

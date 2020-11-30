@@ -19,27 +19,38 @@ bot.login(TOKEN);
 // Check that the bot is alive
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
-
 });
 
-
-bot.on('message', msg => {
-
-  if (msg.content === 'hi') {
-
-    console.log(bot.emojis)
+bot.on('message', (msg) => {
+  if (msg.content === 'uwubot') {
+    msg.reply('hi ❤️');
+    //console.log(bot.guilds.cache)
+    getGuildEmoji('781353966574370816');
   }
-
 });
 
+function getGuildEmoji(guildID) {
+  //let tempID = '781353966574370816';
+  const guildEmoji = bot.guilds.cache.get(guildID);
+  if (!guildEmoji) {
+    return null;
+  } else {
+    const emoji = guildEmoji.emojis.cache.map(function (emoji) {
+      return { name: emoji.name, url: emoji.url };
+    });
+
+    return emoji;
+  }
+}
 
 // BOT FUNCTIONS
 function addEmoji(guildid, url, name) {
   const guild = bot.guilds.cache.get(guildid); // need to get guild.id through selection in route or elsewhere and pass through
 
-
   // get the first text channel in the guild
-  var channel = guild.channels.cache.filter(ch => ch.type === "text").find(c => c.position === 0);
+  var channel = guild.channels.cache
+    .filter((ch) => ch.type === 'text')
+    .find((c) => c.position === 0);
   //const channel = bot.channels.cache.get(channelid);
 
   guild.emojis.create(url, name).catch(() => null);
@@ -47,18 +58,7 @@ function addEmoji(guildid, url, name) {
   channel.send(`Emoji '${name}' added`, { files: [url] });
 }
 
-
-function getGuildEmoji(guildid){
-  console.log(bot.emojis.cache);
-}
-
-
-
-module.exports = { addEmoji };
-
-
-
-
+module.exports = { addEmoji, getGuildEmoji };
 
 //
 //module.exports = EmojiBot;

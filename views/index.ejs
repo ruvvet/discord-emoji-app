@@ -1,1 +1,14 @@
-<div>hi</div>
+<div class="emojiByGuild">
+  <% for (const guild in emojisByGuild){ %>
+  <div class="guild-emoji">
+    <div class="guild-emoji-name"><%=guild%></div>
+    <% if (!emojisByGuild[guild]){ %>
+    <div>No emoji</div>
+    <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
+
+    <img class="guild-emoji-img emoji-btn" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+
+    <%})%> <%}%>
+  </div>
+  <%}%>
+</div>

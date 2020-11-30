@@ -5,6 +5,7 @@
 // DEPENDENCIES
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const bot = require('../bot');
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
@@ -25,7 +26,6 @@ router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.get('/logout', logout);
 
-
 // FUNCTIONS
 // Middleware - Validation
 // Checks if user has a cookie.
@@ -39,49 +39,54 @@ function validate(req, res, next) {
   }
 }
 
-
 // just looking at the cookie that they were given by us
 // the value of "uwucookie"
 function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
 }
 
-
-async function getMain(req, res){
+async function getMain(req, res) {
   // get emojis currently in the guild
 
-//////// OR USE THE BOT TO GET ALL EMOJIS LATER - ANYWAYS
+  //////// OR USE THE BOT TO GET ALL EMOJIS LATER - ANYWAYS
 
   const allGuilds = await oauth
-  .getUserGuilds(req.discord_token)
-  .catch(console.log);
+    .getUserGuilds(req.discord_token)
+    .catch(console.log);
 
-// guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
-const guilds = allGuilds.filter((guild) => guild.owner);
-console.log(guilds);
+  // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
+  const guilds = allGuilds.filter((guild) => guild.owner);
 
-  // renders the users emojis from db
-  await guilds.forEach(async (guild)=> {
-    console.log(guild.id);
-    const guildEmojis = await axios.get(`https://discord.com/api/guilds/${guild.id}/emojis`).catch(()=>null);
-    console.log(guildEmojis)
-  })
+  let emojisByGuild = {};
+
+  guilds.forEach((guild) => {
+    // call the bot
+    const guildEmojis = bot.getGuildEmoji(guild.id);
+    emojisByGuild[guild.name] = guildEmojis;
+  });
+
+  // // axios call doesnt work?
+  // await guilds.forEach(async (guild)=> {
+  //   console.log(guild.id);
+  //   const guildEmojis = await axios.get(`https://discord.com/api/guilds/${guild.id}/emojis`).catch(()=>null);
+  //   console.log(guildEmojis)
+  // })
+
+  console.log(emojisByGuild);
+  for(const guild in emojisByGuild){
+    console.log('guild-name test', guild)
+    console.log(emojisByGuild[guild])
+    }
 
 
-
-  res.render('index')
+  res.render('index', { emojisByGuild });
 }
-
-
-
-
 
 // Gets the user's profile details
 async function getUserDetails(req, res) {
   const user = await oauth.getUser(req.discord_token);
   // user pfp = avatars/user_id/user_avatar.png **
-  res.send({user})
-  //res.render('profile/profile', { user });
+  res.send({ user });
 }
 
 // Gets all the guilds the user is an owner of
@@ -92,9 +97,7 @@ async function getUserGuilds(req, res) {
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
   const guilds = allGuilds.filter((guild) => guild.owner);
-
-  res.send({guilds})
-  //res.render('profile/guilds', { guild_owner });
+  res.send({ guilds });
 }
 
 // clears the cookie
