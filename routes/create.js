@@ -15,8 +15,18 @@ const uploads = multer({ dest: './uploads' });
 
 // ROUTES
 router.get('/', upload);
+router.post('/', uploads.single('emojiFile'), update);
+router.get('/myemojis', getUserEmoji);
 
-router.post('/', uploads.single('emojiFile'), (req, res) => {
+// FUNCTIONS
+
+//renders the upload page
+function upload(req, res) {
+  res.render('create/upload');
+}
+
+// uploads to cloudinary and updates the db
+function update(req, res) {
   //console.log(req.cookies[COOKIE])
   // const name = req.body.emojiName;
   const file = req.file.path;
@@ -44,11 +54,26 @@ router.post('/', uploads.single('emojiFile'), (req, res) => {
     });
     res.redirect('/');
   });
-});
+}
 
-// FUNCTIONS
-function upload(req, res) {
-  res.render('create/upload');
+async function getUserEmoji(req, res) {
+  const user = await db.user.findOne({
+    where: { access_token: req.cookies[COOKIE] },
+  });
+
+  const userEmoji = await db.emoji
+    .findAll({
+      include: [db.user],
+      where: { userId: user.id },
+    })
+    .catch(() => null);
+
+    
+  res.send(userEmoji);
+
+  //   userEmoji.forEach(emoji=>{
+  //     console.log(emoji.url)
+  // })
 }
 
 module.exports = router;

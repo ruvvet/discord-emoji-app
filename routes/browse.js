@@ -20,8 +20,12 @@ router.get('/:category', browseCategory);
 
 // FUNCTIONS
 
-// Use emoji.gg api to get all emoji
-// capped at 100 for now
+
+//Need to Paginate
+//TODO: PAGINATE
+// TODO: HAVE A CATEGORIES NAV BAR
+
+// Use emoji.gg api to get all emoji and displays them
 async function browseAll(req, res) {
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
 
@@ -29,11 +33,12 @@ async function browseAll(req, res) {
     //res.render(404)
     console.log('error with getting emoji');
   } else {
-    res.render('browse/show', { allemoji: allemoji.data.slice(0, 100) });
+    res.render('browse/show', { allemoji: allemoji.data.slice(0, 200) });
   }
 }
 
-// gets emoji by category (#) for emoji.gg api
+
+// Gets emoji by category (#) for emoji.gg api
 async function browseCategory(req, res) {
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
 
@@ -51,7 +56,7 @@ async function browseCategory(req, res) {
 // calls the bot to add an emoji to the guild its in
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 function addEmoji(req, res) {
-
+// TODO: GET GUILDID AND SET ON THE COOKIE OR SET IT SOMEWHERE
   const guildid = '781353966574370816';
 
   bot.addEmoji(guildid, req.body.url, req.body.name);

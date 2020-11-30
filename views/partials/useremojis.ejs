@@ -1,0 +1,22 @@
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    const response = await fetch('http://localhost:5000/create/myemojis').catch(
+      () => null
+    );
+    const data = await response.json();
+
+    console.log(data);
+    let userEmojiList = document.getElementById('user-emojis');
+
+    data.forEach((userEmoji) => {
+      let emoji = document.createElement('img');
+      emoji.setAttribute('class', 'user-emoji emoji-btn');
+      emoji.src = `${userEmoji.url}`;
+      userEmojiList.appendChild(emoji);
+    });
+  });
+</script>
+
+<div id="user-emojis" class="user-emoji-lib emoji-library">
+    <div>My Uploads</div>
+</div>

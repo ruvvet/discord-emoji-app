@@ -6,6 +6,7 @@
 // DEPENDENCIES
 require('dotenv').config();
 const axios = require('axios');
+const Canvas = require('canvas');
 const Discord = require('discord.js');
 
 const bot = new Discord.Client();
@@ -28,6 +29,7 @@ bot.on('message', (msg) => {
     getGuildEmoji('781353966574370816');
   }
 });
+
 
 function getGuildEmoji(guildID) {
   //let tempID = '781353966574370816';
@@ -55,44 +57,43 @@ function addEmoji(guildid, url, name) {
 
   guild.emojis.create(url, name).catch(() => null);
 
-  channel.send(`Emoji '${name}' added`, { files: [url] });
+  rendAndSendEmoji(url, name, channel);
+  //channel.send(`Emoji '${name}' added`, emojiImage);
+  //channel.send(`Emoji '${name}' added`, { files: [url] });
+
+}
+
+//render the emoji and redraw on cavans
+//then send it to the channel
+async function rendAndSendEmoji(url, name, channel) {
+  const canvas = Canvas.createCanvas(100, 100);
+  const ctx = canvas.getContext('2d');
+
+
+  //draw emoji
+  const emoji = await Canvas.loadImage(url);
+  ctx.drawImage(emoji, 0, 0, canvas.width, canvas.height);
+
+//add box
+// ctx.fillStyle = "#FFFFFF";
+// ctx.fillRect(0, canvas.height*0.75, canvas.width, canvas.height/5);
+
+  //add text
+
+  ctx.font = 'bolder 15px calibri';
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textAlign = 'center';
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = '#000000';
+  // ctx.fillText(name, canvas.width * 0.5, (canvas.height * 0.9)-10);
+  ctx.fillText('UwuMoji', canvas.width * 0.5, canvas.height * 0.9);
+
+  const attachment = new Discord.MessageAttachment(
+    canvas.toBuffer(),
+    'emoji.png'
+  );
+
+  channel.send(`Emoji '${name}' added`, attachment);
 }
 
 module.exports = { addEmoji, getGuildEmoji };
-
-//
-//module.exports = EmojiBot;
-
-// function addemoji (guildid, url, name){
-
-//   bot.on('ready', () => {
-//     console.info(`Logged in as ${bot.user.tag}!`);
-
-//     const guild = bot.guilds.cache.get(guildid);
-
-//     guild.emojis.create(url, name).then(emoji=>console.log('created new emoji')).catch(console.error);
-//   });
-
-// }
-
-// bot.on('message', msg => {
-//   if (msg.content === 'hi') {
-//     msg.reply('nou');
-//     msg.channel.send('hello');
-//   }
-
-// });
-
-// create an emoji based on a message
-// bot.on('message', msg=>{
-//   if (msg.content === 'emoji') {
-//   msg.channel.send('adding an emoji');
-
-//   const guild = bot.guilds.cache.get("781353966574370816");
-
-//   const url='https://emoji.gg/assets/emoji/9410_homu_brb.png';
-//   const name='boba';
-
-//   guild.emojis.create(url, name).then(emoji=>console.log('created new emoji')).catch(console.error);
-//   }
-// })

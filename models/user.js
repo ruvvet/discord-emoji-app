@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.user.hasMany(models.emoji);
+      models.user.hasMany(models.emoji); // 1:M relationship with emojis
     }
   }
   user.init(

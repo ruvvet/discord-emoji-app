@@ -116,6 +116,31 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 .main-guild-emoji-img {
 }
 
+
+
+
+/* User Uploads */
+.user-emoji-lib{
+  margin: 3%;
+  display: block flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+
+}
+.user-emoji{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+
+
+
+
 /* profile */
 .profile {
   color: white;
@@ -418,32 +443,14 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Upload */
 .file-upload {
   background-color: #dedede;
-  border-radius: 10px;
+  border-to-right-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+
 }
 
 form {

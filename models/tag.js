@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       models.tag.belongsToMany(models.emoji, {
         through: 'emojitags',
         foreignKey: 'tagId',
-      });
+      }); //M:N relationship w/ emojis
     }
   }
   tag.init(

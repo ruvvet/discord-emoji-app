@@ -1,19 +1,14 @@
 <div class="file-upload">
-
 <form action="/create" method="POST" enctype="multipart/form-data">
     <div class="group">
       <input type="file" name="emojiFile"><span class="highlight"></span><span class="bar"></span>
-
     </div>
     <div class="group">
       <input type="text" name="emojiName" placeholder = "name"><span class="highlight"></span><span class="bar"></span>
-
     </div>
     <input type="submit" class="upload-btn buttonBlue">
-
-
   </form>
-
 </div>
 
+<div class="my-emojis"><%- include('../partials/useremojis') %></div>
 

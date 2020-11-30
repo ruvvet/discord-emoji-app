@@ -1,25 +1,25 @@
+<div class="emoji-library">
+  <% allemoji.forEach((emoji) => { %>
 
-<div class = "emoji-library">
-<% allemoji.forEach((emoji) => { %>
-
-    <button onclick ="callAddEmoji(`<%=emoji.image%>`, `<%=emoji.title%>`)" class="emoji-btn"><img class="emoji" src="<%=emoji.image%>" alt="<%=emoji.title%>"></button>
-    <% }) %>
-
+  <button
+    onclick="callAddEmoji(`<%=emoji.image%>`, `<%=emoji.title%>`)"
+    class="emoji-btn"
+  >
+    <img class="emoji" src="<%=emoji.image%>" alt="<%=emoji.title%>" />
+  </button>
+  <% }) %>
 </div>
 
 <!-- <script src="./eventlistener.js"></script> -->
 
-
-
 <script>
-
-async function callAddEmoji (url, name){
+  async function callAddEmoji(url, name) {
     const response = await fetch('http://localhost:5000/browse', {
-        method: 'post',
-        body: JSON.stringify({ url, name }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).catch(console.log);
-}
+      method: 'post',
+      body: JSON.stringify({ url, name }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch(console.log);
+  }
 </script>

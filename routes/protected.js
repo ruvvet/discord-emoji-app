@@ -45,6 +45,8 @@ function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
 }
 
+// gets emojis by guild
+// and renders the main page
 async function getMain(req, res) {
   // get emojis currently in the guild
 
@@ -65,18 +67,13 @@ async function getMain(req, res) {
     emojisByGuild[guild.name] = guildEmojis;
   });
 
+  //TODO:???
   // // axios call doesnt work?
   // await guilds.forEach(async (guild)=> {
   //   console.log(guild.id);
   //   const guildEmojis = await axios.get(`https://discord.com/api/guilds/${guild.id}/emojis`).catch(()=>null);
   //   console.log(guildEmojis)
   // })
-
-  console.log(emojisByGuild);
-  for (const guild in emojisByGuild) {
-    // console.log('guild-name test', guild)
-    // console.log(emojisByGuild[guild])
-  }
 
   res.render('index', { emojisByGuild });
 }
