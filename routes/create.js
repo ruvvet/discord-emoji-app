@@ -17,7 +17,7 @@ const uploads = multer({ dest: './uploads' });
 router.get('/', upload);
 
 router.post('/', uploads.single('emojiFile'), (req, res) => {
-  console.log(req.cookies[COOKIE])
+  //console.log(req.cookies[COOKIE])
   // const name = req.body.emojiName;
   const file = req.file.path;
 
@@ -28,6 +28,10 @@ router.post('/', uploads.single('emojiFile'), (req, res) => {
 
     bot.addEmoji(guildid, result.url, req.body.emojiName);
 
+    const user = await db.user.findOne({
+      where: { access_token: req.cookies[COOKIE] },
+    });
+
     // find or create emoji in the db
     const [emojidb, created] = await db.emoji.findOrCreate({
       where: {
@@ -35,7 +39,7 @@ router.post('/', uploads.single('emojiFile'), (req, res) => {
         url: result.url,
       },
       defaults: {
-        userId: 1,
+        userId: user.id,
       },
     });
     res.redirect('/');
