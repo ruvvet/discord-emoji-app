@@ -24,7 +24,9 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', getMain);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
-router.put('/', selectGuild);
+router.put('/selectguild', selectGuild);
+router.get('/emojidetails', getEmojiDetails);
+router.put('/emojidetails', selectEmoji);
 router.get('/adduwumoji', addUwuMojiBot);
 router.get('/logout', logout);
 
@@ -90,26 +92,62 @@ async function getUserGuilds(req, res) {
   res.send({ guilds });
 }
 
+async function selectGuild(req, res) {
+  const botGuilds = bot.getAllGuilds();
+
+  if (!botGuilds.includes(req.body.guildID)) {
+    console.log('bad');
+    res.redirect('./error/adduwumoji');
+    //TODO: ?????????????????????????????????????????????????
+  } else {
+    console.log('ok');
+
+    const updateUserSelectedGuild = await db.user
+      .update(
+        { selected_guild: req.body.guildID },
+        { where: { access_token: req.cookies[COOKIE] } }
+      )
+      .catch(() => null);
+    bot.getAllGuilds();
+    res.send();
+  }
+}
+
+async function selectEmoji(req, res) {
+  const updateUserSelectedEmoji = await db.user
+    .update(
+      { selected_emoji: req.body.id },
+      { where: { access_token: req.cookies[COOKIE] } }
+    )
+    .catch(() => null);
+
+  res.send(updateUserSelectedEmoji);
+}
+
+async function getEmojiDetails(req, res) {
+  const user = await db.user
+    .findOne({
+      where: { access_token: req.cookies[COOKIE] },
+    })
+    .catch(() => null);
+
+  if (!user.selected_emoji) {
+    res.send('');
+  } else {
+    const emojiDetails = bot.getEmoji(user.selected_emoji);
+    res.send(emojiDetails);
+  }
+}
+
+function addUwuMojiBot(req, res) {
+  res.render('./error/adduwumoji');
+}
+
 // clears the cookie
 // will "logout" the user
 function logout(req, res) {
   res.clearCookie(COOKIE);
   res.redirect('/');
-}
-
-async function selectGuild(req, res) {
-
-  const updateUserSelectedGuild = await db.user.update(
-    {selected_guild: req.body.guildID},
-    {where: {access_token: req.cookies[COOKIE]}}
-  ).catch(()=>null)
-
-  res.send();
-}
-
-
-function addUwuMojiBot(req, res){
-  res.render('./error/adduwumoji')
 }
 
 module.exports = router;

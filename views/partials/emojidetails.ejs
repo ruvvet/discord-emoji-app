@@ -1,0 +1,132 @@
+<style>
+  .emoji-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #dedede;
+    color: black;
+    margin: 0 200px 0 200px;
+    border-radius: 10px;
+  }
+
+  .emoji-name {
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+
+  .emoji-icon {
+    margin: 10px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .edit-img {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+  }
+
+  .edit-btn {
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    filter: opacity(70%);
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+  }
+
+  .edit-btn:hover {
+    filter: opacity(100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .edit-btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+    border-radius: 50%;
+  }
+
+  .edit-btn:focus {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+</style>
+
+<div id="emojiDetails" class="emoji-details"></div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    const response = await fetch('http://localhost:5000/emojidetails').catch(
+      () => null
+    );
+    const emojidetails = await response.json();
+    if (!response) {
+      document.getElementById('emoji-details').textContent = 'xxx';
+    } else {
+      let emojiDetails = document.getElementById('emojiDetails');
+
+      let emojiImgDiv = document.createElement('div');
+      emojiImgDiv.setAttribute('class', 'emoji-img-div');
+      emojiDetails.appendChild(emojiImgDiv);
+
+      let emojiImg = document.createElement('img');
+      emojiImg.setAttribute('class', 'emoji-icon');
+      emojiImg.src = `${emojidetails.url}`;
+      emojiImgDiv.appendChild(emojiImg);
+
+      let emojiName = document.createElement('div');
+      emojiName.setAttribute('class', 'emoji-name');
+      emojiName.textContent = `${emojidetails.name}`;
+      emojiDetails.appendChild(emojiName);
+
+      let editBtn = document.createElement('button');
+      editBtn.setAttribute('class', 'edit-btn');
+      editBtn.addEventListener('click', function(){
+          gotoEdit();
+      })
+      emojiDetails.appendChild(editBtn);
+
+      let editBtnImg = document.createElement('img');
+      editBtnImg.setAttribute('class', 'edit-img');
+      editBtnImg.src = '../img/pencil-1.png';
+      editBtn.appendChild(editBtnImg);
+
+      let deleteBtn = document.createElement('button');
+      deleteBtn.setAttribute('class', 'edit-btn');
+      deleteBtn.addEventListener('click', function(){
+          callDeleteEmoji(emojidetails.id);
+      })
+      emojiDetails.appendChild(deleteBtn);
+
+
+      let deleteBtnImg = document.createElement('img');
+      deleteBtnImg.setAttribute('class', 'edit-img');
+      deleteBtnImg.src = '../img/delete-1.png';
+      deleteBtn.appendChild(deleteBtnImg);
+    }
+
+
+function callDeleteEmoji (emojiID){
+
+
+    console.log('to delete', emojiID)
+}
+
+
+function gotoEdit(){
+    console.log('direct to edit page')
+    window.location='/create/edit';
+}
+
+  });
+</script>

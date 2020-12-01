@@ -79,10 +79,8 @@
     height: 150px;
     width: 150px;
     border-radius: 50%;
-      border: 10px solid #7289da;
+    border: 10px solid #7289da;
   }
-
-
 </style>
 
 <div id="guild" class="guild">
@@ -112,9 +110,8 @@
       guildBtn.addEventListener('click', function () {
         updateSelectedGuild(guild.id);
 
-        document.querySelector('.guild-btn').setAttribute('class', 'guild-btn')
+        document.querySelector('.guild-btn').setAttribute('class', 'guild-btn');
         guildBtn.setAttribute('class', 'guild-btn guild-selected');
-
       });
       guildDiv.appendChild(guildBtn);
 
@@ -130,13 +127,18 @@
     });
 
     async function updateSelectedGuild(guildID) {
-      const response = await fetch('http://localhost:5000', {
+      // update the selected guild in the db
+      const response = await fetch('http://localhost:5000/selectguild', {
         method: 'PUT',
         body: JSON.stringify({ guildID }),
         headers: {
           'Content-Type': 'application/json',
         },
       }).catch(console.log);
+
+      // now check if the bot is in the guild
+      //if not, redirect to addbot page
+
 
     }
   });

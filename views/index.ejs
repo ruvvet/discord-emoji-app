@@ -1,3 +1,4 @@
+
 <div class="main-wrapper">
   <% for (const guild in emojisByGuild){ %>
   <div class="main-guild-emoji">
@@ -5,11 +6,33 @@
     <% if (!emojisByGuild[guild]){ %>
     <div>Upload/Browse the Library to Add Some Emoji</div>
     <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
-
-    <img class="main-guild-emoji-img emoji-btn" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
-
+      <button
+      onclick="selectEmoji(`<%=emoji.id%>`,`<%=emoji.name%>`, `<%=emoji.url%>`)"
+      class="emoji-btn"
+    >
+    <img class="main-guild-emoji-img" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+</button>
     <%})%> <%}%>
   </div>
   <%}%>
 </div>
 <div class="my-emojis"><%- include('./partials/useremojis') %></div>
+<div class="emoji-details"><%- include('./partials/emojidetails') %></div>
+
+<script>
+
+async function selectEmoji(id, url, name) {
+    const response = await fetch('http://localhost:5000/emojidetails', {
+      method: 'put',
+      body: JSON.stringify({ id, url, name }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch(console.log);
+
+    location.reload();
+  }
+
+
+
+</script>

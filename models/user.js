@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       selected_guild: {
         type: DataTypes.STRING,
       },
+      selected_emoji: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

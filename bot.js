@@ -26,10 +26,15 @@ bot.on('message', (msg) => {
   if (msg.content === 'uwubot') {
     msg.reply('hi ❤️');
     //console.log(bot.guilds.cache)
-    getGuildEmoji('781353966574370816');
+    // console.log(bot.guilds);
+    getEmoji('783063397154422784');
   }
 });
 
+function getEmoji(emojiID) {
+  const emojiDetails = bot.emojis.cache.get(emojiID);
+  return emojiDetails;
+}
 
 function getGuildEmoji(guildID) {
   //let tempID = '781353966574370816';
@@ -38,7 +43,7 @@ function getGuildEmoji(guildID) {
     return null;
   } else {
     const emoji = guildEmoji.emojis.cache.map(function (emoji) {
-      return { name: emoji.name, url: emoji.url };
+      return { name: emoji.name, url: emoji.url, id: emoji.id };
     });
 
     return emoji;
@@ -50,25 +55,24 @@ function addEmoji(guildid, url, name) {
   const guild = bot.guilds.cache.get(guildid);
 
   //if the guild does not have the bot, then send to an error page
-  if (!guild){
+  if (!guild) {
     giveUwuwMojiBotMoreFriends();
+  } else {
+    // get the first text channel in the guild
+    var channel = guild.channels.cache
+      .filter((ch) => ch.type === 'text')
+      .find((c) => c.position === 0);
+    //const channel = bot.channels.cache.get(channelid);
 
-  }else{
+    guild.emojis.create(url, name).catch(() => null);
 
-
-  // get the first text channel in the guild
-  var channel = guild.channels.cache
-    .filter((ch) => ch.type === 'text')
-    .find((c) => c.position === 0);
-  //const channel = bot.channels.cache.get(channelid);
-
-  guild.emojis.create(url, name).catch(() => null);
-
-  rendAndSendEmoji(url, name, channel);
-  //channel.send(`Emoji '${name}' added`, emojiImage);
-  //channel.send(`Emoji '${name}' added`, { files: [url] });
+    rendAndSendEmoji(url, name, channel);
+    //channel.send(`Emoji '${name}' added`, emojiImage);
+    //channel.send(`Emoji '${name}' added`, { files: [url] });
+  }
 }
-}
+
+async function deleteEmoji(guildid) {}
 
 //render the emoji and redraw on cavans
 //then send it to the channel
@@ -76,14 +80,13 @@ async function rendAndSendEmoji(url, name, channel) {
   const canvas = Canvas.createCanvas(100, 100);
   const ctx = canvas.getContext('2d');
 
-
   //draw emoji
   const emoji = await Canvas.loadImage(url);
   ctx.drawImage(emoji, 0, 0, canvas.width, canvas.height);
 
-//add box
-// ctx.fillStyle = "#FFFFFF";
-// ctx.fillRect(0, canvas.height*0.75, canvas.width, canvas.height/5);
+  //add box
+  // ctx.fillStyle = "#FFFFFF";
+  // ctx.fillRect(0, canvas.height*0.75, canvas.width, canvas.height/5);
 
   //add text
 
@@ -103,13 +106,19 @@ async function rendAndSendEmoji(url, name, channel) {
   channel.send(`Emoji '${name}' added`, attachment);
 }
 
-
-
-async function giveUwuwMojiBotMoreFriends(){
-console.log('more friends')
-  await axios.get('http://localhost:5000/adduwumoji')
-
+async function giveUwuwMojiBotMoreFriends() {
+  console.log('more friends');
+  await axios.get('http://localhost:5000/adduwumoji');
 }
 
+function getAllGuilds() {
+  const allGuildIds = [];
 
-module.exports = { addEmoji, getGuildEmoji };
+  const allGuilds = bot.guilds.cache.forEach((guild) => {
+    allGuildIds.push(guild.id);
+  });
+
+  return allGuildIds;
+}
+
+module.exports = { addEmoji, deleteEmoji, getEmoji, getGuildEmoji, getAllGuilds };

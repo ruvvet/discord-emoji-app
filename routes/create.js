@@ -17,6 +17,7 @@ const uploads = multer({ dest: './uploads' });
 router.get('/', upload);
 router.post('/', uploads.single('emojiFile'), update);
 router.get('/myemojis', getUserEmoji);
+router.get('/edit', editEmoji)
 
 // FUNCTIONS
 
@@ -76,6 +77,12 @@ async function getUserEmoji(req, res) {
   //   userEmoji.forEach(emoji=>{
   //     console.log(emoji.url)
   // })
+}
+
+
+function editEmoji(res, res){
+res.send('hihi')
+
 }
 
 module.exports = router;

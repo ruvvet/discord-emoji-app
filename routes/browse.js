@@ -68,7 +68,7 @@ async function browseCategory(req, res) {
   }
 }
 
-
+// calls the emojigg api to get all their categories
 async function getEmojiGGcat (req, res){
   const emojiGGcat = await axios.get('https://emoji.gg/api?request=categories').catch(() => null);
   res.send(emojiGGcat.data)

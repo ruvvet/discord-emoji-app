@@ -8,6 +8,10 @@ body {
   color: white;
 }
 
+button {
+  outline: none;
+}
+
 h1 {
   font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
@@ -45,14 +49,13 @@ h1 {
   /* border: 5px solid black; */
 }
 
-.search{
+.search {
   grid-area: search;
-
 }
 .profile {
   grid-area: profile;
   background-color: #2f3136;
-  border-top-left-radius:10px;
+  border-top-left-radius: 10px;
 
   /* border: 5px solid black; */
 }
@@ -66,7 +69,7 @@ h1 {
   grid-area: main;
   background-color: #36393f;
   overflow: auto;
-  border-top-right-radius:10px;
+  border-top-right-radius: 10px;
 
   /* border: 5px solid black; */
 }
@@ -111,11 +114,14 @@ h1 {
   border-radius: 10px;
   padding: 10px;
 }
-.main-guild-emoji:hover{
-  background: rgb(114,137,218);
-background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 49%);
+.main-guild-emoji:hover {
+  background: rgb(114, 137, 218);
+  background: linear-gradient(
+    340deg,
+    rgba(114, 137, 218, 1) 0%,
+    rgba(222, 222, 222, 1) 49%
+  );
 }
-
 
 .main-guild-emoji-name {
   font-size: 40px;
@@ -124,8 +130,6 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 
 .main-guild-emoji-img {
 }
-
-
 
 /* EMOJI */
 .emoji {
@@ -205,10 +209,8 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
   }
 } */
 
-
-
 /* User Uploads */
-.user-emoji-lib{
+.user-emoji-lib {
   margin: 3%;
   display: block flex;
   justify-content: center;
@@ -216,40 +218,29 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
   text-align: center;
   font-size: 30px;
   text-transform: uppercase;
-
 }
-.user-emoji{
+.user-emoji {
   height: 100px;
   width: 100px;
   border-radius: 10px;
   margin: 10px;
 }
 
-
-
-
-
 /* error pages */
 
-
-.error{
+.error {
   display: flex;
   justify-content: center;
   align-items: center;
-text-align: center;
-margin-top: 5%;
+  text-align: center;
+  margin-top: 5%;
 }
-.err-text{
+.err-text {
   font-size: 30px;
   text-transform: uppercase;
 }
 
-.err-img{
+.err-img {
   height: 300px;
   width: 300px;
 }
-
-
-
-
-
