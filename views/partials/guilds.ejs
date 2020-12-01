@@ -1,36 +1,62 @@
 <style>
-  /* guilds */
-
   .guild {
     color: white;
     text-align: center;
-    position: relative;
-  }
-
-  #guild-ul {
-    list-style-type: none;
-    display: block;
-  }
-
-  .guild-li {
-    margin: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    overflow: auto;
+    height: 100%;
   }
 
-  .guild-div {
-    display: flex;
+  .guild-ul {
+    list-style-type: none;
+    /* display: block flex;
+    justify-content: center;
+    align-items: center; */
+    display: inline-block;
+  }
+
+  .guild-li,
+  .guild-btn,
+  .guild-name {
+    margin: 20px 0 20px 0;
+  }
+
+  .guild-btn {
+    display: block flex;
     justify-content: center;
     align-items: center;
     filter: opacity(70%);
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
   }
 
-  .guild-div:hover {
+  .guild-btn:hover {
     filter: opacity(100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .guild-btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+    border-radius: 50%;
+  }
+
+  .guild-btn:focus {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   .guild-icon {
+    height: 100%;
+    width: 100%;
     border-radius: 50%;
     /* border: 3px solid white; */
     /* box-shadow: 4px 4px 10px 4px #000000; */
@@ -39,14 +65,29 @@
   }
 
   .guild-name {
-    transform: translate(-100%, 0);
+    color: white;
+    text-align: center;
+    transform: translate(0, -200%);
     font-size: 20px;
     width: 100px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     text-shadow: 2px 2px 4px #000000;
   }
+
+  .guild-selected {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+      border: 10px solid #7289da;
+  }
+
+
 </style>
+
+<div id="guild" class="guild">
+  <ul class="guild-ul" id="guild-ul"></ul>
+</div>
 
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
@@ -66,19 +107,37 @@
       guildDiv.setAttribute('class', 'guild-div');
       guildLI.appendChild(guildDiv);
 
+      let guildBtn = document.createElement('button');
+      guildBtn.setAttribute('class', 'guild-btn');
+      guildBtn.addEventListener('click', function () {
+        updateSelectedGuild(guild.id);
+
+        document.querySelector('.guild-btn').setAttribute('class', 'guild-btn')
+        guildBtn.setAttribute('class', 'guild-btn guild-selected');
+
+      });
+      guildDiv.appendChild(guildBtn);
+
       let guildIcon = document.createElement('img');
       guildIcon.setAttribute('class', 'guild-icon');
       guildIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
-      guildDiv.appendChild(guildIcon);
+      guildBtn.appendChild(guildIcon);
 
       let guildName = document.createElement('div');
       guildName.setAttribute('class', 'guild-name');
       guildName.textContent = `${guild.name}`;
-      guildDiv.appendChild(guildName);
+      guildBtn.appendChild(guildName);
     });
+
+    async function updateSelectedGuild(guildID) {
+      const response = await fetch('http://localhost:5000', {
+        method: 'PUT',
+        body: JSON.stringify({ guildID }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).catch(console.log);
+
+    }
   });
 </script>
-
-<div id="guild" class="guild">
-  <ul id="guild-ul"></ul>
-</div>

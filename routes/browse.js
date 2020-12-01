@@ -55,12 +55,15 @@ async function browseCategory(req, res) {
 
 // calls the bot to add an emoji to the guild its in
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
-function addEmoji(req, res) {
+async function addEmoji(req, res) {
 // TODO: GET GUILDID AND SET ON THE COOKIE OR SET IT SOMEWHERE
 // put it in the db/cookie
-  const guildid = '781353966574370816';
+  const user = await db.user.findOne({
+    where: {access_token: req.cookies[COOKIE]}
+  }).catch(()=>null)
 
-  bot.addEmoji(guildid, req.body.url, req.body.name);
+  const guildID = user.selected_guild;
+  bot.addEmoji(guildID, req.body.url, req.body.name);
   res.redirect('/');
 }
 

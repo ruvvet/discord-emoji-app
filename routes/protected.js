@@ -24,6 +24,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', getMain);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
+router.put('/', selectGuild);
 router.get('/logout', logout);
 
 // FUNCTIONS
@@ -93,6 +94,16 @@ async function getUserGuilds(req, res) {
 function logout(req, res) {
   res.clearCookie(COOKIE);
   res.redirect('/');
+}
+
+async function selectGuild(req, res) {
+
+  const updateUserSelectedGuild = await db.user.update(
+    {selected_guild: req.body.guildID},
+    {where: {access_token: req.cookies[COOKIE]}}
+  ).catch(()=>null)
+
+  res.send();
 }
 
 module.exports = router;

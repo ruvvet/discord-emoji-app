@@ -34,13 +34,15 @@ function update(req, res) {
   // upload to cloudinary, then call the bot
 
   cloudinary.uploader.upload(file, async (result) => {
-    const guildid = '781353966574370816';
 
-    bot.addEmoji(guildid, result.url, req.body.emojiName);
 
     const user = await db.user.findOne({
       where: { access_token: req.cookies[COOKIE] },
     });
+
+    const guildID = user.selected_guild;
+
+    bot.addEmoji(guildID, result.url, req.body.emojiName);
 
     // find or create emoji in the db
     const [emojidb, created] = await db.emoji.findOrCreate({
@@ -68,7 +70,7 @@ async function getUserEmoji(req, res) {
     })
     .catch(() => null);
 
-    
+
   res.send(userEmoji);
 
   //   userEmoji.forEach(emoji=>{

@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         validate: { isDate: true },
       },
+      selected_guild: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

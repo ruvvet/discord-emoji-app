@@ -122,34 +122,6 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 
 
 
-
-/* User Uploads */
-.user-emoji-lib{
-  margin: 3%;
-  display: block flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 30px;
-  text-transform: uppercase;
-
-}
-.user-emoji{
-  height: 100px;
-  width: 100px;
-  border-radius: 10px;
-  margin: 10px;
-}
-
-
-
-
-
-
-
-
-
-
 /* EMOJI */
 .emoji {
   height: 100px;
@@ -212,7 +184,7 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
   );
 }
 
-.btn {
+/* .btn {
   position: relative;
   color: white;
   width: 256px;
@@ -223,7 +195,31 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
     transition: all 0.3s;
     tranform: scale(1, 1);
   }
+} */
+
+
+
+/* User Uploads */
+.user-emoji-lib{
+  margin: 3%;
+  display: block flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+
 }
+.user-emoji{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+
+
+
 
 /* navbar */
 .navbar {
