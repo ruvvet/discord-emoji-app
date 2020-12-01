@@ -145,189 +145,10 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 
 
 
-/* profile */
-.profile {
-  color: white;
-  text-align: center;
-  position: relative;
-}
-.profile-div {
-  margin-top: 5%;
-}
-.profile-icon {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin: 10px;
-  box-shadow: 4px 4px 10px 4px #00000050;
-  padding: 5px;
-  border: 5px solid #7289da;
-}
 
-.profile-name {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2em;
-  width: 100px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  text-shadow: 2px 2px 4px #000000;
-  text-transform: uppercase;
-}
 
-.profile-name:hover {
-  color: #7289da;
-}
 
-.profile-icon:hover {
-  filter: grayscale(50%);
-}
 
-/* guilds */
-
-.guild {
-  color: white;
-  text-align: center;
-  position: relative;
-}
-
-#guild-ul {
-  list-style-type: none;
-  display: block;
-}
-
-.guild-li {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.guild-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  filter: opacity(70%);
-}
-
-.guild-div:hover {
-  filter: opacity(100%);
-}
-
-.guild-icon {
-  border-radius: 50%;
-  /* border: 3px solid white; */
-  /* box-shadow: 4px 4px 10px 4px #000000; */
-
-  background-color: white;
-}
-
-.guild-name {
-  transform: translate(-100%, 0);
-  font-size: 20px;
-  width: 100px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-/* login */
-.login {
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border-top-right-radius: 10px;
-  background: #dedede;
-  /* background: radial-gradient(circle, rgba(114,137,218,1) 0%, rgba(114,137,218,1) 25%, rgba(222,222,222,1) 50%, rgba(222,222,222,1) 75%); */
-}
-
-.login-icon {
-  height: 50px;
-  width: 50px;
-}
-
-.log-btn {
-  background-color: #7289da;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
-}
-
-.log-btn::before,
-.log-btn::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  transition: all 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.log-btn:hover::after {
-  animation-name: rotatecw;
-  animation-duration: 2s;
-}
-.log-btn:hover::before {
-  animation-name: rotateccw;
-  animation-duration: 3s;
-}
-.log-btn:hover::after,
-.log-btn:hover::before {
-  left: 96px;
-  width: 64px;
-
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes rotatecw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes rotateccw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-.login-btn {
-  position: relative;
-  width: 100px;
-
-  display: block;
-  text-align: center;
-  margin: 0 10px;
-  border-radius: 10px;
-  padding: 6px;
-  box-sizing: border-box;
-  text-decoration: none;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(0deg, #dddddd, #ffffff);
-  transition: 0.5s;
-}
-
-.login-btn:hover {
-  background-color: #7289da;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
 
 /* EMOJI */
 .emoji {
@@ -447,118 +268,10 @@ background: linear-gradient(340deg, rgba(114,137,218,1) 0%, rgba(222,222,222,1) 
 
 
 
-/* Upload */
-.file-upload {
-  background-color: #dedede;
-  border-to-right-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-form {
-  border-radius:10px;
-  width: 380px;
-  margin: 4em auto;
-  padding: 3em 2em 2em 2em;
-  background-color: #2f3136;
-  box-shadow: 4px 4px 10px 4px #00000050;
-  /* box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 1px 0px,
-    rgba(0, 0, 0, 0.09804) 0px 1px 2px 0px;
-} */
-}
-
-.group {
-  position: relative;
-  margin-bottom: 20px;
-
-}
-
-input {
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  -webkit-appearance: none;
-  display: block;
-  background: #2f3136;
-  color: #7289da;
-  width: 100%;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #757575;
-}
-
-input:focus {
-  outline: none;
-}
-
-/* Underline */
-
-.bar {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-.bar:before,
-.bar:after {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 1px;
-  position: absolute;
-  background: #7289da;
-  transition: all 0.2s ease;
-}
-
-.bar:before {
-  left: 50%;
-}
-
-.bar:after {
-  right: 50%;
-}
-
-/* active */
-
-input:focus ~ .bar:before,
-input:focus ~ .bar:after {
-  width: 50%;
-}
-
-/* Highlight */
-
-.highlight {
-  position: absolute;
-  height: 60%;
-  width: 100px;
-  top: 25%;
-  left: 0;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-/* active */
-
-input:focus ~ .highlight {
-  animation: inputHighlighter 0.3s ease;
-}
-
-/* Animations */
-
-@keyframes inputHighlighter {
-  from {
-    background: #7289da;
-  }
-  to {
-    width: 0;
-    background: transparent;
-  }
-}
 
 /* Button */
 
-.upload-button {
+/* .upload-button {
   position: relative;
   display: inline-block;
   padding: 12px 24px;
@@ -586,11 +299,11 @@ input:focus ~ .highlight {
   background: #7289da;
   color: white;
   border-radius: 10px;
-}
+} */
 
 
 
-
+/* error pages */
 
 
 .error{

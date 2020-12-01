@@ -1,31 +1,71 @@
+<style>
+  /* profile */
+  .profile {
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+  .profile-div {
+    margin-top: 5%;
+  }
+  .profile-icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 4px 4px 10px 4px #00000050;
+    padding: 5px;
+    border: 5px solid #7289da;
+  }
+
+  .profile-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    width: 100px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-shadow: 2px 2px 4px #000000;
+    text-transform: uppercase;
+  }
+
+  .profile-name:hover {
+    color: #7289da;
+  }
+
+  .profile-icon:hover {
+    filter: grayscale(50%);
+  }
+</style>
+
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-
-    const response = await fetch('http://localhost:5000/profile').catch(() => null);
+    const response = await fetch('http://localhost:5000/profile').catch(
+      () => null
+    );
     const data = await response.json();
-    if (!response){
-      document.getElementById("profile").textContent = 'please login';
+    if (!response) {
+      document.getElementById('profile').textContent = 'please login';
     } else {
+      let profile = document.getElementById('profile');
 
-    let profile = document.getElementById('profile');
+      let profileDiv = document.createElement('div');
+      profileDiv.setAttribute('class', 'profile-div');
+      profile.appendChild(profileDiv);
 
-    let profileDiv = document.createElement('div');
-    profileDiv.setAttribute('class', 'profile-div');
-    profile.appendChild(profileDiv);
+      let pfp = document.createElement('img');
+      pfp.setAttribute('class', 'profile-icon');
+      pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
+      profileDiv.appendChild(pfp);
 
-    let pfp = document.createElement('img');
-    pfp.setAttribute('class', 'profile-icon');
-    pfp.src = `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
-    profileDiv.appendChild(pfp);
-
-    let username = document.createElement('div');
-    username.setAttribute('class', 'profile-name');
-    username.textContent = `${data.user.username}`;
-    profileDiv.appendChild(username)
-      }
-
+      let username = document.createElement('div');
+      username.setAttribute('class', 'profile-name');
+      username.textContent = `${data.user.username}`;
+      profileDiv.appendChild(username);
+    }
   });
 </script>
 
 <div class="profile" id="profile"></div>
-

@@ -1,30 +1,81 @@
+<style>
+  /* guilds */
+
+  .guild {
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+
+  #guild-ul {
+    list-style-type: none;
+    display: block;
+  }
+
+  .guild-li {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .guild-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: opacity(70%);
+  }
+
+  .guild-div:hover {
+    filter: opacity(100%);
+  }
+
+  .guild-icon {
+    border-radius: 50%;
+    /* border: 3px solid white; */
+    /* box-shadow: 4px 4px 10px 4px #000000; */
+
+    background-color: white;
+  }
+
+  .guild-name {
+    transform: translate(-100%, 0);
+    font-size: 20px;
+    width: 100px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-shadow: 2px 2px 4px #000000;
+  }
+</style>
+
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('http://localhost:5000/guilds').catch(() => null);
+    const response = await fetch('http://localhost:5000/guilds').catch(
+      () => null
+    );
     const data = await response.json();
-        const guilds = data.guilds;
-        guilds.forEach((guild) => {
-          let guildList = document.getElementById('guild-ul');
+    const guilds = data.guilds;
+    guilds.forEach((guild) => {
+      let guildList = document.getElementById('guild-ul');
 
-          let guildLI = document.createElement('li');
-          guildLI.setAttribute('class', 'guild-li');
-          guildList.appendChild(guildLI);
+      let guildLI = document.createElement('li');
+      guildLI.setAttribute('class', 'guild-li');
+      guildList.appendChild(guildLI);
 
-          let guildDiv = document.createElement('div');
-          guildDiv.setAttribute('class', 'guild-div');
-          guildLI.appendChild(guildDiv);
+      let guildDiv = document.createElement('div');
+      guildDiv.setAttribute('class', 'guild-div');
+      guildLI.appendChild(guildDiv);
 
+      let guildIcon = document.createElement('img');
+      guildIcon.setAttribute('class', 'guild-icon');
+      guildIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
+      guildDiv.appendChild(guildIcon);
 
-          let guildIcon = document.createElement('img');
-          guildIcon.setAttribute('class', 'guild-icon');
-          guildIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
-          guildDiv.appendChild(guildIcon);
-
-          let guildName = document.createElement('div');
-          guildName.setAttribute('class', 'guild-name');
-          guildName.textContent = `${guild.name}`;
-          guildDiv.appendChild(guildName);
-        });
+      let guildName = document.createElement('div');
+      guildName.setAttribute('class', 'guild-name');
+      guildName.textContent = `${guild.name}`;
+      guildDiv.appendChild(guildName);
+    });
   });
 </script>
 
