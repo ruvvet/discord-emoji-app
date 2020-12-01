@@ -57,6 +57,7 @@ async function browseCategory(req, res) {
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 function addEmoji(req, res) {
 // TODO: GET GUILDID AND SET ON THE COOKIE OR SET IT SOMEWHERE
+// put it in the db/cookie
   const guildid = '781353966574370816';
 
   bot.addEmoji(guildid, req.body.url, req.body.name);

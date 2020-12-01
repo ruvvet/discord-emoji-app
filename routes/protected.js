@@ -67,14 +67,6 @@ async function getMain(req, res) {
     emojisByGuild[guild.name] = guildEmojis;
   });
 
-  //TODO:???
-  // // axios call doesnt work?
-  // await guilds.forEach(async (guild)=> {
-  //   console.log(guild.id);
-  //   const guildEmojis = await axios.get(`https://discord.com/api/guilds/${guild.id}/emojis`).catch(()=>null);
-  //   console.log(guildEmojis)
-  // })
-
   res.render('index', { emojisByGuild });
 }
 
