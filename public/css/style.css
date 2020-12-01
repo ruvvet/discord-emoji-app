@@ -19,7 +19,7 @@ body {
   grid-template-rows: 0.1fr 0.3fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    'layout-header layout-header layout-header navbar'
+    'layout-header layout-header layout-header search'
     'layout-panel profile main navbar'
     'layout-panel guilds main navbar';
 }
@@ -40,6 +40,10 @@ body {
   /* border: 5px solid black; */
 }
 
+.search{
+  grid-area: search;
+
+}
 .profile {
   grid-area: profile;
   background-color: #2f3136;
@@ -589,7 +593,22 @@ input:focus ~ .highlight {
 
 
 
+.error{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+text-align: center;
+margin-top: 5%;
+}
+.err-text{
+  font-size: 30px;
+  text-transform: uppercase;
+}
 
+.err-img{
+  height: 300px;
+  width: 300px;
+}
 
 
 
