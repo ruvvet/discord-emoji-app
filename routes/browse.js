@@ -17,7 +17,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', browseUwuMoji);
 router.get('/emojigg', browseEmojiGG);
 router.post('/', addEmoji);
-router.get('/:category', browseCategory);
+router.get('/emojiggcategory', getEmojiGGcat)
+router.get('/emojigg/:category', browseCategory);
 
 // FUNCTIONS
 
@@ -34,9 +35,6 @@ async function browseUwuMoji (req, res){
   res.render('browse/showuwumoji', {allemoji, libname: 'UwuMoji'});
 
 }
-
-
-
 
 //Need to Paginate
 //TODO: PAGINATE
@@ -70,6 +68,16 @@ async function browseCategory(req, res) {
   }
 }
 
+
+async function getEmojiGGcat (req, res){
+  const emojiGGcat = await axios.get('https://emoji.gg/api?request=categories').catch(() => null);
+  res.send(emojiGGcat.data)
+}
+
+
+
+
+
 // calls the bot to add an emoji to the guild its in
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 async function addEmoji(req, res) {
@@ -83,5 +91,9 @@ async function addEmoji(req, res) {
   bot.addEmoji(guildID, req.body.url, req.body.name);
   res.redirect('/');
 }
+
+
+
+
 
 module.exports = router;

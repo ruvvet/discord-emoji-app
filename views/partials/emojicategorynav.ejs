@@ -1,0 +1,65 @@
+<style>
+  .emoji-cat-nav {
+    background-color: #dedede30;
+    border-radius: 10px;
+  }
+
+  .emoji-cat-nav ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
+
+  .emoji-cat-nav li {
+    margin: 10px;
+    border-radius: 50%;
+  }
+
+  .emoji-cat-nav a {
+    color: black;
+    border-radius: 10px;
+    padding: 5px;
+  }
+</style>
+
+<div class="emoji-cat-nav">
+  <ul class="emoji-cat-ul" id="catUL"></ul>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+
+    const response = await fetch(
+      'http://localhost:5000/browse/emojiggcategory'
+    ).catch(() => null);
+    const categories = await response.json();
+
+    console.log (categories);
+
+    for (const cat in categories) {
+      let catLI = document.createElement('li');
+      catLI.setAttribute('class', 'guild-li');
+      catUL.appendChild(catLI);
+
+      let catDiv = document.createElement('a');
+      catDiv.innerText = `${cat}: ${categories[cat]}`;
+      catDiv.setAttribute('href', `http://localhost:5000/browse/emojigg/${cat}`);
+      catDiv.style.backgroundColor = random_bg_color();
+      catLI.appendChild(catDiv);
+    }
+
+    function random_bg_color() {
+      var x = Math.floor(Math.random() * 256);
+      var y = Math.floor(Math.random() * 256);
+      var z = Math.floor(Math.random() * 256);
+      var bgColor = 'rgb(' + x + ',' + y + ',' + z + ')';
+
+      return bgColor;
+    }
+  });
+</script>
