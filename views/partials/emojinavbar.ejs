@@ -1,0 +1,83 @@
+<style>
+  .emojinav,
+  .emojinav ul li a,
+  .emojinav ul li a:after,
+  .emojinav ul li a:before {
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+  }
+  .emojinav {
+    margin: 0;
+    padding: 10px 200px;
+    border-radius: 10px;
+    background-color: #dedede90;
+  }
+  .emojinav:hover {
+    background-color: #dedede;
+  }
+
+  .emojinav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
+  .emojinav ul li {
+    display: inline-block;
+  }
+  .emojinav ul li a {
+    color: black;
+    /* color: rgb(255, 255, 255); */
+    display: block;
+    line-height: 50px;
+    padding: 0 30px;
+    text-decoration: none;
+    background-color: #7289da;
+  }
+
+  .emojinav.shift-fx ul li a {
+    border: 1px solid rgba(0, 0, 0, 0);
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+  }
+  .emojinav.shift-fx ul li a:after,
+  .emojinav.shift-fx ul li a:before {
+    background: rgba(255, 255, 255, 0.3);
+    content: ' ';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transform: skewX(-45deg);
+    -webkit-transform: skewX(-45deg);
+    width: 0;
+    z-index: 0;
+  }
+  .emojinav.shift-fx ul li a:after {
+    bottom: 0;
+    right: -20%;
+  }
+  .emojinav.shift-fx ul li a:before {
+    top: 0;
+    left: -20%;
+  }
+  .emojinav.shift-fx ul li a:hover {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .emojinav.shift-fx ul li a:hover:after,
+  .emojinav.shift-fx ul li a:hover:before {
+    width: 150%;
+  }
+</style>
+
+<div class="emojinav shift-fx">
+  <ul>
+    <li><a href="http://localhost:5000/browse">UwuMoji DB</a></li>
+    <li><a href="http://localhost:5000/browse/emojigg">EMOJI.GG</a></li>
+    <li><a href="#">ABC</a></li>
+    <li><a href="#">XYZ</a></li>
+  </ul>
+</div>

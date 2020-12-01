@@ -14,11 +14,28 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
-router.get('/', browseAll);
+router.get('/', browseUwuMoji);
+router.get('/emojigg', browseEmojiGG);
 router.post('/', addEmoji);
 router.get('/:category', browseCategory);
 
 // FUNCTIONS
+
+
+
+
+async function browseUwuMoji (req, res){
+
+  allemoji = await db.emoji
+    .findAll()
+    .catch(() => null);
+
+
+  res.render('browse/showuwumoji', {allemoji, libname: 'UwuMoji'});
+
+}
+
+
 
 
 //Need to Paginate
@@ -26,14 +43,14 @@ router.get('/:category', browseCategory);
 // TODO: HAVE A CATEGORIES NAV BAR
 
 // Use emoji.gg api to get all emoji and displays them
-async function browseAll(req, res) {
+async function browseEmojiGG(req, res) {
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
 
   if (!allemoji) {
     //res.render(404)
     console.log('error with getting emoji');
   } else {
-    res.render('browse/show', { allemoji: allemoji.data.slice(0, 200) });
+    res.render('browse/showemojigg', { allemoji: allemoji.data.slice(0, 200), libname: 'Emoji.gg' });
   }
 }
 
@@ -49,7 +66,7 @@ async function browseCategory(req, res) {
     const emojiByCategory = allemoji.data.filter(
       (emoji) => emoji.category == req.params.category
     );
-    res.render('browse/show', { allemoji: emojiByCategory });
+    res.render('browse/showemojigg', { allemoji: emojiByCategory, libname: 'Emoji.gg'});
   }
 }
 

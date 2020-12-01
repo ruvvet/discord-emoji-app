@@ -47,7 +47,14 @@ function getGuildEmoji(guildID) {
 
 // BOT FUNCTIONS
 function addEmoji(guildid, url, name) {
-  const guild = bot.guilds.cache.get(guildid); // need to get guild.id through selection in route or elsewhere and pass through
+  const guild = bot.guilds.cache.get(guildid);
+
+  //if the guild does not have the bot, then send to an error page
+  if (!guild){
+    giveUwuwMojiBotMoreFriends();
+
+  }else{
+
 
   // get the first text channel in the guild
   var channel = guild.channels.cache
@@ -60,7 +67,7 @@ function addEmoji(guildid, url, name) {
   rendAndSendEmoji(url, name, channel);
   //channel.send(`Emoji '${name}' added`, emojiImage);
   //channel.send(`Emoji '${name}' added`, { files: [url] });
-
+}
 }
 
 //render the emoji and redraw on cavans
@@ -95,5 +102,14 @@ async function rendAndSendEmoji(url, name, channel) {
 
   channel.send(`Emoji '${name}' added`, attachment);
 }
+
+
+
+async function giveUwuwMojiBotMoreFriends(){
+console.log('more friends')
+  await axios.get('http://localhost:5000/adduwumoji')
+
+}
+
 
 module.exports = { addEmoji, getGuildEmoji };

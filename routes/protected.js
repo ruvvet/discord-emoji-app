@@ -25,6 +25,7 @@ router.get('/', getMain);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.put('/', selectGuild);
+router.get('/adduwumoji', addUwuMojiBot);
 router.get('/logout', logout);
 
 // FUNCTIONS
@@ -104,6 +105,11 @@ async function selectGuild(req, res) {
   ).catch(()=>null)
 
   res.send();
+}
+
+
+function addUwuMojiBot(req, res){
+  res.render('./error/adduwumoji')
 }
 
 module.exports = router;
