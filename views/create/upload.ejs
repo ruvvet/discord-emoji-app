@@ -1,12 +1,7 @@
 <style>
 /* Upload */
 .file-upload {
-  background-color: #dedede;
   border-to-right-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
 }
 
 form {
@@ -111,7 +106,7 @@ input:focus ~ .highlight {
 </style>
 
 <!-- TODO: style this input label-->
-<div class="file-upload">
+<div class="container-light file-upload">
 <form action="/create" method="POST" enctype="multipart/form-data">
     <div class="group">
       <input class = "inputfile" type="file" name="emojiFile"><span class="highlight"></span><span class="bar"></span>

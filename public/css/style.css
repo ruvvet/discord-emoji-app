@@ -25,7 +25,7 @@ h1 {
   width: 98vw;
   display: grid;
   grid-template-columns: 0.08fr 0.2fr 1fr 0.08fr;
-  grid-template-rows: 0.1fr 0.3fr 1fr;
+  grid-template-rows: 0.1fr 0.4fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
     'layout-header layout-header layout-header search'
@@ -39,14 +39,12 @@ h1 {
   font-size: 20px;
   background-color: #202225;
   padding: 0.5% 0 0 8%;
-  /* border: 5px solid black; */
 }
 .layout-panel {
   grid-area: layout-panel;
   background-color: #202225;
   align-self: end;
   text-align: center;
-  /* border: 5px solid black; */
 }
 
 .search {
@@ -56,28 +54,77 @@ h1 {
   grid-area: profile;
   background-color: #2f3136;
   border-top-left-radius: 10px;
-
-  /* border: 5px solid black; */
 }
 .guilds {
   grid-area: guilds;
   background-color: #2f3136;
-
-  /* border: 5px solid black; */
 }
 .main {
   grid-area: main;
   background-color: #36393f;
   overflow: auto;
   border-top-right-radius: 10px;
-
-  /* border: 5px solid black; */
 }
 
 .navbar {
   grid-area: navbar;
   background-color: #202225;
 }
+
+
+/*  for any emoji gallery */
+.emoji-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+}
+
+
+/*  uniform emoji sizes */
+.emoji {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  border: 3px solid white;
+  margin: 5px;
+}
+
+/* buttons effects */
+.btn {
+  border-radius: 10px;
+  background-color: transparent;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+  border: none;
+}
+.btn:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #dddddd, #7289da);
+}
+
+.btn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  border: none;
+}
+
+.btn:focus {
+  background-color: #7289da;
+}
+
+
+
+
+
+
+
+
+
+
 
 /* main page stuff */
 .title {
@@ -106,7 +153,7 @@ h1 {
 }
 
 /* index */
-.main-guild-emoji {
+.container-gradient {
   color: black;
   background-color: #dedede50;
   margin: 30px;
@@ -114,7 +161,7 @@ h1 {
   border-radius: 10px;
   padding: 10px;
 }
-.main-guild-emoji:hover {
+.container-gradient:hover {
   background: rgb(114, 137, 218);
   background: linear-gradient(
     340deg,
@@ -123,54 +170,8 @@ h1 {
   );
 }
 
-.main-guild-emoji-name {
-  font-size: 40px;
-  text-align: center;
-}
 
-.main-guild-emoji-img {
-}
 
-/* EMOJI */
-.emoji {
-  height: 100px;
-  width: 100px;
-  border-radius: 10px;
-  border: 3px solid white;
-  margin: 5px;
-}
-
-.emoji-library {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow: auto;
-}
-
-.emoji-btn {
-  border-radius: 10px;
-  background-color: transparent;
-  position: relative;
-  box-sizing: border-box;
-  text-decoration: none;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  transition: 0.5s;
-  border: none;
-}
-.emoji-btn:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(0deg, #dddddd, #7289da);
-}
-
-.emoji-btn:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-  border: none;
-}
-
-.emoji-btn:focus {
-  background-color: #7289da;
-}
 
 /* scrollbar */
 .scrollbar::-webkit-scrollbar-track {
@@ -196,18 +197,7 @@ h1 {
   );
 }
 
-/* .btn {
-  position: relative;
-  color: white;
-  width: 256px;
-  height: 64px;
-  line-height: 64px;
-  transition: all 0.3s;
-  span {
-    transition: all 0.3s;
-    tranform: scale(1, 1);
-  }
-} */
+
 
 /* User Uploads */
 .user-emoji-lib {
@@ -244,3 +234,15 @@ h1 {
   height: 300px;
   width: 300px;
 }
+
+/*  lets try to be better at this */
+.container-light {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #dedede;
+  color: black;
+
+}
+

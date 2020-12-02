@@ -131,8 +131,8 @@ async function getEmojiDetails(req, res) {
   if (!user.selected_emoji) {
     res.send('');
   } else {
-    const emojiDetails = bot.getEmoji(user.selected_emoji);
-    res.send(emojiDetails);
+    const emojiData = bot.getEmoji(user.selected_emoji);
+    res.send(emojiData);
   }
 }
 

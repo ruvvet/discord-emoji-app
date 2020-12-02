@@ -9,13 +9,13 @@
 
     data.forEach((userEmoji) => {
       let emoji = document.createElement('img');
-      emoji.setAttribute('class', 'user-emoji emoji-btn');
+      emoji.setAttribute('class', 'user-emoji btn');
       emoji.src = `${userEmoji.url}`;
       userEmojiList.appendChild(emoji);
     });
   });
 </script>
 
-<div id="user-emojis" class="user-emoji-lib emoji-library">
+<div id="user-emojis" class="user-emoji-lib emoji-gallery">
     <div>My Uploads</div>
 </div>

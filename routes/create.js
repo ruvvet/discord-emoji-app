@@ -20,7 +20,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', upload);
 router.post('/', uploads.single('emojiFile'), update);
 router.get('/myemojis', getUserEmoji);
-router.get('/edit', editEmoji);
+router.get('/edit', editEmojiPage);
+router.put('/edit', editEmoji);
 router.delete('/delete', deleteEmoji);
 
 // FUNCTIONS
@@ -61,6 +62,7 @@ function update(req, res) {
   });
 }
 
+// calls the database to get all the emojis the user uploaded
 async function getUserEmoji(req, res) {
   const user = await db.user.findOne({
     where: { access_token: req.cookies[COOKIE] },
@@ -76,14 +78,45 @@ async function getUserEmoji(req, res) {
   res.send(userEmoji);
 }
 
-function editEmoji(req, res) {
-  res.send('hihi');
+// Editing Emojis
+async function editEmojiPage(req, res) {
+  // exactly the same as getemojidetails from 'protected'
+  const user = await db.user
+    .findOne({
+      where: { access_token: req.cookies[COOKIE] },
+    })
+    .catch(() => null);
+
+  console.log(user.selected_emoji);
+
+  if (!user.selected_emoji) {
+    res.render('create/edit', {emojiData: {} })
+     //res.redirect('/');
+  } else {
+    const emojiData = bot.getEmoji(user.selected_emoji);
+    console.log(emojiData)
+    res.render('create/edit', { emojiData });
+  }
 }
 
+function editEmoji(req, res) {
+  //bot updates the emoji here
+}
 
 // calls the bot to delete an emoji
-function deleteEmoji(req, res) {
+async function deleteEmoji(req, res) {
+  //bot deletes emoji
   bot.deleteEmoji(req.body.guildID, req.body.emojiID, req.body.name);
+
+  // db resets to null
+  await db.user
+    .update(
+      { selected_emoji: null },
+      { where: { access_token: req.cookies[COOKIE] } }
+    )
+    .catch(() => null);
+
+    res.redirect('/')
 }
 
 module.exports = router;

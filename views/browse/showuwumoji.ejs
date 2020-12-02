@@ -1,11 +1,11 @@
 <div class="emoji-nav-bar"><%- include('../partials/emojinavbar') %></div>
 <h1><%=libname %></h1>
-<div class="emoji-library">
+<div class="emoji-gallery">
   <% allemoji.forEach((emoji) => { %>
 
   <button
     onclick="callAddEmoji(`<%=emoji.url%>`, `<%=emoji.name%>`)"
-    class="emoji-btn"
+    class="btn"
   >
     <img class="emoji" src="<%=emoji.url%>" alt="<%=emoji.name%>" />
   </button>

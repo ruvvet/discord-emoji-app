@@ -1,16 +1,24 @@
 
+<style>
+  .main-guild-emoji-name {
+  font-size: 40px;
+  text-align: center;
+}
+</style>
+
+
 <div class="main-wrapper">
   <% for (const guild in emojisByGuild){ %>
-  <div class="main-guild-emoji">
+  <div class="container-gradient main-guild-emoji">
     <div class="main-guild-emoji-name"><%=guild%></div>
     <% if (!emojisByGuild[guild]){ %>
     <div>Upload/Browse the Library to Add Some Emoji</div>
     <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
       <button
       onclick="selectEmoji(`<%=emoji.id%>`,`<%=emoji.name%>`, `<%=emoji.url%>`)"
-      class="emoji-btn"
+      class="btn"
     >
-    <img class="main-guild-emoji-img" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+    <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
 </button>
     <%})%> <%}%>
   </div>

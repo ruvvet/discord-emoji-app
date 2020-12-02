@@ -3,19 +3,18 @@
   .profile {
     color: white;
     text-align: center;
-    position: relative;
+    overflow: hidden;
   }
   .profile-div {
-    margin-top: 5%;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
   }
   .profile-icon {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 4px 4px 10px 4px #00000050;
-    padding: 5px;
-    border: 5px solid #7289da;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 10px;
   }
 
   .profile-name {
@@ -23,21 +22,20 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2em;
-    width: 100px;
+    font-size: 3em;
+
     overflow-wrap: break-word;
     word-wrap: break-word;
     text-shadow: 2px 2px 4px #000000;
     text-transform: uppercase;
   }
 
-  .profile-name:hover {
+  .profile-div:hover {
     color: #7289da;
-  }
-
-  .profile-icon:hover {
     filter: grayscale(50%);
   }
+
+
 </style>
 
 <div class="profile" id="profile"></div>
