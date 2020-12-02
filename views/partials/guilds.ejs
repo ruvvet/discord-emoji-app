@@ -136,6 +136,12 @@
         },
       }).catch(console.log);
 
+      if (response.status !== 200){
+        window.location = '/adduwumoji'
+      }
+
+
+
       // now check if the bot is in the guild
       //if not, redirect to addbot page
 

@@ -22,6 +22,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
 router.get('/', getMain);
+
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.put('/selectguild', selectGuild);
@@ -96,12 +97,8 @@ async function selectGuild(req, res) {
   const botGuilds = bot.getAllGuilds();
 
   if (!botGuilds.includes(req.body.guildID)) {
-    console.log('bad');
-    res.redirect('./error/adduwumoji');
-    //TODO: ?????????????????????????????????????????????????
+    res.status(400).send('bot not in guild');
   } else {
-    console.log('ok');
-
     const updateUserSelectedGuild = await db.user
       .update(
         { selected_guild: req.body.guildID },

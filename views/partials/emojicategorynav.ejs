@@ -39,8 +39,6 @@
     ).catch(() => null);
     const categories = await response.json();
 
-    console.log (categories);
-
     for (const cat in categories) {
       let catLI = document.createElement('li');
       catLI.setAttribute('class', 'guild-li');

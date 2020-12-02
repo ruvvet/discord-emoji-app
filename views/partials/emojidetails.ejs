@@ -69,7 +69,9 @@
     const response = await fetch('http://localhost:5000/emojidetails').catch(
       () => null
     );
-    const emojidetails = await response.json();
+    const emojiData = await response.json();
+
+    console.log(emojiData);
     if (!response) {
       document.getElementById('emoji-details').textContent = 'xxx';
     } else {
@@ -81,19 +83,19 @@
 
       let emojiImg = document.createElement('img');
       emojiImg.setAttribute('class', 'emoji-icon');
-      emojiImg.src = `${emojidetails.url}`;
+      emojiImg.src = `${emojiData.url}`;
       emojiImgDiv.appendChild(emojiImg);
 
       let emojiName = document.createElement('div');
       emojiName.setAttribute('class', 'emoji-name');
-      emojiName.textContent = `${emojidetails.name}`;
+      emojiName.textContent = `${emojiData.name}`;
       emojiDetails.appendChild(emojiName);
 
       let editBtn = document.createElement('button');
       editBtn.setAttribute('class', 'edit-btn');
-      editBtn.addEventListener('click', function(){
-          gotoEdit();
-      })
+      editBtn.addEventListener('click', function () {
+        gotoEdit();
+      });
       emojiDetails.appendChild(editBtn);
 
       let editBtnImg = document.createElement('img');
@@ -103,11 +105,14 @@
 
       let deleteBtn = document.createElement('button');
       deleteBtn.setAttribute('class', 'edit-btn');
-      deleteBtn.addEventListener('click', function(){
-          callDeleteEmoji(emojidetails.id);
-      })
+      deleteBtn.addEventListener('click', function () {
+        callDeleteEmoji(
+          emojiData.guildID,
+          emojiData.id,
+          emojiData.name
+        );
+      });
       emojiDetails.appendChild(deleteBtn);
-
 
       let deleteBtnImg = document.createElement('img');
       deleteBtnImg.setAttribute('class', 'edit-img');
@@ -115,18 +120,18 @@
       deleteBtn.appendChild(deleteBtnImg);
     }
 
+    async function callDeleteEmoji(guildID, emojiID, name) {
+      const response = await fetch('http://localhost:5000/create/delete', {
+        method: 'delete',
+        body: JSON.stringify({ guildID, emojiID, name }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).catch(console.log);
+    }
 
-function callDeleteEmoji (emojiID){
-
-
-    console.log('to delete', emojiID)
-}
-
-
-function gotoEdit(){
-    console.log('direct to edit page')
-    window.location='/create/edit';
-}
-
+    function gotoEdit() {
+      window.location = '/create/edit';
+    }
   });
 </script>

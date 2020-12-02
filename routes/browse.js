@@ -81,8 +81,6 @@ async function getEmojiGGcat (req, res){
 // calls the bot to add an emoji to the guild its in
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 async function addEmoji(req, res) {
-// TODO: GET GUILDID AND SET ON THE COOKIE OR SET IT SOMEWHERE
-// put it in the db/cookie
   const user = await db.user.findOne({
     where: {access_token: req.cookies[COOKIE]}
   }).catch(()=>null)

@@ -4,6 +4,7 @@
 // DEPENDENCIES
 require('dotenv').config();
 const bot = require('../bot');
+const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary');
 const db = require('../models');
 const multer = require('multer');
@@ -12,12 +13,15 @@ const { COOKIE, oauth } = require('../constants');
 
 // MIDDLEWARE
 const uploads = multer({ dest: './uploads' });
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
 router.get('/', upload);
 router.post('/', uploads.single('emojiFile'), update);
 router.get('/myemojis', getUserEmoji);
-router.get('/edit', editEmoji)
+router.get('/edit', editEmoji);
+router.delete('/delete', deleteEmoji);
 
 // FUNCTIONS
 
@@ -35,8 +39,6 @@ function update(req, res) {
   // upload to cloudinary, then call the bot
 
   cloudinary.uploader.upload(file, async (result) => {
-
-
     const user = await db.user.findOne({
       where: { access_token: req.cookies[COOKIE] },
     });
@@ -71,18 +73,17 @@ async function getUserEmoji(req, res) {
     })
     .catch(() => null);
 
-
   res.send(userEmoji);
+}
 
-  //   userEmoji.forEach(emoji=>{
-  //     console.log(emoji.url)
-  // })
+function editEmoji(req, res) {
+  res.send('hihi');
 }
 
 
-function editEmoji(res, res){
-res.send('hihi')
-
+// calls the bot to delete an emoji
+function deleteEmoji(req, res) {
+  bot.deleteEmoji(req.body.guildID, req.body.emojiID, req.body.name);
 }
 
 module.exports = router;
