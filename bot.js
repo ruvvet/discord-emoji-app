@@ -46,17 +46,9 @@ bot.on('guildCreate', (guild) => {
 bot.on('message', (msg) => {
   if (msg.content === 'uwumoji') {
     msg.reply('hi ❤️');
-    //console.log(bot.guilds.cache)
-
-    //781353966574370816
-
   }
 });
 
-// /////client.on("guildCreate", guild => {
-//   guild.owner.send('Thanks for adding me!')
-// });
-// //https://www.xspdf.com/help/50030215.html
 
 // BOT EMOJI DUTIES
 // All the duties of the bot
@@ -72,6 +64,8 @@ function getAllGuilds() {
   const allGuilds = bot.guilds.cache.forEach((guild) => {
     allGuildIds.push(guild.id);
   });
+
+  // return the list of all guilds the bot is in
   return allGuildIds;
 }
 
@@ -82,10 +76,13 @@ function getEmoji(emojiID) {
 
 // gets all emoji per guild by guild id
 function getGuildEmoji(guildID) {
+  // get the emoji via guildID
   const guildEmoji = bot.guilds.cache.get(guildID);
   if (!guildEmoji) {
+    // if empty return nothing
     return null;
   }
+  // else get the emoji by each guild
   const emoji = guildEmoji.emojis.cache.map(function (emoji) {
     return { name: emoji.name, url: emoji.url, id: emoji.id };
   });
@@ -102,8 +99,11 @@ function addEmoji(guildID, url, name) {
     .filter((ch) => ch.type === 'text')
     .find((c) => c.position === 0);
 
+  // creat the emoji
   guild.emojis.create(url, name).catch(() => null);
 
+  // calls the res+send function to prettify the emoji
+  // and send it to the channel
   rendAndSendEmoji(url, name, channel);
 }
 
@@ -135,18 +135,24 @@ async function rendAndSendEmoji(url, name, channel) {
     'emoji.png'
   );
 
+  // sends a messge to the channel w/ the picture + name
   channel.send(`Emoji '${name}' added`, attachment);
 }
 
 // Updates an emoji
 function updateEmoji(emojiID, newName) {
-  // get emoji from by by ID
+  // get emoji by ID
   const emoji = bot.emojis.cache.get(String(emojiID));
+
   // get the first text channel in the guild
   const channel = emoji.guild.channels.cache
     .filter((ch) => ch.type === 'text')
     .find((c) => c.position === 0);
+
+  // sends a msg to the channel
   channel.send(`Emoji '${emoji.name}' renamed to '${newName}'`);
+
+  // update the emoji name to the new name
   bot.emojis.cache.get(emojiID).edit({ name: newName });
 }
 
@@ -160,8 +166,10 @@ function deleteEmoji(emojiID) {
     .filter((ch) => ch.type === 'text')
     .find((c) => c.position === 0);
 
+  // sends a msg to the channel
   channel.send(`Emoji '${emoji.name}' deleted`);
 
+  //deletes the emoji
   emoji.delete();
 }
 

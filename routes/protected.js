@@ -17,13 +17,13 @@ router.use(validate);
 // requires routes in the create/browse routers
 router.use('/create', require('./create'));
 router.use('/browse', require('./browse'));
-
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
 //router.get('/refresh', checkToken);
 router.get('/', getMain);
+router.get('/emoji/:emojiid', selectEmojiByID);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.put('/selectguild', selectGuild);
@@ -181,6 +181,33 @@ async function getEmojiDetails(req, res) {
     res.send(emojiData);
   }
 }
+
+
+
+async function selectEmojiByID (req, res){
+
+  // get emojis currently in the guild
+
+  const allGuilds = await oauth
+    .getUserGuilds(req.user.access_token)
+    .catch(() => null);
+
+  // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
+  const guilds = allGuilds.filter((guild) => guild.owner);
+
+  let emojisByGuild = {};
+
+  guilds.forEach((guild) => {
+    // call the bot
+    const guildEmojis = bot.getGuildEmoji(guild.id);
+    emojisByGuild[guild.name] = guildEmojis;
+  });
+
+  res.render('index-emoji', { emojisByGuild, emojiID: req.params.emojiid });
+
+}
+
+
 
 function addUwuMojiBot(req, res) {
   res.render('./error/adduwumoji');

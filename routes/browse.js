@@ -15,6 +15,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
 router.get('/', browseUwuMoji);
+router.get('/discord', browseDiscord);
 router.get('/emojigg', browseEmojiGG);
 router.post('/', addEmoji);
 router.get('/emojiggcategory', getEmojiGGcat)
@@ -36,6 +37,18 @@ async function browseUwuMoji (req, res){
 
 }
 
+
+function browseDiscord (req, res){
+
+
+allemoji = bot.getAllEmoji();
+console.log(allemoji)
+  res.render('browse/showuwumoji', {allemoji, libname: 'Discord'});
+
+}
+
+
+
 //Need to Paginate
 //TODO: PAGINATE
 // TODO: HAVE A CATEGORIES NAV BAR
@@ -51,6 +64,11 @@ async function browseEmojiGG(req, res) {
     res.render('browse/showemojigg', { allemoji: allemoji.data.slice(0, 200), libname: 'Emoji.gg' });
   }
 }
+
+
+
+
+
 
 
 // Gets emoji by category (#) for emoji.gg api
