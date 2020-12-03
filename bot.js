@@ -49,7 +49,6 @@ bot.on('message', (msg) => {
   }
 });
 
-
 // BOT EMOJI DUTIES
 // All the duties of the bot
 // Get info on guilds/emojis
@@ -72,6 +71,10 @@ function getAllGuilds() {
 // gets emoji data by id
 function getEmoji(emojiID) {
   return bot.emojis.cache.get(emojiID);
+}
+
+function getAllEmoji() {
+  return bot.emojis.cache;
 }
 
 // gets all emoji per guild by guild id
@@ -178,14 +181,8 @@ module.exports = {
   deleteEmoji,
   updateEmoji,
   getEmoji,
+  getAllEmoji,
   getGuildEmoji,
   getAllGuilds,
 };
 
-//TODO:
-//filtered search
-//smart 404 route
-
-//('/:username/videos/:videoid')
-
-// req.params.id  = video

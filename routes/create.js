@@ -23,6 +23,13 @@ router.get('/myemojis', getUserEmoji);
 router.get('/edit', editEmojiPage);
 router.put('/edit', editEmoji);
 router.delete('/delete', deleteEmoji);
+router.get('/tags', tagsTest);
+
+
+
+function tagsTest (req, res){
+  res.render('create/tags-test')
+}
 
 // FUNCTIONS
 
@@ -46,8 +53,6 @@ function update(req, res) {
     .findOne({ where: { uuid: req.user.uuid } })
     .catch(() => null);
 
-    console.log(user);
-
     // find or create emoji in the db
     const [emojidb, created] = await db.emoji.findOrCreate({
       where: {
@@ -58,21 +63,24 @@ function update(req, res) {
         userId: user.id,
       },
     });
+
     res.redirect('/');
   });
 }
 
 // calls the database to get all the emojis the user uploaded
 async function getUserEmoji(req, res) {
-  console.log('im being called')
+
+  const user = await db.user
+      .findOne({ where: { uuid: req.cookies[COOKIE] } })
+      .catch(() => null);
+
   const userEmoji = await db.emoji
     .findAll({
       include: [db.user],
-      where: { uuid: req.user.uuid },
+      where: { userId: user.id },
     })
     .catch(() => null);
-
-    console.log(userEmoji)
 
   res.send(userEmoji);
 }
