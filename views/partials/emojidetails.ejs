@@ -71,7 +71,6 @@
     );
     const emojiData = await response.json();
 
-    console.log(emojiData);
     if (!response) {
       document.getElementById('emoji-details').textContent = 'xxx';
     } else {
@@ -120,14 +119,17 @@
       deleteBtn.appendChild(deleteBtnImg);
     }
 
-    async function callDeleteEmoji(guildID, emojiID, name) {
+    async function callDeleteEmoji(emojiID) {
+
       const response = await fetch('http://localhost:5000/create/delete', {
         method: 'delete',
-        body: JSON.stringify({ guildID, emojiID, name }),
+        body: JSON.stringify({ emojiID }),
         headers: {
           'Content-Type': 'application/json',
         },
       }).catch(console.log);
+
+      location.reload();
     }
 
     function gotoEdit() {

@@ -24,23 +24,24 @@ bot.on('ready', () => {
 
 // BOT RESPONSE FUNCTIONS
 // only visible through discord, not on the site
-bot.on("guildCreate", guild => {
+bot.on('guildCreate', (guild) => {
   let found = 0;
   guild.channels.cache.map((c) => {
-      if (found === 0) {
-        if (channel.type === "text") {
-          if (channel.permissionsFor(bot.user).has("VIEW_CHANNEL") === true) {
-            if (channel.permissionsFor(bot.user).has("SEND_MESSAGES") === true) {
-              channel.send(`🥰 Thanks for being my friend. Visit xxx to start adding some Emojis! ❤️❤️❤️`);
+    if (found === 0) {
+      if (channel.type === 'text') {
+        if (channel.permissionsFor(bot.user).has('VIEW_CHANNEL') === true) {
+          if (channel.permissionsFor(bot.user).has('SEND_MESSAGES') === true) {
+            channel.send(
+              `🥰 Thanks for being my friend. Visit xxx to start adding some Emojis! ❤️❤️❤️`
+            );
 
-              found = 1;
-            }
+            found = 1;
           }
         }
       }
-    });
-
-})
+    }
+  });
+});
 
 bot.on('message', (msg) => {
   if (msg.content === 'uwumoji') {
@@ -48,7 +49,12 @@ bot.on('message', (msg) => {
     //console.log(bot.guilds.cache)
 
     //781353966574370816
-    updateEmoji('781353966574370816', '783720783007449130', 'thinkon','testnewname')
+    updateEmoji(
+      '781353966574370816',
+      '783720783007449130',
+      'thinkon',
+      'testnewname'
+    );
   }
 });
 
@@ -56,10 +62,6 @@ bot.on('message', (msg) => {
 //   guild.owner.send('Thanks for adding me!')
 // });
 // //https://www.xspdf.com/help/50030215.html
-
-
-
-
 
 // BOT EMOJI DUTIES
 // All the duties of the bot
@@ -108,7 +110,6 @@ function addEmoji(guildID, url, name) {
   guild.emojis.create(url, name).catch(() => null);
 
   rendAndSendEmoji(url, name, channel);
-
 }
 
 //render the emoji and redraw on cavans
@@ -142,37 +143,32 @@ async function rendAndSendEmoji(url, name, channel) {
   channel.send(`Emoji '${name}' added`, attachment);
 }
 
-
-
-
 // Updates an emoji
-function updateEmoji(guildID, emojiID, oldName, newName) {
-  const guild = bot.guilds.cache.get(guildID);
+function updateEmoji(emojiID, newName) {
+  const emoji = bot.emojis.cache.get(emojiID);
 
-// get the first text channel in the guild
-const channel = guild.channels.cache
-.filter((ch) => ch.type === 'text')
-.find((c) => c.position === 0);
+  // get the first text channel in the guild
+  const channel = emoji.guild.channels.cache
+    .filter((ch) => ch.type === 'text')
+    .find((c) => c.position === 0);
+    channel.send(`Emoji '${emoji.name}' renamed to ${newName}`);
+  bot.emojis.cache.get(emojiID).edit({ name: newName });
 
-  bot.emojis.cache.get(emojiID).edit({name: newName});
-  channel.send(`Emoji '${oldName}' renamed to ${newName}`);
 }
-
 
 // Deletes an Emoji
-function deleteEmoji(guildID, emojiID, name) {
-  const guild = bot.guilds.cache.get(guildID);
+function deleteEmoji(emojiID) {
+  const emoji = bot.emojis.cache.get(emojiID);
 
-// get the first text channel in the guild
-const channel = guild.channels.cache
-.filter((ch) => ch.type === 'text')
-.find((c) => c.position === 0);
+  // get the first text channel in the guild
+  const channel = emoji.guild.channels.cache
+    .filter((ch) => ch.type === 'text')
+    .find((c) => c.position === 0);
 
-  bot.emojis.cache.get(emojiID).delete();
-  channel.send(`Emoji '${name}' deleted`);
+  channel.send(`Emoji '${emoji.name}' deleted`);
+
+  emoji.delete();
 }
-
-
 
 module.exports = {
   addEmoji,
@@ -183,11 +179,9 @@ module.exports = {
   getAllGuilds,
 };
 
-
 //TODO:
 //filtered search
 //smart 404 route
-
 
 //('/:username/videos/:videoid')
 

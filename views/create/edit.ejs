@@ -1,98 +1,76 @@
 <style>
-  .emoji-name {
-    margin: 10px;
-    text-transform: uppercase;
-    font-size: 20px;
-  }
-
-  .emoji-icon {
-    margin: 10px;
-    height: 50px;
-    width: 50px;
-  }
-
-  .edit-img {
-    height: 40px;
-    width: 40px;
-    background-color: transparent;
+  #emojiDetails {
+    height: 100%;
+    overflow: auto;
+    display: block flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
   }
 
   .edit-btn {
-    background-color: transparent;
-    border-radius: 50%;
-    border: none;
-    filter: opacity(70%);
-    background-color: transparent;
-    border: none;
-    box-sizing: border-box;
-    text-decoration: none;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-    transition: 0.5s;
-    border-radius: 50%;
     height: 50px;
     width: 50px;
-    margin: 10px;
-  }
-
-  .edit-btn:hover {
-    filter: opacity(100%);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  }
-
-  .edit-btn:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    border: none;
-    border-radius: 50%;
-  }
-
-  .edit-btn:focus {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 </style>
 
-<div id="emojiDetails" class="container-light emoji-details">
+<div id="emojiDetails" class="container-light wrapper scrollbar">
 
   <% if (!emojiData) {%>
   <div>Please pick an emoji</div>
 
   <%} else {%>
 
-  <div class="emoji-img-div">
-    <img class="emoji-icon" src="<%=emojiData.url%>" />
-    <div class="emoji-name"><%=emojiData.name%></div>
+<%= emojiData%>
+
+  <div>
+    <img src="<%=emojiData.url%>" />
   </div>
-  <button class="edit-btn" onclick="gotoEdit()">
-    <img class="edit-btn" src="../img/pencil-1.png" />
-  </button>
-  <button
-    class="edit-btn"
-    onclick="callDeleteEmoji(
-emojiData.guildID,
-emojiData.id,
-emojiData.name
-)"
-  >
-    <img class="edit-btn" src="../img/delete-1.png" />
-  </button>
-
-  <input type="text" id="name" name="name" placeholder="<%=emojiData.name%>" />
-  <button type="button" name="name" id="put"> Edit Name</button>
-
-  <input type="text" id="tags" name="tags" placeholder="add tags separated by commas" />
-  <button type="button" name="tags" id="tags"> Add tags</button>
-
-
+  <div>
+    <div class="title"><%=emojiData.name%></div>
+  </div>
+  <div>
+    <button class="edit-btn" onclick="callEditEmoji()">
+      <img class="edit-btn" src="../img/pencil-1.png" />
+    </button>
+  </div>
+  <div>
+    <button
+      onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
+      class="edit-btn"
+      id="deleteEmoji"
+    >
+      <img class="edit-btn" src="../img/delete-1.png" />
+    </button>
+  </div>
+  <div>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="<%=emojiData.name%>"
+    />
+    <button type="button" name="name" id="put">Edit Name</button>
+  </div>
+  <div>
+    <input
+      type="text"
+      id="tags"
+      name="tags"
+      placeholder="add tags separated by commas"
+    />
+    <button type="button" name="tags" id="tags">Add tags</button>
+  </div>
 
   <%}%>
 </div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    async function callDeleteEmoji(guildID, emojiID, name) {
+    async function callDeleteEmoji(emojiID) {
+
       const response = await fetch('http://localhost:5000/create/delete', {
         method: 'delete',
-        body: JSON.stringify({ guildID, emojiID, name }),
+        body: JSON.stringify({ emojiID }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -103,10 +81,4 @@ emojiData.name
       window.location = '/create/edit';
     }
 
-
-
-
-
-    
-  });
 </script>

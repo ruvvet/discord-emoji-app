@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   user.init(
     {
+      uuid: {
+        type: DataTypes.STRING,
+      },
+      discord_id: {
+        type: DataTypes.STRING,
+      },
       username: {
         type: DataTypes.STRING,
       },

@@ -1,7 +1,12 @@
 <style>
   .emoji-cat-nav {
-    background-color: #dedede30;
-    border-radius: 10px;
+    background-color: #dedede90;
+
+    border-bottom-right-radius: 10px;
+  }
+
+  .emoji-cat-nav:hover {
+    background-color: #dedede;
   }
 
   .emoji-cat-nav ul {
@@ -11,7 +16,7 @@
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 0 10%;
     text-transform: uppercase;
   }
 
@@ -24,6 +29,12 @@
     color: black;
     border-radius: 10px;
     padding: 5px;
+    opacity: 0.5;
+  }
+
+  .emoji-cat-nav a:hover {
+    border: 3px solid #dedede;
+    opacity: 1;
   }
 </style>
 
@@ -33,7 +44,6 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-
     const response = await fetch(
       'http://localhost:5000/browse/emojiggcategory'
     ).catch(() => null);
@@ -41,12 +51,17 @@
 
     for (const cat in categories) {
       let catLI = document.createElement('li');
-      catLI.setAttribute('class', 'guild-li');
+      catLI.setAttribute('class', 'cat-li');
       catUL.appendChild(catLI);
 
       let catDiv = document.createElement('a');
+      catLI.setAttribute('class', 'cat-a');
       catDiv.innerText = `${cat}: ${categories[cat]}`;
-      catDiv.setAttribute('href', `http://localhost:5000/browse/emojigg/${cat}`);
+      catDiv.setAttribute(
+        'href',
+        `http://localhost:5000/browse/emojigg/${cat}`
+      );
+      //catDiv.style.borderStyle = "solid";
       catDiv.style.backgroundColor = random_bg_color();
       catLI.appendChild(catDiv);
     }

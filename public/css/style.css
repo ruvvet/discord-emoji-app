@@ -64,6 +64,7 @@ h1 {
   background-color: #36393f;
   overflow: auto;
   border-top-right-radius: 10px;
+  overflow: auto;
 }
 
 .navbar {
@@ -71,15 +72,19 @@ h1 {
   background-color: #202225;
 }
 
+button > * {
+  vertical-align: middle;
+}
+
 
 /*  for any emoji gallery */
 .emoji-gallery {
-  display: flex;
+  display: block flex;
   flex-wrap: wrap;
   justify-content: center;
   overflow: auto;
+  text-align: center;
 }
-
 
 /*  uniform emoji sizes */
 .emoji {
@@ -118,41 +123,16 @@ h1 {
 
 
 
-
-
-
-
-
-
-
-
-/* main page stuff */
-.title {
-  font-size: 30px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+/*  different wrappers/containers */
+.container-light {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #dedede;
+  color: black;
 }
 
-.credits {
-  text-transform: uppercase;
-  text-align: right;
-  padding: 0 10% 0 0;
-}
-
-.credits-icon {
-  height: 30px;
-  width: 30px;
-}
-
-.credits-ul {
-  list-style-type: none;
-  display: block;
-}
-.credits-li {
-  margin: 10px 0 10px 0;
-}
-
-/* index */
 .container-gradient {
   color: black;
   background-color: #dedede50;
@@ -171,6 +151,12 @@ h1 {
 }
 
 
+/*  text styling */
+.title {
+  font-size: 30px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
 
 
 /* scrollbar */
@@ -236,13 +222,26 @@ h1 {
 }
 
 /*  lets try to be better at this */
-.container-light {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: #dedede;
-  color: black;
 
+
+
+
+
+.credits {
+  text-transform: uppercase;
+  text-align: right;
+  padding: 0 10% 0 0;
 }
 
+.credits-icon {
+  height: 30px;
+  width: 30px;
+}
+
+.credits-ul {
+  list-style-type: none;
+  display: block;
+}
+.credits-li {
+  margin: 10px 0 10px 0;
+}

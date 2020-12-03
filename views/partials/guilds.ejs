@@ -13,29 +13,35 @@
     /* display: block flex;
     justify-content: center;
     align-items: center; */
-    display: inline-block;
+    /* display: inline-block; */
   }
 
-  .guild-li,
-  .guild-btn,
-  .guild-name {
+
+
+
+
+
+  .guild-li {
     margin: 20px 0 20px 0;
   }
 
+  .guild-btn > * {
+    vertical-align: middle;
+}
+
   .guild-btn {
-    display: block flex;
-    justify-content: center;
-    align-items: center;
+
     filter: opacity(70%);
     background-color: transparent;
     border: none;
-    box-sizing: border-box;
-    text-decoration: none;
+    /* box-sizing: border-box;
+    text-decoration: none; */
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     transition: 0.5s;
     border-radius: 50%;
-    height: 150px;
-    width: 150px;
+    height: 160px;
+    width: 160px;
+    
   }
 
   .guild-btn:hover {
@@ -54,14 +60,21 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 
+  .guild-div{
+
+    background-color: #0000ff30;
+    border-radius: 50%;
+
+  }
+
   .guild-icon {
     height: 100%;
-    width: 100%;
+    width: 105%;
     border-radius: 50%;
-    /* border: 3px solid white; */
-    /* box-shadow: 4px 4px 10px 4px #000000; */
 
+    box-shadow: 4px 4px 10px 4px #000000;
     background-color: white;
+
   }
 
   .guild-name {
@@ -101,9 +114,7 @@
       guildLI.setAttribute('class', 'guild-li');
       guildList.appendChild(guildLI);
 
-      let guildDiv = document.createElement('div');
-      guildDiv.setAttribute('class', 'guild-div');
-      guildLI.appendChild(guildDiv);
+
 
       let guildBtn = document.createElement('button');
       guildBtn.setAttribute('class', 'guild-btn');
@@ -113,7 +124,11 @@
         document.querySelector('.guild-btn').setAttribute('class', 'guild-btn');
         guildBtn.setAttribute('class', 'guild-btn guild-selected');
       });
-      guildDiv.appendChild(guildBtn);
+      guildLI.appendChild(guildBtn);
+
+      let guildDiv = document.createElement('div');
+      guildDiv.setAttribute('class', 'guild-div');
+      guildBtn.appendChild(guildDiv);
 
       let guildIcon = document.createElement('img');
       guildIcon.setAttribute('class', 'guild-icon');

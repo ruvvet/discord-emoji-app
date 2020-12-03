@@ -3,6 +3,7 @@
 // in order to access these
 
 // DEPENDENCIES
+const qs = require('qs');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const bot = require('../bot');
@@ -21,8 +22,8 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
+router.get('/refresh', checkToken);
 router.get('/', getMain);
-
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.put('/selectguild', selectGuild);
@@ -31,14 +32,29 @@ router.put('/emojidetails', selectEmoji);
 router.get('/adduwumoji', addUwuMojiBot);
 router.get('/logout', logout);
 
+//testing cookies
+router.get('/clearcookie', clearCookies);
+
 // FUNCTIONS
 // Middleware - Validation
 // Checks if user has a cookie.
 // if no cookie, redirect to login
-function validate(req, res, next) {
+async function validate(req, res, next) {
+  // step 1, check if they have a cookie
   if (req.cookies[COOKIE]) {
-    req.discord_token = req.cookies[COOKIE];
-    next();
+    // step 2, find the user
+
+    const user = await db.user
+      .findOne({ where: { uuid: req.cookies[COOKIE] } })
+      .catch(() => null);
+
+    if (user) {
+      // set req.user as the user details obj
+      req.user = user;
+      next();
+    } else {
+      res.redirect('/login');
+    }
   } else {
     res.redirect('/login');
   }
@@ -50,15 +66,48 @@ function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
 }
 
+async function checkToken(req, res) {
+  console.log('Before', req.user);
+
+  const data = {
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
+    grant_type: 'refresh_token',
+    refresh_token: req.user.refresh_token,
+  };
+
+  const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+  const newToken = await axios({
+    method: 'post',
+    url: 'https://discord.com/api/oauth2/token',
+    data: qs.stringify(data),
+    headers,
+  }).catch((error) => console.log(error.response.request._response));
+
+  await db.user
+    .update(
+      {
+        access_token: newToken.data.access_token,
+        expires_in: newToken.data.expires_in,
+        refresh_token: newToken.data.refresh_token,
+      },
+      { where: { uuid: req.user.uuid } }
+    )
+    .catch(() => null);
+
+  console.log('after', newToken);
+
+  res.redirect('/');
+}
+
 // gets emojis by guild
 // and renders the main page
 async function getMain(req, res) {
   // get emojis currently in the guild
 
-  //////// OR USE THE BOT TO GET ALL EMOJIS LATER - ANYWAYS
-
   const allGuilds = await oauth
-    .getUserGuilds(req.discord_token)
+    .getUserGuilds(req.user.access_token)
     .catch(() => null);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
@@ -77,7 +126,7 @@ async function getMain(req, res) {
 
 // Gets the user's profile details
 async function getUserDetails(req, res) {
-  const user = await oauth.getUser(req.discord_token);
+  const user = await oauth.getUser(req.user.access_token);
   // user pfp = avatars/user_id/user_avatar.png **
   res.send({ user });
 }
@@ -85,7 +134,7 @@ async function getUserDetails(req, res) {
 // Gets all the guilds the user is an owner of
 async function getUserGuilds(req, res) {
   const allGuilds = await oauth
-    .getUserGuilds(req.discord_token)
+    .getUserGuilds(req.user.access_token)
     .catch(console.log);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
@@ -102,7 +151,7 @@ async function selectGuild(req, res) {
     const updateUserSelectedGuild = await db.user
       .update(
         { selected_guild: req.body.guildID },
-        { where: { access_token: req.cookies[COOKIE] } }
+        { where: { uuid: req.user.uuid } }
       )
       .catch(() => null);
     bot.getAllGuilds();
@@ -112,27 +161,21 @@ async function selectGuild(req, res) {
 
 async function selectEmoji(req, res) {
   const updateUserSelectedEmoji = await db.user
-    .update(
-      { selected_emoji: req.body.id },
-      { where: { access_token: req.cookies[COOKIE] } }
-    )
+    .update({ selected_emoji: req.body.id }, { where: { uuid: req.user.uuid } })
     .catch(() => null);
 
   res.send(updateUserSelectedEmoji);
 }
 
 async function getEmojiDetails(req, res) {
-  const user = await db.user
-    .findOne({
-      where: { access_token: req.cookies[COOKIE] },
-    })
-    .catch(() => null);
-
-  if (!user.selected_emoji) {
+  if (!req.user.selected_emoji) {
     res.send('');
   } else {
-    const emojiData = bot.getEmoji(user.selected_emoji);
-    res.send(emojiData);
+    const emojiData = bot.getEmoji(req.user.selected_emoji);
+    console.log('GUILD EMOJI', emojiData.guild.id); // this is a string
+    res.send(emojiData); // im sending the object into a json object
+    // conversion from class converts it into foreign keys
+    //
   }
 }
 
@@ -147,4 +190,20 @@ function logout(req, res) {
   res.redirect('/');
 }
 
+function clearCookies(req, res) {
+  console.log(req.cookies);
+
+  res.clearCookie('owothecookie');
+  res.send('cleared');
+}
+
 module.exports = router;
+
+
+//TODO:
+// user middleware to check expiry
+// then refresh before routeing
+//  calculate the date in validate
+
+//TODO:
+//main/:emojiid/details
