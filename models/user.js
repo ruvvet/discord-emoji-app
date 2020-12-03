@@ -31,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       access_token: {
         type: DataTypes.STRING,
       },
-      expires_in: {
-        type: DataTypes.INTEGER,
+      expiry: {
+        type: DataTypes.BIGINT,
         validate: { isInt: true },
       },
       refresh_token: {

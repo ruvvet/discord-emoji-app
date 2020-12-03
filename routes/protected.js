@@ -22,7 +22,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES
-router.get('/refresh', checkToken);
+//router.get('/refresh', checkToken);
 router.get('/', getMain);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
@@ -51,6 +51,17 @@ async function validate(req, res, next) {
     if (user) {
       // set req.user as the user details obj
       req.user = user;
+
+      // check expiration date
+      // if the expiration date is 1 day away from current date
+      // refresh the token
+      const expirationDate = new Date(parseInt(req.user.expiry));
+      const daysUntilExpire =
+        (req.user.expiry - new Date().getTime()) / 1000 / 60 / 60 / 24;
+
+      if (daysUntilExpire < 1) {
+        refreshToken(req.user);
+      }
       next();
     } else {
       res.redirect('/login');
@@ -60,20 +71,15 @@ async function validate(req, res, next) {
   }
 }
 
-// just looking at the cookie that they were given by us
-// the value of "uwucookie"
-function giveCookie(req, res) {
-  res.send(req.cookies[COOKIE]);
-}
-
-async function checkToken(req, res) {
-  console.log('Before', req.user);
-
+// function that refreshes the token
+async function refreshToken(user) {
+  // make an api post call to discord with the client credentials
+  // this returns a new access token + refresh token
   const data = {
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     grant_type: 'refresh_token',
-    refresh_token: req.user.refresh_token,
+    refresh_token: user.refresh_token,
   };
 
   const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -85,20 +91,22 @@ async function checkToken(req, res) {
     headers,
   }).catch((error) => console.log(error.response.request._response));
 
+  console.log(newToken.data.expires_in);
+
+  // calculate the expiration
+  let now = new Date().getTime();
+  let expiryDate = now + 1000 * newToken.data.expires_in;
+
   await db.user
     .update(
       {
         access_token: newToken.data.access_token,
-        expires_in: newToken.data.expires_in,
+        expiry: expiryDate,
         refresh_token: newToken.data.refresh_token,
       },
-      { where: { uuid: req.user.uuid } }
+      { where: { uuid: user.uuid } }
     )
     .catch(() => null);
-
-  console.log('after', newToken);
-
-  res.redirect('/');
 }
 
 // gets emojis by guild
@@ -172,10 +180,7 @@ async function getEmojiDetails(req, res) {
     res.send('');
   } else {
     const emojiData = bot.getEmoji(req.user.selected_emoji);
-    console.log('GUILD EMOJI', emojiData.guild.id); // this is a string
-    res.send(emojiData); // im sending the object into a json object
-    // conversion from class converts it into foreign keys
-    //
+    res.send(emojiData);
   }
 }
 
@@ -192,18 +197,16 @@ function logout(req, res) {
 
 function clearCookies(req, res) {
   console.log(req.cookies);
-
-  res.clearCookie('owothecookie');
   res.send('cleared');
 }
 
+// just looking at the cookie that they were given by us
+// the value of "uwucookie"
+function giveCookie(req, res) {
+  res.send(req.cookies[COOKIE]);
+}
 module.exports = router;
 
-
-//TODO:
-// user middleware to check expiry
-// then refresh before routeing
-//  calculate the date in validate
 
 //TODO:
 //main/:emojiid/details

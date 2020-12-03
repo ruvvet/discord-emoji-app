@@ -20,8 +20,8 @@ module.exports = {
       access_token: {
         type: Sequelize.STRING
       },
-      expires_in: {
-        type: Sequelize.INTEGER
+      expiry: {
+        type: Sequelize.BIGINT
       },
       refresh_token: {
         type: Sequelize.STRING

@@ -25,10 +25,12 @@ async function oauthCallback(req, res) {
     })
     .catch(console.log);
 
-    console.log('received a user token from discord', userAuth.access_token)
-
   //look up the discord id
   const userInfo = await oauth.getUser(userAuth.access_token);
+
+  // calculate the expiration
+  let now = new Date().getTime();
+  let expiryDate = now + 1000 * userAuth.expires_in;
 
   // find or create user in the db
   const [user, created] = await db.user.findOrCreate({
@@ -40,24 +42,23 @@ async function oauthCallback(req, res) {
       username: userInfo.username,
       uuid: uuidv4(),
       access_token: userAuth.access_token,
-      expires_in: userAuth.expires_in,
+      expiry: expiryDate,
       refresh_token: userAuth.refresh_token,
       date_visited: Date.now(),
     },
   });
 
-  if (!created){
+  if (!created) {
     await db.user
-    .update(
-      {
-        access_token: userAuth.access_token,
-        expires_in: userAuth.expires_in,
-        refresh_token: userAuth.refresh_token,
-
-      },
-      { where: { uuid: user.uuid } }
-    )
-    .catch(() => null);
+      .update(
+        {
+          access_token: userAuth.access_token,
+          expiry: userAuth.expires_in,
+          refresh_token: userAuth.refresh_token,
+        },
+        { where: { uuid: user.uuid } }
+      )
+      .catch(() => null);
   }
 
   const maxAge = 30 * 24 * 60 * 60 * 1000; // this is 30 days
