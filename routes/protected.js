@@ -91,8 +91,6 @@ async function refreshToken(user) {
     headers,
   }).catch((error) => console.log(error.response.request._response));
 
-  console.log(newToken.data.expires_in);
-
   // calculate the expiration
   let now = new Date().getTime();
   let expiryDate = now + 1000 * newToken.data.expires_in;

@@ -88,11 +88,14 @@ async function editEmojiPage(req, res) {
 }
 
 function editEmoji(req, res) {
-  //bot updates the emoji here
+bot.updateEmoji(req.body.id, req.body.name);
+res.redirect('/')
 }
 
 // calls the bot to delete an emoji
 async function deleteEmoji(req, res) {
+
+
   //bot deletes emoji
   bot.deleteEmoji(req.body.emojiID);
 

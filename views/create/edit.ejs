@@ -15,26 +15,23 @@
 </style>
 
 <div id="emojiDetails" class="container-light wrapper scrollbar">
-
   <% if (!emojiData) {%>
   <div>Please pick an emoji</div>
 
   <%} else {%>
 
-<%= emojiData%>
 
-  <div>
     <img src="<%=emojiData.url%>" />
-  </div>
-  <div>
-    <div class="title"><%=emojiData.name%></div>
-  </div>
+
+
+    <div class="title">Name: <%=emojiData.name%></div>
+
   <div>
     <button class="edit-btn" onclick="callEditEmoji()">
       <img class="edit-btn" src="../img/pencil-1.png" />
     </button>
-  </div>
-  <div>
+
+
     <button
       onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
       class="edit-btn"
@@ -48,9 +45,15 @@
       type="text"
       id="name"
       name="name"
-      placeholder="<%=emojiData.name%>"
+      placeholder="New name for: '<%=emojiData.name%>'"
     />
-    <button type="button" name="name" id="put">Edit Name</button>
+    <input
+      type="hidden"
+      id="id"
+      name="id"
+      value = "<%=emojiData.id%>"
+    />
+    <button type="button" name="name" id="submitname">Edit Name</button>
   </div>
   <div>
     <input
@@ -59,26 +62,47 @@
       name="tags"
       placeholder="add tags separated by commas"
     />
-    <button type="button" name="tags" id="tags">Add tags</button>
+    <button type="button" name="tags" id="submittags">Add tags</button>
   </div>
 
   <%}%>
 </div>
 
 <script>
-    async function callDeleteEmoji(emojiID) {
 
-      const response = await fetch('http://localhost:5000/create/delete', {
-        method: 'delete',
-        body: JSON.stringify({ emojiID }),
+
+  async function callDeleteEmoji(emojiID) {
+    const response = await fetch('http://localhost:5000/create/delete', {
+      method: 'delete',
+      body: JSON.stringify({ emojiID }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch(console.log);
+  }
+
+  function gotoEdit() {
+    window.location = '/create/edit';
+  }
+
+  document
+    .getElementById('submitname')
+    .addEventListener('click', async function () {
+
+      let id = document.getElementById('id').value;
+      let name = document.getElementById('name').value;
+
+
+      console.log(name, id)
+
+      const response = await fetch('http://localhost:5000/create/edit', {
+        method: 'put',
+        body: JSON.stringify({ id, name }),
         headers: {
           'Content-Type': 'application/json',
         },
       }).catch(console.log);
-    }
 
-    function gotoEdit() {
-      window.location = '/create/edit';
-    }
-
+      //location.reload();
+    });
 </script>

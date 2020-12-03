@@ -49,12 +49,7 @@ bot.on('message', (msg) => {
     //console.log(bot.guilds.cache)
 
     //781353966574370816
-    updateEmoji(
-      '781353966574370816',
-      '783720783007449130',
-      'thinkon',
-      'testnewname'
-    );
+
   }
 });
 
@@ -145,22 +140,22 @@ async function rendAndSendEmoji(url, name, channel) {
 
 // Updates an emoji
 function updateEmoji(emojiID, newName) {
-  const emoji = bot.emojis.cache.get(emojiID);
-
+  // get emoji from by by ID
+  const emoji = bot.emojis.cache.get(String(emojiID));
   // get the first text channel in the guild
   const channel = emoji.guild.channels.cache
     .filter((ch) => ch.type === 'text')
     .find((c) => c.position === 0);
-    channel.send(`Emoji '${emoji.name}' renamed to ${newName}`);
+  channel.send(`Emoji '${emoji.name}' renamed to '${newName}'`);
   bot.emojis.cache.get(emojiID).edit({ name: newName });
-
 }
 
 // Deletes an Emoji
 function deleteEmoji(emojiID) {
+  // get emoji from by by ID
   const emoji = bot.emojis.cache.get(emojiID);
 
-  // get the first text channel in the guild
+  // get the first text channel in the guild the emoji is in
   const channel = emoji.guild.channels.cache
     .filter((ch) => ch.type === 'text')
     .find((c) => c.position === 0);

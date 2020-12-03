@@ -106,9 +106,7 @@
       deleteBtn.setAttribute('class', 'edit-btn');
       deleteBtn.addEventListener('click', function () {
         callDeleteEmoji(
-          emojiData.guildID,
-          emojiData.id,
-          emojiData.name
+          emojiData.id
         );
       });
       emojiDetails.appendChild(deleteBtn);
@@ -121,7 +119,7 @@
 
     async function callDeleteEmoji(emojiID) {
 
-      const response = await fetch('http://localhost:5000/create/delete', {
+        const response = await fetch('http://localhost:5000/create/delete', {
         method: 'delete',
         body: JSON.stringify({ emojiID }),
         headers: {
