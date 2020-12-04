@@ -1,75 +1,223 @@
 <style>
-  #emojiDetails {
+  .wrapper {
+    display: flex;
+    justify-content: center;
     height: 100%;
-    overflow: auto;
+  }
+  .edit-emoji-div {
+    width: 100%;
     display: block flex;
+    height: 50%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .emoji-details {
+    display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
   }
-
   .edit-btn {
     height: 50px;
     width: 50px;
   }
+
+  div#tags_tagsinput.tagsinput,
+  input#name {
+    border: 3px solid #7289da;
+  }
+
+  button {
+    background-color: #7289da;
+  }
+
+  .slide {
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    background: red;
+    overflow: hidden;
+    z-index: 10000;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .hidden {
+    display: none;
+  }
+
+  .text {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 50px 0;
+  }
 </style>
 
-<div id="emojiDetails" class="container-light wrapper scrollbar">
+<div class="container-light wrapper scrollbar">
   <% if (!emojiData) {%>
   <div>Please pick an emoji</div>
 
   <%} else {%>
 
-
+  <div class="emoji-details">
     <img src="<%=emojiData.url%>" />
-
-
     <div class="title">Name: <%=emojiData.name%></div>
-
-  <div>
-    <button class="edit-btn" onclick="callEditEmoji()">
-      <img class="edit-btn" src="../img/pencil-1.png" />
-    </button>
-
-
-    <button
-      onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
-      class="edit-btn"
-      id="deleteEmoji"
-    >
-      <img class="edit-btn" src="../img/delete-1.png" />
-    </button>
-  </div>
-  <div>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      placeholder="New name for: '<%=emojiData.name%>'"
-    />
-    <input
-      type="hidden"
-      id="id"
-      name="id"
-      value = "<%=emojiData.id%>"
-    />
-    <button type="button" name="name" id="submitname">Edit Name</button>
   </div>
 
+  <div class="edit-emoji-div">
+    <div id="delete-vis" class="text">DELETE</div>
+    <div id="delete-slide" class="slide hidden">
+      <button class="edit-btn" onclick="callEditEmoji()">
+        <img class="edit-btn" src="../img/pencil-1.png" />
+      </button>
 
-  <%}%>
+      <button
+        onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
+        class="edit-btn"
+        id="deleteEmoji"
+      >
+        <img class="edit-btn" src="../img/delete-1.png" />
+      </button>
+    </div>
+
+    <div id="name-vis" class="text">EDIT NAME</div>
+    <div id="name-slide" class="name-input slide hidden">
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="New name for: '<%=emojiData.name%>'"
+      />
+      <input type="hidden" id="id" name="id" value="<%=emojiData.id%>" />
+      <button type="button" name="name" id="submitname">Submit</button>
+    </div>
+
+    <div id="tags-vis" class="text">ADD TAGS</div>
+    <div id="tags-slide" class="tags-input slide hidden">
+      <form id="tag-form">
+        <input
+          class="tags-go-here"
+          id="tags"
+          type="text"
+          class="tags"
+          value="php,ios,javascript,ruby,android,kindle, anime, fun, cute"
+          style="display: none"
+        />
+        <button type="button" value="Submit" id="submit">Submit</button>
+      </form>
+
+      <ul
+        class="tag-list"
+        class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"
+        role="listbox"
+        aria-activedescendant="ui-active-menuitem"
+        style="z-index: 1; top: 0px; left: 0px; display: none"
+      ></ul>
+    </div>
+
+    <%}%>
+  </div>
 </div>
 
-
-
-
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
+  //jquery
+  $(function () {
+    $('#tags').tagsInput({
+      width: 'auto',
+      onChange: function (elem, elem_tags) {
+        var languages = ['fun', 'cute', 'anime'];
+        $('.tag', elem_tags).each(function () {
+          if (
+            $(this)
+              .text()
+              .search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0
+          )
+            $(this).css('background-color', 'white');
+        });
+      },
+    });
+  });
 
+  $(document).ready(function () {
+    $('#submit').click(function () {
+      console.log('hi');
+      console.log($('#tags').val());
 
+      $('#submit').click(function () {
+        console.log('we clicked this', $('#tags').val());
+
+        $.ajax({
+          type: 'PUT',
+          url: 'routehere',
+          data: $('#tags').val(),
+          /// read up on this
+          //https://api.jquery.com/jquery.post/
+        });
+      });
+    });
+  });
+
+  //// TODO: I AM BAD AT THIS
+  // USE A CLASS SELECTOR + LOOP??
+
+  $('#delete-vis').hover(function () {
+    $('#delete-slide').slideDown();
+  });
+
+  $('#name-vis').hover(function () {
+    $('#name-slide').slideDown();
+  });
+
+  $('#tags-vis').hover(function () {
+    $('#tags-slide').slideDown();
+  });
+
+  $(document).mouseup(function (e) {
+    var container = $('#delete-slide');
+
+    // If the target of the click isn't the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
+  });
+
+  $(document).mouseup(function (e) {
+    var container = $('#name-slide');
+
+    // If the target of the click isn't the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
+  });
+
+  $(document).mouseup(function (e) {
+    var container = $('#tags-slide');
+
+    // If the target of the click isn't the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
+  });
+
+  ///////
+
+  //functions
   async function callDeleteEmoji(emojiID) {
     const response = await fetch('/create/delete', {
       method: 'delete',
@@ -87,12 +235,10 @@
   document
     .getElementById('submitname')
     .addEventListener('click', async function () {
-
       let id = document.getElementById('id').value;
       let name = document.getElementById('name').value;
 
-
-      console.log(name, id)
+      console.log(name, id);
 
       const response = await fetch('/create/edit', {
         method: 'put',

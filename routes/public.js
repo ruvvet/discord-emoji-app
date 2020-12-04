@@ -83,30 +83,10 @@ function login(req, res) {
 
 function authorize(req, res) {
   res.redirect(
-    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=1074260032&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
+    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=1073744960&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
 
 
   );
 }
 
 module.exports = router;
-
-//TODO:
-// user logs in + authorizes
-// then i get the users discord id
-// update the db
-// create the uuid - this becomes the primary key
-// uuid = cookie value
-
-// when they logout + cookie is cleared
-//login,
-// what is your discord id
-//look up in db
-// send a new cookie with uuid as cookie
-
-// user logs in
-// i get their access token
-// hash their access token
-// this is the cookie value
-
-// compare(cookie, hash(access_token))

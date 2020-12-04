@@ -1,38 +1,116 @@
+<style>
+  .emoji-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #dedede;
+    color: black;
+    margin: 0 200px 0 200px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+
+  .emoji-name {
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+
+  .emoji-icon {
+    margin: 10px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .edit-img {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+  }
+
+  .edit-btn {
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    filter: opacity(70%);
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+  }
+
+  .edit-btn:hover {
+    filter: opacity(100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .edit-btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+    border-radius: 50%;
+  }
+
+  .edit-btn:focus {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+</style>
 
 <div class="main-wrapper">
-    <% for (const guild in emojisByGuild){ %>
-    <div class="container-gradient main-guild-emoji">
-      <div class="title"><%=guild%></div>
-      <% if (!emojisByGuild[guild]){ %>
-      <div>Add UwuMoji Bot to this server here! -- add link</div>
-      <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
-        <button
-        onclick="selectEmoji(`<%=emoji.id%>`,`<%=emoji.name%>`, `<%=emoji.url%>`)"
-        class="btn"
-      >
-      <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
-  </button>
-      <%})%> <%}%>
-    </div>
-    <%}%>
+  <% for (const guild in emojisByGuild){ %>
+  <div class="container-gradient main-guild-emoji">
+    <div class="title"><%=guild%></div>
+    <% if (!emojisByGuild[guild]){ %>
+    <div>Add UwuMoji Bot to this server here! -- add link</div>
+    <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
+
+    <a href="/emoji/<%=emoji.id%>">
+      <img class="btn emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+    </a>
+    <%})%> <%}%>
   </div>
-  <div class="my-emojis"><%- include('./partials/useremojis') %></div>
-  <div class="emoji-details"><%= emojiID %></div>
-
-  <script>
-
-  async function selectEmoji(id, url, name) {
-      const response = await fetch('/emojidetails', {
-        method: 'put',
-        body: JSON.stringify({ id, url, name }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).catch(console.log);
-
-      location.reload();
-    }
+  <%}%>
+</div>
+<div class="my-emojis"><%- include('./partials/useremojis') %></div>
 
 
+<div class="emoji-details container-light">
+  <img
+    class="emoji-icon"
+    src="https://cdn.discordapp.com/emojis/<%= emojiID %>.png"
+  />
+  <div class="emoji-name"><%=emojiData.name %></div>
+  <button onclick="gotoEdit()" class="edit-btn">
+    <img class="edit-img" src="/img/pencil-1.png" />
+  </button>
+  <button onclick="callDeleteEmoji(`<%=emojiID%>`)" class="edit-btn">
+    <img class="edit-img" src="/img/delete-1.png" />
+  </button>
+</div>
 
-  </script>
+<script>
+  async function callDeleteEmoji(emojiID) {
+
+    console.log('calling delete')
+    const response = await fetch('/create/delete', {
+      method: 'delete',
+      body: JSON.stringify({ emojiID }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch(console.log);
+    window.location.replace("/");
+
+  }
+
+  function gotoEdit() {
+    window.location = '/create/edit';
+  }
+</script>

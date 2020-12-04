@@ -6,18 +6,15 @@
     <% if (!emojisByGuild[guild]){ %>
     <div>Add UwuMoji Bot to this server here! -- add link</div>
     <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
-      <button
-      onclick="selectEmoji(`<%=emoji.id%>`,`<%=emoji.name%>`, `<%=emoji.url%>`)"
-      class="btn"
-    >
-    <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
-</button>
+      <a href="/emoji/<%=emoji.id%>">
+        <img class="btn emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+      </a>
     <%})%> <%}%>
   </div>
   <%}%>
 </div>
 <div class="my-emojis"><%- include('./partials/useremojis') %></div>
-<div class="emoji-details"><%- include('./partials/emojidetails') %></div>
+
 
 <script>
 

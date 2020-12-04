@@ -203,7 +203,14 @@ async function selectEmojiByID (req, res){
     emojisByGuild[guild.name] = guildEmojis;
   });
 
-  res.render('index-emoji', { emojisByGuild, emojiID: req.params.emojiid });
+
+  const emojiData = bot.getEmoji(req.params.emojiid)
+
+
+  res.render('index-emoji', { emojisByGuild, emojiID: req.params.emojiid, emojiData});
+
+
+
 
 }
 

@@ -16,6 +16,16 @@ h1 {
   font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
 }
+
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+
+
 /* font-family: 'Nerko One', cursive; */
 /* font-family: 'Source Sans Pro', sans-serif; */
 
@@ -58,6 +68,7 @@ h1 {
 .guilds {
   grid-area: guilds;
   background-color: #2f3136;
+  overflow: auto;
 }
 .main {
   grid-area: main;
@@ -75,7 +86,6 @@ h1 {
 button > * {
   vertical-align: middle;
 }
-
 
 /*  for any emoji gallery */
 .emoji-gallery {
@@ -121,8 +131,6 @@ button > * {
   background-color: #7289da;
 }
 
-
-
 /*  different wrappers/containers */
 .container-light {
   display: flex;
@@ -150,14 +158,12 @@ button > * {
   );
 }
 
-
 /*  text styling */
 .title {
   font-size: 30px;
   letter-spacing: 4px;
   text-transform: uppercase;
 }
-
 
 /* scrollbar */
 .scrollbar::-webkit-scrollbar-track {
@@ -169,6 +175,7 @@ button > * {
 .scrollbar::-webkit-scrollbar {
   width: 20px;
   background-color: #36393f;
+  border-top-right-radius: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
@@ -182,8 +189,6 @@ button > * {
     color-stop(0.66, #7289da90)
   );
 }
-
-
 
 /* User Uploads */
 .user-emoji-lib {
@@ -222,10 +227,6 @@ button > * {
 }
 
 /*  lets try to be better at this */
-
-
-
-
 
 .credits {
   text-transform: uppercase;
