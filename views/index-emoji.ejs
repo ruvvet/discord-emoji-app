@@ -87,7 +87,7 @@
     src="https://cdn.discordapp.com/emojis/<%= emojiID %>.png"
   />
   <div class="emoji-name"><%=emojiData.name %></div>
-  <button onclick="gotoEdit()" class="edit-btn">
+  <button onclick="gotoEdit(`<%=emojiID%>`)" class="edit-btn">
     <img class="edit-img" src="/img/pencil-1.png" />
   </button>
   <button onclick="callDeleteEmoji(`<%=emojiID%>`)" class="edit-btn">
@@ -110,7 +110,7 @@
 
   }
 
-  function gotoEdit() {
-    window.location = '/create/edit';
+  function gotoEdit(emojiID) {
+    window.location = `/emoji/${emojiID}/edit`;
   }
 </script>

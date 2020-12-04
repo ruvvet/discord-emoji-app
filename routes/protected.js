@@ -24,6 +24,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 //router.get('/refresh', checkToken);
 router.get('/', getMain);
 router.get('/emoji/:emojiid', selectEmojiByID);
+router.get('/emoji/:emojiid/edit', editEmojiByID);
 router.get('/profile', getUserDetails);
 router.get('/guilds', getUserGuilds);
 router.put('/selectguild', selectGuild);
@@ -34,6 +35,7 @@ router.get('/logout', logout);
 
 //testing cookies
 router.get('/clearcookie', clearCookies);
+router.get('/test', testPage);
 
 // FUNCTIONS
 // Middleware - Validation
@@ -182,10 +184,7 @@ async function getEmojiDetails(req, res) {
   }
 }
 
-
-
-async function selectEmojiByID (req, res){
-
+async function selectEmojiByID(req, res) {
   // get emojis currently in the guild
 
   const allGuilds = await oauth
@@ -203,15 +202,22 @@ async function selectEmojiByID (req, res){
     emojisByGuild[guild.name] = guildEmojis;
   });
 
+  const emojiData = bot.getEmoji(req.params.emojiid);
 
-  const emojiData = bot.getEmoji(req.params.emojiid)
+  res.render('index-emoji', {
+    emojisByGuild,
+    emojiID: req.params.emojiid,
+    emojiData,
+  });
+}
 
 
-  res.render('index-emoji', { emojisByGuild, emojiID: req.params.emojiid, emojiData});
+function editEmojiByID(req, res){
 
-
-
-
+  const emojiData = bot.getEmoji(req.params.emojiid);
+  console.log(req.params)
+  console.log(emojiData)
+  res.render('create/edit', { emojiData })
 }
 
 
@@ -237,8 +243,27 @@ function clearCookies(req, res) {
 function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
 }
+
+/// THIS PAGE IS FOR TESTING SHIT
+async function testPage(req, res) {
+  // get emojis currently in the guild
+
+  const allGuilds = await oauth
+    .getUserGuilds(req.user.access_token)
+    .catch(() => null);
+
+  // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
+  const guilds = allGuilds.filter((guild) => guild.owner);
+
+  let emojisByGuild = {};
+
+  guilds.forEach((guild) => {
+    // call the bot
+    const guildEmojis = bot.getGuildEmoji(guild.id);
+    emojisByGuild[guild.name] = guildEmojis;
+  });
+
+  res.render('test', { emojisByGuild });
+}
+
 module.exports = router;
-
-
-//TODO:
-//main/:emojiid/details
