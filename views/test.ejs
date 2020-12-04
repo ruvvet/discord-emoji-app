@@ -1,26 +1,28 @@
 
-<script src="js/modernizr.custom.97074.js"></script>
+<script src="/jquery/modernizr.custom.97074.js"></script>
 <style>
+
+    .main-guild-emoji{
+
+    }
 	.hover {
 	list-style: none;
-	width: 984px;
-	height: 600px;
-	position: relative;
 	margin: 20px auto;
-	padding: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 .hover li {
-	float: left;
-	margin: 5px;
-	background: #fff;
-	padding: 8px;
+
 	position: relative;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
 }
 .hover li a,
 .hover li a img {
-	display: block;
-	position: relative;
+    display: block;
+    position: relative;
+    border-radius: 10px;
 }
 .hover li a {
 	overflow: hidden;
@@ -39,10 +41,9 @@
 	text-transform: uppercase;
 	font-weight: normal;
 	color: rgba(255,255,255,0.9);
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-	border-bottom: 1px solid rgba(255,255,255,0.5);
-	box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 -10px 0 rgba(255,255,255,0.3);
 }
+
+
 </style>
 
 <div class="main-wrapper">
@@ -56,9 +57,10 @@
         <ul id="hover" class="hover">
 
         <% emojisByGuild[guild].forEach(emoji =>{ %>
-            <li>
+            <li class="btn">
         <a href="/emoji/<%=emoji.id%>">
-          <img class="btn emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+          <img class=" emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+          <div><span><%=emoji.name%></span></div>
         </a>
     </li>
       <%})%>
@@ -72,7 +74,7 @@
   <div class="my-emojis"><%- include('./partials/useremojis') %></div>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+  <script type="text/javascript" src="/jquery/jquery.hoverdir.js"></script>
   <script>
 
   async function selectEmoji(id, url, name) {
@@ -89,7 +91,9 @@
 
       $(function() {
 
-          $(' #hover > li ').each( function() { $(this).hoverdir(); } );
+
+          $(' #hover > li ').each( function() {
+            $(this).hoverdir(); } );
 
       });
   </script>

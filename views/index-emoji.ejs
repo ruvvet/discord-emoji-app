@@ -1,3 +1,5 @@
+<script src="/jquery/modernizr.custom.97074.js"></script>
+
 <style>
   .emoji-details {
     display: flex;
@@ -8,7 +10,7 @@
     color: black;
     margin: 0 200px 0 200px;
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-top: 30px;
   }
 
   .emoji-name {
@@ -63,24 +65,6 @@
   }
 </style>
 
-<div class="main-wrapper">
-  <% for (const guild in emojisByGuild){ %>
-  <div class="container-gradient main-guild-emoji">
-    <div class="title"><%=guild%></div>
-    <% if (!emojisByGuild[guild]){ %>
-    <div>Add UwuMoji Bot to this server here! -- add link</div>
-    <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
-
-    <a href="/emoji/<%=emoji.id%>">
-      <img class="btn emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
-    </a>
-    <%})%> <%}%>
-  </div>
-  <%}%>
-</div>
-<div class="my-emojis"><%- include('./partials/useremojis') %></div>
-
-
 <div class="emoji-details container-light">
   <img
     class="emoji-icon"
@@ -95,10 +79,49 @@
   </button>
 </div>
 
-<script>
-  async function callDeleteEmoji(emojiID) {
+<div class="main-wrapper">
+  <% for (const guild in emojisByGuild){ %>
+  <div class="container-gradient main-guild-emoji">
+    <div class="title"><%=guild%></div>
+    <% if (!emojisByGuild[guild]){ %>
+    <div>Add UwuMoji Bot to this server here! -- add link</div>
+    <%} else {%>
 
-    console.log('calling delete')
+    <ul id="hover" class="hover">
+      <% emojisByGuild[guild].forEach(emoji =>{ %>
+      <li class="btn">
+        <a href="/emoji/<%=emoji.id%>">
+          <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+          <div><span><%=emoji.name%></span></div>
+        </a>
+      </li>
+      <%})%>
+    </ul>
+
+    <%}%>
+  </div>
+  <%}%>
+</div>
+<div class="my-emojis"><%- include('./partials/useremojis') %></div>
+
+
+
+<script
+  type="text/javascript"
+  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+></script>
+<script type="text/javascript" src="/jquery/jquery.hoverdir.js"></script>
+
+<script>
+  //JQUERY
+  $(function () {
+    $(' #hover > li ').each(function () {
+      $(this).hoverdir();
+    });
+  });
+
+  async function callDeleteEmoji(emojiID) {
+    console.log('calling delete');
     const response = await fetch('/create/delete', {
       method: 'delete',
       body: JSON.stringify({ emojiID }),
@@ -106,8 +129,7 @@
         'Content-Type': 'application/json',
       },
     }).catch(console.log);
-    window.location.replace("/");
-
+    window.location.replace('/');
   }
 
   function gotoEdit(emojiID) {

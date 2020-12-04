@@ -217,14 +217,12 @@ async function editEmojiByID(req, res) {
 
   const emojiTags = await db.tag
     .findAll({
-      where: { discord_emoji: req.params.emojiid }
+      where: { discord_emoji: req.params.emojiid },
     })
     .catch(console.error);
-  
+
   res.render('create/edit', { emojiData, emojiTags });
 }
-
-
 
 function addUwuMojiBot(req, res) {
   res.render('./error/adduwumoji');

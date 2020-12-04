@@ -131,6 +131,53 @@ button > * {
   background-color: #7289da;
 }
 
+
+.hover {
+  list-style: none;
+  margin: 20px auto;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+
+}
+.hover li {
+  position: relative;
+  margin: 5px;
+}
+.hover li a,
+.hover li a img {
+  display: block;
+  position: relative;
+  border-radius: 10px;
+}
+.hover li a {
+  overflow: hidden;
+}
+.hover li a div {
+  position: absolute;
+  background: #333;
+  background: rgba(75, 75, 75, 0.7);
+  width: 100%;
+  height: 100%;
+}
+.hover li a div span {
+  display: block;
+  padding: 10px 0;
+  margin: 40px 20px 20px 20px;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+
+
+
+
+
+
 /*  different wrappers/containers */
 .container-light {
   display: flex;
@@ -246,3 +293,8 @@ button > * {
 .credits-li {
   margin: 10px 0 10px 0;
 }
+
+
+
+
+

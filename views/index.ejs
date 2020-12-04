@@ -1,3 +1,4 @@
+<script src="/jquery/modernizr.custom.97074.js"></script>
 
 <div class="main-wrapper">
   <% for (const guild in emojisByGuild){ %>
@@ -5,20 +6,40 @@
     <div class="title"><%=guild%></div>
     <% if (!emojisByGuild[guild]){ %>
     <div>Add UwuMoji Bot to this server here! -- add link</div>
-    <%} else {%> <% emojisByGuild[guild].forEach(emoji =>{ %>
-      <a href="/emoji/<%=emoji.id%>">
-        <img class="btn emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
-      </a>
-    <%})%> <%}%>
+    <%} else {%>
+
+    <ul id="hover" class="hover">
+      <% emojisByGuild[guild].forEach(emoji =>{ %>
+      <li class="btn">
+        <a href="/emoji/<%=emoji.id%>">
+          <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
+          <div><span><%=emoji.name%></span></div>
+        </a>
+      </li>
+      <%})%>
+    </ul>
+
+    <%}%>
   </div>
   <%}%>
 </div>
 <div class="my-emojis"><%- include('./partials/useremojis') %></div>
 
+<script
+  type="text/javascript"
+  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+></script>
+<script type="text/javascript" src="/jquery/jquery.hoverdir.js"></script>
 
 <script>
+  //JQUERY
+  $(function () {
+    $(' #hover > li ').each(function () {
+      $(this).hoverdir();
+    });
+  });
 
-async function selectEmoji(id, url, name) {
+  async function selectEmoji(id, url, name) {
     const response = await fetch('/emojidetails', {
       method: 'put',
       body: JSON.stringify({ id, url, name }),
@@ -29,7 +50,4 @@ async function selectEmoji(id, url, name) {
 
     location.reload();
   }
-
-
-
 </script>
