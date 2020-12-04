@@ -10,6 +10,7 @@ const bot = require('../bot');
 const db = require('../models');
 const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
+const { Sequelize } = require('../models');
 
 // MIDDLEWARE
 // this sets the 'validate' function on all protected routes
@@ -211,13 +212,16 @@ async function selectEmojiByID(req, res) {
   });
 }
 
-
-function editEmojiByID(req, res){
-
+async function editEmojiByID(req, res) {
   const emojiData = bot.getEmoji(req.params.emojiid);
-  console.log(req.params)
-  console.log(emojiData)
-  res.render('create/edit', { emojiData })
+
+  const emojiTags = await db.tag
+    .findAll({
+      where: { discord_emoji: req.params.emojiid }
+    })
+    .catch(console.error);
+  
+  res.render('create/edit', { emojiData, emojiTags });
 }
 
 

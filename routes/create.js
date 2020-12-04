@@ -21,14 +21,15 @@ router.get('/', upload);
 router.post('/', uploads.single('emojiFile'), update);
 router.get('/myemojis', getUserEmoji);
 router.get('/edit', editEmojiPage);
-router.put('/edit', editEmoji);
+router.put('/edit/name', editEmojiName);
+router.put('/edit/tags', editEmojiTags);
+router.get('/tags', getEmojiTags);
 router.delete('/delete', deleteEmoji);
+
 router.get('/tags', tagsTest);
 
-
-
-function tagsTest (req, res){
-  res.render('create/tags-test')
+function tagsTest(req, res) {
+  res.render('create/tags-test');
 }
 
 // FUNCTIONS
@@ -50,11 +51,11 @@ function update(req, res) {
     bot.addEmoji(guildID, result.url, req.body.emojiName);
 
     const user = await db.user
-    .findOne({ where: { uuid: req.user.uuid } })
-    .catch(() => null);
+      .findOne({ where: { uuid: req.user.uuid } })
+      .catch(() => null);
 
     // find or create emoji in the db
-    const [emojidb, created] = await db.emoji.findOrCreate({
+    const [newemoji, created] = await db.emoji.findOrCreate({
       where: {
         name: req.body.emojiName,
         url: result.url,
@@ -70,10 +71,9 @@ function update(req, res) {
 
 // calls the database to get all the emojis the user uploaded
 async function getUserEmoji(req, res) {
-
   const user = await db.user
-      .findOne({ where: { uuid: req.cookies[COOKIE] } })
-      .catch(() => null);
+    .findOne({ where: { uuid: req.cookies[COOKIE] } })
+    .catch(() => null);
 
   const userEmoji = await db.emoji
     .findAll({
@@ -98,9 +98,38 @@ async function editEmojiPage(req, res) {
   }
 }
 
-function editEmoji(req, res) {
+function editEmojiName(req, res) {
   bot.updateEmoji(req.body.id, req.body.name);
   res.redirect('/');
+}
+
+async function getEmojiTags(req, res) {
+
+  const emojiTags = db.tag.findAll({
+    where: {discord_emoji: req.body.id}
+  }).catch(()=>null)
+
+   res.send(emojiTags)
+}
+
+// update the emojis tags in the db
+function editEmojiTags(req, res) {
+  // get the list of tags
+  // and find/create them into the db
+  const tags = req.body.tags.split(',');
+
+  tags.forEach(async (tag) => {
+    const [newtag, created] = await db.tag
+      .findOrCreate({
+        where: {
+          name: tag,
+        },
+        defaults: {
+          discord_emoji: req.body.id,
+        },
+      })
+      .catch(() => null);
+  });
 }
 
 // calls the bot to delete an emoji
@@ -117,5 +146,3 @@ async function deleteEmoji(req, res) {
 }
 
 module.exports = router;
-
-// const parent = {child: {parent: parent}}

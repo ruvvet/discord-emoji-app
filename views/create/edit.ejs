@@ -36,7 +36,7 @@
     position: absolute;
     width: 30%;
     height: 30%;
-    background: red;
+    border: 10px solid black;
     overflow: hidden;
     z-index: 10000;
     margin: 0 auto;
@@ -57,21 +57,17 @@
 </style>
 
 <div class="container-light wrapper scrollbar">
-  <% if (!emojiData) {%>
-  <div>Please pick an emoji</div>
-
-  <%} else {%>
 
   <div class="emoji-details">
     <img src="<%=emojiData.url%>" />
-    <div class="title">Name: <%=emojiData.name%></div>
+    <div class="title">NAME: <%=emojiData.name%></div>
   </div>
 
   <div class="edit-emoji-div">
     <div id="delete-vis" class="text">DELETE</div>
     <div id="delete-slide" class="slide hidden">
       <button class="edit-btn" onclick="callEditEmoji()">
-        <img class="edit-btn" src="../img/pencil-1.png" />
+        <img class="edit-btn" src="/img/pencil-1.png" />
       </button>
 
       <button
@@ -79,7 +75,7 @@
         class="edit-btn"
         id="deleteEmoji"
       >
-        <img class="edit-btn" src="../img/delete-1.png" />
+        <img class="edit-btn" src="/img/delete-1.png" />
       </button>
     </div>
 
@@ -103,9 +99,12 @@
           id="tags"
           type="text"
           class="tags"
-          value="php,ios,javascript,ruby,android,kindle, anime, fun, cute"
+          value="  <% emojiTags.forEach(tag =>{ %>
+            <%=tag.name%>,
+            <%})%>"
           style="display: none"
         />
+        <input type="hidden" id="form-name-id" value="<%=emojiData.id%>" />
         <button type="button" value="Submit" id="submit">Submit</button>
       </form>
 
@@ -117,8 +116,6 @@
         style="z-index: 1; top: 0px; left: 0px; display: none"
       ></ul>
     </div>
-
-    <%}%>
   </div>
 </div>
 
@@ -141,14 +138,16 @@
     $('#tags').tagsInput({
       width: 'auto',
       onChange: function (elem, elem_tags) {
-        var languages = ['fun', 'cute', 'anime'];
+        // make a call to db to get the existing tags
+        var specialTags = ['owo', 'uwu']
+        $('#tags').val(specialTags);
         $('.tag', elem_tags).each(function () {
           if (
             $(this)
               .text()
-              .search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0
+              .search(new RegExp('\\b(' + specialTags.join('|') + ')\\b')) >= 0
           )
-            $(this).css('background-color', 'white');
+            $(this).css({ 'background-color': '#7289da', color: 'white' });
         });
       },
     });
@@ -156,18 +155,11 @@
 
   $(document).ready(function () {
     $('#submit').click(function () {
-      console.log('hi');
-      console.log($('#tags').val());
-
       $('#submit').click(function () {
-        console.log('we clicked this', $('#tags').val());
-
         $.ajax({
           type: 'PUT',
-          url: 'routehere',
-          data: $('#tags').val(),
-          /// read up on this
-          //https://api.jquery.com/jquery.post/
+          url: '/create/edit/tags',
+          data: { tags: $('#tags').val(), id: $('#form-name-id').val() },
         });
       });
     });
@@ -232,6 +224,7 @@
     window.location = '/create/edit';
   }
 
+  // updates the name
   document
     .getElementById('submitname')
     .addEventListener('click', async function () {
@@ -240,7 +233,7 @@
 
       console.log(name, id);
 
-      const response = await fetch('/create/edit', {
+      const response = await fetch('/create/edit/name', {
         method: 'put',
         body: JSON.stringify({ id, name }),
         headers: {
