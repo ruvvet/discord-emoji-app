@@ -1,11 +1,104 @@
-<p>hello</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 
+    <script type="text/javascript">
+      $(function () {
+        //$('#tags').tagsInput({ width: 'auto' });
+        $('#tags').tagsInput({
+          width: 'auto',
+          onChange: function (elem, elem_tags) {
+            var languages = ['fun', 'cute', 'anime'];
+            $('.tag', elem_tags).each(function () {
+              if (
+                $(this)
+                  .text()
+                  .search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >=
+                0
+              )
+                $(this).css('background-color', 'white');
+            });
+          },
 
-    $(document).ready(function(){
-      $("button").click(function(){
-        $("p").hide();
+        });
+
       });
-    });
     </script>
+
+
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
+    <form id="tag-form">
+
+
+      <p>
+        <label>Testing</label>
+        <input
+          id="tags"
+          type="text"
+          class="tags"
+          value="php,ios,javascript,ruby,android,kindle, anime, fun, cute"
+          style="display: none"
+        />
+        <input type="button" value="Submit" id="submit">
+
+    </form>
+
+    <ul
+      class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"
+      role="listbox"
+      aria-activedescendant="ui-active-menuitem"
+      style="z-index: 1; top: 0px; left: 0px; display: none"
+    ></ul>
+  </body>
+</html>
+
+<script>
+
+
+
+$(document).ready(function(){
+
+
+  $("#submit").click(function(){
+
+console.log('hi')
+console.log($("#tags").val());
+
+$('#submit').click(function() {
+  console.log('we clicked this', $("#tags").val());
+
+$.ajax({
+    type:"PUT",
+    url: "routehere",
+    data: $("#tags").val(),
+/// read up on this
+//https://api.jquery.com/jquery.post/
+
+
+})
+
+});
+
+  });
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+</script>
