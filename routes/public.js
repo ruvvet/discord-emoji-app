@@ -10,7 +10,8 @@ const { COOKIE, oauth } = require('../constants');
 // ROUTES
 // they should only 'see' these for logging in/handling oauth cred
 router.get('/callback', oauthCallback);
-router.get('/login', authorize);
+router.get('/login', login);
+router.get('/authorize', authorize);
 
 // creates a token request for user
 // once logged in via oauth sets the cookie
@@ -76,8 +77,14 @@ async function oauthCallback(req, res) {
 
 // renders the login page
 // clicking the login button will direct to the callback
-function authorize(req, res) {
+function login(req, res) {
   res.render('login');
+}
+
+function authorize(req, res) {
+  res.redirect(
+    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=0&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
+  );
 }
 
 module.exports = router;

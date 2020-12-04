@@ -71,7 +71,7 @@
 
 
   async function callDeleteEmoji(emojiID) {
-    const response = await fetch('http://localhost:5000/create/delete', {
+    const response = await fetch('/create/delete', {
       method: 'delete',
       body: JSON.stringify({ emojiID }),
       headers: {
@@ -94,7 +94,7 @@
 
       console.log(name, id)
 
-      const response = await fetch('http://localhost:5000/create/edit', {
+      const response = await fetch('/create/edit', {
         method: 'put',
         body: JSON.stringify({ id, name }),
         headers: {

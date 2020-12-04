@@ -42,7 +42,7 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('http://localhost:5000/profile').catch(
+    const response = await fetch('/profile').catch(
       () => null
     );
     const data = await response.json();

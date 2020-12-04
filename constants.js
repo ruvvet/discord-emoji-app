@@ -11,7 +11,7 @@ const COOKIE = 'uwucookie';
 const oauth = new DiscordOauth({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: 'http://localhost:5000/callback',
+  redirectUri: process.env.OAUTH_CALLBACK,
 });
 
 module.exports = { COOKIE, oauth };

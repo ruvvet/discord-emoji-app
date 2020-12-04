@@ -41,7 +41,7 @@
     border-radius: 50%;
     height: 160px;
     width: 160px;
-    
+
   }
 
   .guild-btn:hover {
@@ -102,7 +102,7 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('http://localhost:5000/guilds').catch(
+    const response = await fetch('/guilds').catch(
       () => null
     );
     const data = await response.json();
@@ -143,7 +143,7 @@
 
     async function updateSelectedGuild(guildID) {
       // update the selected guild in the db
-      const response = await fetch('http://localhost:5000/selectguild', {
+      const response = await fetch('/selectguild', {
         method: 'PUT',
         body: JSON.stringify({ guildID }),
         headers: {

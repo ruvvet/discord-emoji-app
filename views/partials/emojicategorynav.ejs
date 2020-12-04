@@ -45,7 +45,7 @@
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch(
-      'http://localhost:5000/browse/emojiggcategory'
+      '/browse/emojiggcategory'
     ).catch(() => null);
     const categories = await response.json();
 
@@ -59,7 +59,7 @@
       catDiv.innerText = `${cat}: ${categories[cat]}`;
       catDiv.setAttribute(
         'href',
-        `http://localhost:5000/browse/emojigg/${cat}`
+        `/browse/emojigg/${cat}`
       );
       //catDiv.style.borderStyle = "solid";
       catDiv.style.backgroundColor = random_bg_color();

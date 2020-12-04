@@ -1,6 +1,6 @@
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch('http://localhost:5000/create/myemojis').catch(
+    const response = await fetch('/create/myemojis').catch(
       () => null
     );
     const data = await response.json();

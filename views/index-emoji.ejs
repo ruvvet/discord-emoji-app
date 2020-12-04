@@ -22,7 +22,7 @@
   <script>
 
   async function selectEmoji(id, url, name) {
-      const response = await fetch('http://localhost:5000/emojidetails', {
+      const response = await fetch('/emojidetails', {
         method: 'put',
         body: JSON.stringify({ id, url, name }),
         headers: {
