@@ -100,9 +100,6 @@ async function getEmojiGGcat (req, res){
 // passes 4 arguments, guildid(str), channelid(str), imageurl(str), name(str)
 async function addEmoji(req, res) {
 
-
-
-
   const guildID = req.user.selected_guild;
   bot.addEmoji(guildID, req.body.url, req.body.name);
   res.redirect('/');

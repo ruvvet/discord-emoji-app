@@ -83,7 +83,9 @@ function login(req, res) {
 
 function authorize(req, res) {
   res.redirect(
-    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=0&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
+    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=1074260032&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
+
+
   );
 }
 
