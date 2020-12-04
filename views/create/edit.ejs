@@ -57,7 +57,6 @@
 </style>
 
 <div class="container-light wrapper scrollbar">
-
   <div class="emoji-details">
     <img src="<%=emojiData.url%>" />
     <div class="title">NAME: <%=emojiData.name%></div>
@@ -139,7 +138,7 @@
       width: 'auto',
       onChange: function (elem, elem_tags) {
         // make a call to db to get the existing tags
-        var specialTags = ['owo', 'uwu']
+        var specialTags = ['owo', 'uwu'];
         $('#tags').val(specialTags);
         $('.tag', elem_tags).each(function () {
           if (
@@ -168,46 +167,27 @@
   //// TODO: I AM BAD AT THIS
   // USE A CLASS SELECTOR + LOOP??
 
-  $('#delete-vis').hover(function () {
-    $('#delete-slide').slideDown();
-  });
+  // store id for an element
+  //check if another clicked == stored element
+  // if not, hide the stored, and slide the new one out
 
-  $('#name-vis').hover(function () {
-    $('#name-slide').slideDown();
-  });
 
-  $('#tags-vis').hover(function () {
-    $('#tags-slide').slideDown();
-  });
+  let active;
 
-  $(document).mouseup(function (e) {
-    var container = $('#delete-slide');
-
-    // If the target of the click isn't the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      container.hide();
+  function handleClick(element) {
+    if (element !== active && active) {
+      $(active).hide();
     }
-  });
+    $(element).slideDown();
+    active = element;
+  }
 
-  $(document).mouseup(function (e) {
-    var container = $('#name-slide');
-
-    // If the target of the click isn't the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      container.hide();
-    }
-  });
-
-  $(document).mouseup(function (e) {
-    var container = $('#tags-slide');
-
-    // If the target of the click isn't the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      container.hide();
-    }
-  });
-
-  ///////
+  const buttons = ['delete', 'name', 'tags'];
+  for (const button of buttons) {
+    $(`#${button}-vis`).click(() => {
+      handleClick(`#${button}-slide`);
+    });
+  }
 
   //functions
   async function callDeleteEmoji(emojiID) {

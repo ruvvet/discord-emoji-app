@@ -36,7 +36,7 @@ router.get('/logout', logout);
 
 //testing cookies
 router.get('/clearcookie', clearCookies);
-router.get('/test', testPage);
+
 
 // FUNCTIONS
 // Middleware - Validation
@@ -117,7 +117,7 @@ async function getMain(req, res) {
 
   const allGuilds = await oauth
     .getUserGuilds(req.user.access_token)
-    .catch(() => null);
+    .catch(() => []);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
   const guilds = allGuilds.filter((guild) => guild.owner);
@@ -144,7 +144,7 @@ async function getUserDetails(req, res) {
 async function getUserGuilds(req, res) {
   const allGuilds = await oauth
     .getUserGuilds(req.user.access_token)
-    .catch(console.log);
+    .catch(() => []);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
   const guilds = allGuilds.filter((guild) => guild.owner);
@@ -190,7 +190,7 @@ async function selectEmojiByID(req, res) {
 
   const allGuilds = await oauth
     .getUserGuilds(req.user.access_token)
-    .catch(() => null);
+    .catch(() => []);
 
   // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
   const guilds = allGuilds.filter((guild) => guild.owner);
@@ -244,28 +244,6 @@ function clearCookies(req, res) {
 // the value of "uwucookie"
 function giveCookie(req, res) {
   res.send(req.cookies[COOKIE]);
-}
-
-/// THIS PAGE IS FOR TESTING SHIT
-async function testPage(req, res) {
-  // get emojis currently in the guild
-
-  const allGuilds = await oauth
-    .getUserGuilds(req.user.access_token)
-    .catch(() => null);
-
-  // guild icon = https://cdn.discordapp.com/icons/[guild_id]/[guild_icon].png **
-  const guilds = allGuilds.filter((guild) => guild.owner);
-
-  let emojisByGuild = {};
-
-  guilds.forEach((guild) => {
-    // call the bot
-    const guildEmojis = bot.getGuildEmoji(guild.id);
-    emojisByGuild[guild.name] = guildEmojis;
-  });
-
-  res.render('test', { emojisByGuild });
 }
 
 module.exports = router;
