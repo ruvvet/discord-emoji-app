@@ -1,23 +1,26 @@
 <style>
   .wrapper {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-  }
-  .edit-emoji-div {
-    width: 100%;
-    display: block flex;
-    height: 50%;
-    text-align: center;
-    justify-content: center;
+height: 100%;
+background-color: #dedede;
   }
 
   .emoji-details {
+    margin-top: 10%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
   }
+
+  .edit-emoji-div {
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    justify-content: center;
+  }
+
   .edit-btn {
     height: 50px;
     width: 50px;
@@ -28,35 +31,57 @@
     border: 3px solid #7289da;
   }
 
+
+  input#name{
+
+    font-size: 20px;
+  }
+
+
   button {
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 10px;
+    box-sizing: border-box;
+  }
+
+  button:hover{
     background-color: #7289da;
   }
 
   .slide {
-    position: absolute;
-    width: 30%;
-    height: 30%;
-    border: 10px solid black;
+    position: relative;
+    width: auto;
+    height: auto;
     overflow: hidden;
     z-index: 10000;
-    margin: 0 auto;
-    display: flex;
+     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+    margin-top: 0px;
+
   }
   .hidden {
     display: none;
   }
 
   .text {
-    font-size: 20px;
+    font-size: 50px;
     text-transform: uppercase;
-    margin: 50px 0;
   }
-</style>
 
-<div class="container-light wrapper scrollbar">
+  .text:hover{
+    color: #7289da;
+  }
+
+
+</style>
+<div class="wrapper">
+<div class="container-light scrollbar">
   <div class="emoji-details">
     <img src="<%=emojiData.url%>" />
     <div class="title">NAME: <%=emojiData.name%></div>
@@ -65,9 +90,7 @@
   <div class="edit-emoji-div">
     <div id="delete-vis" class="text">DELETE</div>
     <div id="delete-slide" class="slide hidden">
-      <button class="edit-btn" onclick="callEditEmoji()">
-        <img class="edit-btn" src="/img/pencil-1.png" />
-      </button>
+
 
       <button
         onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
@@ -116,6 +139,7 @@
       ></ul>
     </div>
   </div>
+</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
