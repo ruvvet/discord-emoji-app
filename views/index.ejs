@@ -7,11 +7,13 @@
     <% if (!emojisByGuild[guild]){ %>
     <div>Add UwuMoji Bot to this server here! -- add link</div>
     <%} else {%>
-
     <ul id="hover" class="hover">
       <% emojisByGuild[guild].forEach(emoji =>{ %>
       <li class="btn">
         <a href="/emoji/<%=emoji.id%>">
+
+
+          
           <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
           <div><span><%=emoji.name%></span></div>
         </a>
@@ -39,6 +41,8 @@
     });
   });
 
+
+  // functions
   async function selectEmoji(id, url, name) {
     const response = await fetch('/emojidetails', {
       method: 'put',

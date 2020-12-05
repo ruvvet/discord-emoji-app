@@ -1,22 +1,39 @@
+<script src="/jquery/modernizr.custom.97074.js"></script>
+
 <div class="emoji-nav-bar"><%- include('../partials/emojinavbar') %></div>
 <div class="emoji-nav-bar"><%- include('../partials/emojicategorynav') %></div>
 
 <div class="emoji-gallery">
   <div class="title"><%=libname %></div>
+  <ul id="hover" class="hover">
   <% allemoji.forEach((emoji) => { %>
-
+    <li>
   <button
     onclick="callAddEmoji(`<%=emoji.image%>`, `<%=emoji.title%>`)"
     class="btn"
   >
     <img class="emoji" src="<%=emoji.image%>" alt="<%=emoji.title%>" />
+    <div><span><img class="addemoji" src="/img/add.png"><%=emoji.title%></span></div>
   </button>
+  </li>
   <% }) %>
+</ul>
 </div>
 
-<!-- <script src="./eventlistener.js"></script> -->
 
+<script
+  type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+></script>
+<script type="text/javascript" src="/jquery/jquery.hoverdir.js"></script>
 <script>
+    //JQUERY
+    $(function () {
+    $(' #hover > li ').each(function () {
+      $(this).hoverdir();
+    });
+  });
+
   async function callAddEmoji(url, name) {
     const response = await fetch('/browse', {
       method: 'post',

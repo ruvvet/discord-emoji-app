@@ -15,24 +15,27 @@
     height: 100%;
     width: 100%;
     border-top-left-radius: 10px;
+    transition: transform .2s;
   }
 
   .profile-name {
     position: absolute;
-    top: 50%;
+    bottom: 0%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 3em;
-
+    width: 100%;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    text-shadow: 2px 2px 4px #000000;
     text-transform: uppercase;
+    letter-spacing: 4px;
+    background-color: #00000080;
   }
 
-  .profile-div:hover {
+  .profile-icon:hover {
     color: #7289da;
-    filter: grayscale(50%);
+    /* filter: grayscale(50%); */
+    transform: scale(1.2);
   }
 
 

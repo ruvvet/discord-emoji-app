@@ -12,6 +12,7 @@ const { COOKIE, oauth } = require('../constants');
 router.get('/callback', oauthCallback);
 router.get('/login', login);
 router.get('/authorize', authorize);
+router.get('/info', info)
 
 // creates a token request for user
 // once logged in via oauth sets the cookie
@@ -87,6 +88,10 @@ function authorize(req, res) {
 
 
   );
+}
+
+function info (req, res) {
+  res.render('info')
 }
 
 module.exports = router;
