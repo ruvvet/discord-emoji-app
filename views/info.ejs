@@ -1,4 +1,149 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <style>
+
+  .fade {
+  position: absolute;
+
+}
+body{
+    overflow: hidden;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+.fade div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+
+
+}
+
+.login{
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  /* display: block flex;
+  align-content: center;
+  justify-content: center; */
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+
+  top: 50%;
+  left:50%;
+  -webkit-transform: translate(-50%,-50%);
+
+  display: flex;
+
+  justify-content: flex-start;
+  padding-left: 30%;
+  overflow: hidden;
+  padding-top: 5%;
+}
+
+
+
+.effect-underline:after {
+	content: '';
+  position: relative;
+  left: 0;
+  /* display: inline-block; */
+  height: 1em;
+  width: 100%;
+  border-bottom: 1px solid;
+
+  opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+}
+
+.effect-underline:hover:after {
+  opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.text{
+    height: 50%;
+    width: 100%;
+font-size: 100px;
+color: white;
+
+}
+.text-side{
+  position: absolute;
+    height: 50%;
+  width: 50vw;
+font-size: 100px;
+color: white;
+margin-left: 20vw;
+font-size: 50px;
+}
+
+</style>
+
+
+  <div class="login">
+
+<div class="fade effect-underline">
+  <span class="text">About</span></a>
+  <div>
+    <span class="text-side"><span>A web app that lets users select emojis from various libraries, and add them to their discord guild via the discord bot.</span>
+    <span >
+      NODE, EXPRESS, JS, SEQUELIZE, POSTGRES, JQUERY</span>
+<br/><br/>
+      <span>
+      APIs: DISCORD API, EMOJIGG API, CLOUDINARY API</span><br/><br/>
+      <span>
+      ASSETS: FLATICON.COM</span><br/><br/>
+    </span>
+
+  </div>
+</div>
+</div>
+
+
+
+<script>
+
+$(document).ready(function () {
+  // find the div.fade elements and hook the hover event
+  $('div.fade').hover(function() {
+    // on hovering over, find the element we want to fade *up*
+    var fade = $('> div', this);
+
+    // if the element is currently being animated (to a fadeOut)...
+    if (fade.is(':animated')) {
+      // ...take it's current opacity back up to 1
+      fade.stop().fadeTo(250, 1);
+    } else {
+      // fade in quickly
+      fade.fadeIn(250);
+    }
+  }, function () {
+    // on hovering out, fade the element out
+    var fade = $('> div', this);
+    if (fade.is(':animated')) {
+      fade.stop().fadeTo(3000, 0);
+    } else {
+      // fade away slowly
+      fade.fadeOut(500);
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+<!-- <style>
 .container-light{
     height: 100%;
 }
@@ -27,4 +172,4 @@ APIs: DISCORD API, EMOJIGG API, CLOUDINARY API</div>
 ASSETS: FLATICON.COM</div>
 </div>
 </div>
-</div>
+</div> -->

@@ -1,112 +1,113 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <style>
+  body {
+    overflow: hidden;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  }
 
   .fade {
-  position: absolute;
-  top: 100px
-  left: 100px
-}
+    position: absolute;
+    /* top: 100px;
+  left: 100px; */
+  }
 
-.fade div {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-}
+  .fade div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+  }
 
-.login{
-  background-color: black;
-  height: 100%;
-  width: 100%;
-  /* display: block flex;
+  .login {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    /* display: block flex;
   align-content: center;
   justify-content: center; */
-  display: block;
-  margin: 0 auto;
-  position: absolute;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
 
-  top: 50%;
-  left:50%;
-  -webkit-transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .login-btn {
+    height: 50%;
+    width: 50%;
+  }
 
-.login-btn{
-  height: 50%;
-  width: 50%;
+  .effect-underline:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    /* display: inline-block; */
+    height: 1em;
+    width: 100%;
+    border-bottom: 1px solid;
+    margin-top: 30%;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale(0, 1);
+    transform: scale(0, 1);
+  }
 
-}
-
-
-.effect-underline:after {
-	content: '';
-  position: absolute;
-  left: 0;
-  /* display: inline-block; */
-  height: 1em;
-  width: 100%;
-  border-bottom: 1px solid;
-  margin-top: 30%;
-  opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: scale(0,1);
-	transform: scale(0,1);
-}
-
-.effect-underline:hover:after {
-  opacity: 1;
-	-webkit-transform: scale(1);
-	transform: scale(1);
-}
-
-
+  .effect-underline:hover:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 </style>
 
-
-  <div class="login">
-
-<div class="fade effect-underline">
-  <a class="log-btn" href="/info.html"><img class = "login-btn" src="/img/uwumoji.png" /></a>
-  <div>
-    <a class="log-btn" href="/authorize" id="login"><img class = "login-btn" src="/img/login-text.png" /></a>
+<div class="login">
+  <div class="fade effect-underline">
+    <a class="log-btn" href="/info.html"
+      ><img class="login-btn" src="/img/uwumoji.png"
+    /></a>
+    <div>
+      <a class="log-btn" href="/authorize" id="login"
+        ><img class="login-btn" src="/img/login-text.png"
+      /></a>
+    </div>
   </div>
 </div>
-</div>
-
-
 
 <script>
+  $(document).ready(function () {
+    // find the div.fade elements and hook the hover event
+    $('div.fade').hover(
+      function () {
+        // on hovering over, find the element we want to fade *up*
+        var fade = $('> div', this);
 
-$(document).ready(function () {
-  // find the div.fade elements and hook the hover event
-  $('div.fade').hover(function() {
-    // on hovering over, find the element we want to fade *up*
-    var fade = $('> div', this);
-
-    // if the element is currently being animated (to a fadeOut)...
-    if (fade.is(':animated')) {
-      // ...take it's current opacity back up to 1
-      fade.stop().fadeTo(250, 1);
-    } else {
-      // fade in quickly
-      fade.fadeIn(250);
-    }
-  }, function () {
-    // on hovering out, fade the element out
-    var fade = $('> div', this);
-    if (fade.is(':animated')) {
-      fade.stop().fadeTo(3000, 0);
-    } else {
-      // fade away slowly
-      fade.fadeOut(500);
-    }
+        // if the element is currently being animated (to a fadeOut)...
+        if (fade.is(':animated')) {
+          // ...take it's current opacity back up to 1
+          fade.stop().fadeTo(250, 1);
+        } else {
+          // fade in quickly
+          fade.fadeIn(250);
+        }
+      },
+      function () {
+        // on hovering out, fade the element out
+        var fade = $('> div', this);
+        if (fade.is(':animated')) {
+          fade.stop().fadeTo(3000, 0);
+        } else {
+          // fade away slowly
+          fade.fadeOut(500);
+        }
+      }
+    );
   });
-});
 </script>
-
