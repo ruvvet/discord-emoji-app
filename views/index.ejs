@@ -5,15 +5,17 @@
   <div class="container-gradient main-guild-emoji">
     <div class="title"><%=guild%></div>
     <% if (!emojisByGuild[guild]){ %>
-    <div>Add UwuMoji Bot to this server here! -- add link</div>
+    <div> <a
+      href="https://discord.com/api/oauth2/authorize?client_id=781249473879605248&permissions=1073744960&redirect_uri=https%3A%2F%2Fuwumoji.herokuapp.com%2Fcallback&scope=bot"
+    >Add UwuMoji Bot to this server!</a></div>
     <%} else {%>
+      <% if (emojisByGuild[guild].length >= 50) {%>
+        <div>You can't add any more emojis to this guild!</div>
+      <%}%>
     <ul id="hover" class="hover">
       <% emojisByGuild[guild].forEach(emoji =>{ %>
       <li class="btn">
         <a href="/emoji/<%=emoji.id%>">
-
-
-          
           <img class="emoji" src="<%=emoji.url %>" alt="<%=emoji.name%>" />
           <div><span><%=emoji.name%></span></div>
         </a>
@@ -40,7 +42,6 @@
       $(this).hoverdir();
     });
   });
-
 
   // functions
   async function selectEmoji(id, url, name) {

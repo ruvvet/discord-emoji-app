@@ -36,10 +36,6 @@ function browseDiscord(req, res) {
   res.render('browse/showuwumoji', { allemoji, libname: 'Discord' });
 }
 
-//Need to Paginate
-//TODO: PAGINATE
-// TODO: HAVE A CATEGORIES NAV BAR
-
 // Use emoji.gg api to get all emoji and displays them
 async function browseEmojiGG(req, res) {
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);

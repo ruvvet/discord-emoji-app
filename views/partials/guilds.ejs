@@ -58,9 +58,9 @@
     word-wrap: break-word;
   }
 
-.guild-btn:hover{
-  filter: grayscale(0%);
-}
+  .guild-btn:hover {
+    filter: grayscale(0%);
+  }
 
   .guild-btn:hover .guild-name {
     opacity: 1;
@@ -77,14 +77,16 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
-
-
-
 </style>
 
 <div id="guild" class="guild scrollbar">
   <ul class="guild-ul" id="guild-ul"></ul>
 </div>
+
+<script
+  type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+></script>
 
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
@@ -121,11 +123,6 @@
       guildName.setAttribute('class', 'guild-name');
       guildName.textContent = `${guild.name}`;
       guildBtn.appendChild(guildName);
-
-      // let guildSpan = document.createElement('span');
-      // guildSpan.setAttribute('class', 'guild-span');
-      // guildSpan.textContent = `${guild.name}`;
-      // guildName.appendChild(guildSpan)
     });
 
     async function updateSelectedGuild(guildID) {
@@ -143,4 +140,30 @@
       }
     }
   });
+
+
+  // TODO: ????????????????????
+  //jquery
+  // $(document).ready(function () {
+
+
+
+  //   $('.guild-btn').each(function () {
+  //     $(this).click(function () {
+  //       $.ajax({
+  //         type: 'PUT',
+  //         url: '/selectguild',
+  //         data: { guildID },
+  //       });
+
+  //       $(this).addClass('active')
+
+  //       if (response.status !== 200) {
+  //         window.location = '/adduwumoji';
+  //       }
+
+
+  //     });
+  //   });
+  // });
 </script>

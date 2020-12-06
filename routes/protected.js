@@ -247,3 +247,11 @@ function giveCookie(req, res) {
 }
 
 module.exports = router;
+
+
+//TODO:main index page - animated vs non-animated emoji slots available
+//
+// bot still sends message even if you cant add anymore
+//TODO: kind of weird logic for the math.ceil in the browse pagination
+//TODO: categories browse is broken???
+// TODO: guild "selection"
