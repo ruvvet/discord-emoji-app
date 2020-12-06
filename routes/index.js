@@ -1,13 +1,15 @@
 // MAIN ROUTER
-// JUST REQUIRES PROTECTED + PUBLIC ROUTES
+// REQUIRES PROTECTED + PUBLIC ROUTES
+// HANDLES THE 404 + 500 ERRORS
 
-// DEPENDENCIES
+// DEPENDENCIES //////////////////////////////////////////////////////////
 const router = require('express').Router();
 
-// MIDDLEWARE
+// MIDDLEWARE ////////////////////////////////////////////////////////////
 router.use('/', require('./public'));
 router.use('/', require('./protected'));
 
+// ROUTES ////////////////////////////////////////////////////////////////
 router.use(function (req, res, next) {
   res.status(404).render('./error/404');
 });

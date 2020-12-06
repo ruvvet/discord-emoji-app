@@ -1,8 +1,7 @@
 // ROUTER FOR ALL 'PROTECTED' ROUTES
-// User must be logged in through discord oauth
-// in order to access these
+// TO ACCESS, USER MUST BE LOGGED IN
 
-// DEPENDENCIES
+// DEPENDENCIES //////////////////////////////////////////////////////////
 const qs = require('qs');
 const axios = require('axios');
 const bodyParser = require('body-parser');
@@ -12,7 +11,7 @@ const router = require('express').Router();
 const { COOKIE, oauth } = require('../constants');
 const { Sequelize } = require('../models');
 
-// MIDDLEWARE
+// MIDDLEWARE ////////////////////////////////////////////////////////////
 // this sets the 'validate' function on all protected routes
 router.use(validate);
 // requires routes in the create/browse routers
@@ -21,7 +20,7 @@ router.use('/browse', require('./browse'));
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-// ROUTES
+// ROUTES ////////////////////////////////////////////////////////////////
 //router.get('/refresh', checkToken);
 router.get('/', getMain);
 router.get('/emoji/:emojiid', selectEmojiByID);
@@ -38,7 +37,7 @@ router.get('/logout', logout);
 router.get('/clearcookie', clearCookies);
 
 
-// FUNCTIONS
+// FUNCTIONS /////////////////////////////////////////////////////////////
 // Middleware - Validation
 // Checks if user has a cookie.
 // if no cookie, redirect to login
