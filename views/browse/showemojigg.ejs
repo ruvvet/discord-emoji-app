@@ -4,7 +4,19 @@
 <div class="emoji-nav-bar"><%- include('../partials/emojicategorynav') %></div>
 
 <div class="emoji-gallery">
-  <div class="title"><%=libname %></div>
+  <div class="title">
+
+<% if (page !== 0){ %>
+  <a class="page-arrow" href="/browse/emojigg/<%= page-1%>"><img class="page-arrow-img" src="/img/left-arrow.png"></a>
+<%}%>
+
+<%=libname %>
+
+<% if (page !== end){ %>
+  <a class="page-arrow" href="/browse/emojigg/<%=page+1%>"><img class="page-arrow-img" src="/img/right-arrow.png"></a>
+  <%}%>
+
+  </div>
   <ul id="hover" class="hover">
   <% allemoji.forEach((emoji) => { %>
     <li>
