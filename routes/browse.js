@@ -95,6 +95,8 @@ async function browseEmojiggCategory(req, res) {
     res.render('browse/showemojigg', {
       allemoji: emojiByCategory,
       libname: 'Emoji.gg',
+      page: null,
+      end: null
     });
   }
 }
