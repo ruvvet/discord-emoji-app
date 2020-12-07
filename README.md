@@ -40,9 +40,33 @@ A web app that lets you upload or select, edit, and add emojis from various libr
 > - `sequelize-cli`
 > - `uuid` : used to create a unique ID value
 
-### SCREENSHOTS
+# SCREENSHOTS
 
-![ss](https://github.com/ruvvet/untitled-game/blob/main/img/game.gif)
+## Web App
+##### Login, Authorization, Home Page
+![Authorization](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/auth.gif)
+
+##### Uploading an Emoji
+![Upload](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/upload.gif)
+
+##### Browsing + Adding an Emoji
+![Browse](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/browse.gif)
+
+##### Editing an Emoji
+![Edit](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/edit.gif)
+
+##### Deleting an Emoji
+![Delete](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/delete.gif)
+
+
+## Discord
+
+##### Discord bot adding emojis
+![Delete](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/discord-upload.png)
+
+##### Discord bot updating emojis
+![Delete](https://github.com/ruvvet/discord-emoji-app/blob/main/public/img/ss/discord-update.png)
+
 
 # CODE SNIPPETS
 
