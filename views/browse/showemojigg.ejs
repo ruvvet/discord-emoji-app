@@ -6,13 +6,13 @@
 <div class="emoji-gallery">
   <div class="title">
 
-<% if (page !== 0 || page !== null){ %>
+<% if (page !==0){ %>
   <a class="page-arrow" href="/browse/emojigg/<%= page-1%>"><img class="page-arrow-img" src="/img/left-arrow.png"></a>
 <%}%>
 
 <%=libname %>
 
-<% if (page !== end || page !== null){ %>
+<% if (page !== end){ %>
   <a class="page-arrow" href="/browse/emojigg/<%=page+1%>"><img class="page-arrow-img" src="/img/right-arrow.png"></a>
   <%}%>
 

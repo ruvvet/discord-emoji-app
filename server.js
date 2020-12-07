@@ -1,6 +1,6 @@
 // MAIN SERVER FILE
 
-// DEPENDENCIES
+// DEPENDENCIES //////////////////////////////////////////////////////////
 require('dotenv').config();
 
 const { COOKIE } = require('./constants');
@@ -10,27 +10,17 @@ const express = require('express');
 const layouts = require('express-ejs-layouts');
 const routes = require('./routes');
 
-
-
-
-// TODO: jquery modals for emoji params
-
-
-
-
-
-// APP
+// APP ///////////////////////////////////////////////////////////////////
 const app = express();
 
-// MIDDLEWARE
-
+// MIDDLEWARE ////////////////////////////////////////////////////////////
 app.set('view engine', 'ejs');
-app.set('layout', './layout')
+app.set('layout', './layout');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 app.use(cookie());
 app.use('/', routes);
 
-// LISTEN
+// LISTEN ////////////////////////////////////////////////////////////////
 app.listen(process.env.PORT || 5000);

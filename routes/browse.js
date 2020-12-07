@@ -62,12 +62,12 @@ async function browseEmojiGG(req, res) {
 async function browseEmojiggPage(req, res) {
   // takes a page parameter + parses it to an integer
   // page count starts at 0
-  const page = parseInt(req.params.page);
+  const page = parseInt(req.params.page) || 0;
+  const emojisPerPage = 100;
 
   // use the page value to splice the emoji list - these are the defaults
-  // 100 emojis are shown per page
-  let start = page * 100;
-  let end = start + 100;
+  let start = page * emojisPerPage;
+  let end = start + emojisPerPage;
 
   // calls the emoji.gg api to get all the emoji
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
@@ -80,11 +80,12 @@ async function browseEmojiggPage(req, res) {
   }
   // of the page value is greater than the # of emojis/100 (100 emojis/page)
   // then the end is always -100 the length of the list.
-  if (page > Math.ceil(allemoji.data.length / 100)) {
-    end = Math.ceil(allemoji.data.length / 100)*100;
-    start = end - 100;
-  }
+  let lastPage = Math.ceil(allemoji.data.length / emojisPerPage) - 1;
 
+  if (page > lastPage) {
+    end = Math.ceil(allemoji.data.length / emojisPerPage) * emojisPerPage;
+    start = end - emojisPerPage;
+  }
 
   if (!allemoji) {
     //res.render(404)
@@ -94,8 +95,8 @@ async function browseEmojiggPage(req, res) {
     res.render('browse/showemojigg', {
       allemoji: allemoji.data.slice(start, end),
       libname: 'Emoji.gg',
-      page: page,
-      end: Math.ceil(allemoji.data.length / 100) /// TODO????????????
+      page,
+      end: lastPage,
     });
   }
 }
@@ -118,7 +119,7 @@ async function browseEmojiggCategory(req, res) {
       allemoji: emojiByCategory,
       libname: 'Emoji.gg',
       page: null,
-      end: null  // TODO: ??????????????????
+      end: null,
     });
   }
 }

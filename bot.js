@@ -3,15 +3,12 @@
 // Only in charge of doing things directly on discord
 // bot goes live whenever the server is live
 
-// DEPENDENCIES
+// DEPENDENCIES //////////////////////////////////////////////////////////
 require('dotenv').config();
-const axios = require('axios');
 const Canvas = require('canvas');
 const Discord = require('discord.js');
-
 const bot = new Discord.Client();
 const TOKEN = process.env.TOKEN;
-const { COOKIE, oauth } = require('./constants');
 
 // logs the bot in with the bot token
 bot.login(TOKEN);
@@ -44,7 +41,10 @@ bot.on('guildCreate', (guild) => {
 });
 
 bot.on('message', (msg) => {
-  if (msg.content === 'uwumoji') {
+  // if (msg.content === 'uwumoji') {
+  //   msg.reply('hi ❤️');
+  // }
+  if (msg.content.includes('uwumoji')) {
     msg.reply('hi ❤️');
   }
 });
@@ -185,4 +185,3 @@ module.exports = {
   getGuildEmoji,
   getAllGuilds,
 };
-

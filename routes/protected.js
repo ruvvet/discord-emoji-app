@@ -36,7 +36,6 @@ router.get('/logout', logout);
 //testing cookies
 router.get('/clearcookie', clearCookies);
 
-
 // FUNCTIONS /////////////////////////////////////////////////////////////
 // Middleware - Validation
 // Checks if user has a cookie.
@@ -246,7 +245,6 @@ function giveCookie(req, res) {
 }
 
 module.exports = router;
-
 
 //TODO:main index page - animated vs non-animated emoji slots available
 //

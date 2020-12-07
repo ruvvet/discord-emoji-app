@@ -22,28 +22,24 @@ body{
 }
 
 .login{
+
   background-color: black;
   height: 100%;
   width: 100%;
   /* display: block flex;
   align-content: center;
   justify-content: center; */
-  display: block;
   margin: 0 auto;
   position: absolute;
-
   top: 50%;
   left:50%;
   -webkit-transform: translate(-50%,-50%);
-
   display: flex;
-
   justify-content: flex-start;
   padding-left: 30%;
   overflow: hidden;
-  padding-top: 5%;
+  padding-top: 20%;
 }
-
 
 
 .effect-underline:after {
@@ -69,6 +65,7 @@ body{
 }
 
 .text{
+
     height: 50%;
     width: 100%;
 font-size: 100px;
@@ -82,7 +79,8 @@ color: white;
 font-size: 100px;
 color: white;
 margin-left: 20vw;
-font-size: 50px;
+font-size: 20px;
+text-align: right;
 }
 
 </style>
@@ -94,11 +92,11 @@ font-size: 50px;
   <span class="text">About</span></a>
   <div>
     <span class="text-side"><span>A web app that lets users select emojis from various libraries, and add them to their discord guild via the discord bot.</span>
-    <span >
-      NODE, EXPRESS, JS, SEQUELIZE, POSTGRES, JQUERY</span>
+    <span ><br/><br/>
+      JS - NODE - EXPRESS - SEQUELIZE - POSTGRES - JQUERY</span>
 <br/><br/>
       <span>
-      APIs: DISCORD API, EMOJIGG API, CLOUDINARY API</span><br/><br/>
+      APIs: DISCORD API - EMOJIGG API - CLOUDINARY API</span><br/><br/>
       <span>
       ASSETS: FLATICON.COM</span><br/><br/>
     </span>
@@ -132,7 +130,7 @@ $(document).ready(function () {
       fade.stop().fadeTo(3000, 0);
     } else {
       // fade away slowly
-      fade.fadeOut(500);
+      fade.fadeOut(5000);
     }
   });
 });

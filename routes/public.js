@@ -1,19 +1,20 @@
 // ROUTER FOR ALL 'PUBLIC' ROUTES
 // User does not need to be logged in
 
-// DEPENDENCIES
+// DEPENDENCIES //////////////////////////////////////////////////////////
 const db = require('../models');
 const router = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const { COOKIE, oauth } = require('../constants');
 
-// ROUTES
+// ROUTES ////////////////////////////////////////////////////////////////
 // they should only 'see' these for logging in/handling oauth cred
 router.get('/callback', oauthCallback);
 router.get('/login', login);
 router.get('/authorize', authorize);
-router.get('/info', info)
+router.get('/info', info);
 
+// FUNCTIONS /////////////////////////////////////////////////////////////
 // creates a token request for user
 // once logged in via oauth sets the cookie
 // and creates the user in the db
@@ -62,18 +63,11 @@ async function oauthCallback(req, res) {
       )
       .catch(() => null);
   }
-
   const maxAge = 30 * 24 * 60 * 60 * 1000; // this is 30 days
 
   // send a cookie here that contains their uuid
   res.cookie(COOKIE, user.uuid, { maxAge });
-
   res.redirect('/');
-
-  // if logged in
-  // check if token will expire soon
-  // request refresh token
-  //then update access token with refresh token
 }
 
 // renders the login page
@@ -85,13 +79,11 @@ function login(req, res) {
 function authorize(req, res) {
   res.redirect(
     `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=1073744960&redirect_uri=${process.env.OAUTH_CALLBACK}&response_type=code&scope=identify%20email%20guilds%20bot`
-
-
   );
 }
 
-function info (req, res) {
-  res.render('info')
+function info(req, res) {
+  res.render('info');
 }
 
 module.exports = router;
