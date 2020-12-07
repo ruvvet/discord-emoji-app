@@ -1,7 +1,7 @@
 <style>
   .wrapper {
-height: 100%;
-background-color: #dedede;
+    height: 100%;
+    background-color: #dedede;
   }
 
   .emoji-details {
@@ -31,12 +31,9 @@ background-color: #dedede;
     border: 3px solid #7289da;
   }
 
-
-  input#name{
-
+  input#name {
     font-size: 20px;
   }
-
 
   button {
     border: none;
@@ -48,7 +45,7 @@ background-color: #dedede;
     box-sizing: border-box;
   }
 
-  button:hover{
+  button:hover {
     background-color: #7289da;
   }
 
@@ -58,12 +55,11 @@ background-color: #dedede;
     height: auto;
     overflow: hidden;
     z-index: 10000;
-     display: flex;
+    display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     margin-top: 0px;
-
   }
   .hidden {
     display: none;
@@ -74,72 +70,68 @@ background-color: #dedede;
     text-transform: uppercase;
   }
 
-  .text:hover{
+  .text:hover {
     color: #7289da;
   }
-
-
 </style>
 <div class="wrapper">
-<div class="container-light scrollbar">
-  <div class="emoji-details">
-    <img src="<%=emojiData.url%>" />
-    <div class="title">NAME: <%=emojiData.name%></div>
-  </div>
-
-  <div class="edit-emoji-div">
-    <div id="delete-vis" class="text">DELETE</div>
-    <div id="delete-slide" class="slide hidden">
-
-
-      <button
-        onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
-        class="edit-btn"
-        id="deleteEmoji"
-      >
-        <img class="edit-btn" src="/img/delete-1.png" />
-      </button>
+  <div class="container-light scrollbar">
+    <div class="emoji-details">
+      <img src="<%=emojiData.url%>" />
+      <div class="title">NAME: <%=emojiData.name%></div>
     </div>
 
-    <div id="name-vis" class="text">EDIT NAME</div>
-    <div id="name-slide" class="name-input slide hidden">
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="New name for: '<%=emojiData.name%>'"
-      />
-      <input type="hidden" id="id" name="id" value="<%=emojiData.id%>" />
-      <button type="button" name="name" id="submitname">Submit</button>
-    </div>
+    <div class="edit-emoji-div">
+      <div id="delete-vis" class="text">DELETE</div>
+      <div id="delete-slide" class="slide hidden">
+        <button
+          onclick="callDeleteEmoji(`<%= emojiData.id%>`)"
+          class="edit-btn"
+          id="deleteEmoji"
+        >
+          <img class="edit-btn" src="/img/delete-1.png" />
+        </button>
+      </div>
 
-    <div id="tags-vis" class="text">ADD TAGS</div>
-    <div id="tags-slide" class="tags-input slide hidden">
-      <form id="tag-form">
+      <div id="name-vis" class="text">EDIT NAME</div>
+      <div id="name-slide" class="name-input slide hidden">
         <input
-          class="tags-go-here"
-          id="tags"
           type="text"
-          class="tags"
-          value="  <% emojiTags.forEach(tag =>{ %>
+          id="name"
+          name="name"
+          placeholder="New name for: '<%=emojiData.name%>'"
+        />
+        <input type="hidden" id="id" name="id" value="<%=emojiData.id%>" />
+        <button type="button" name="name" id="submitname">Submit</button>
+      </div>
+
+      <div id="tags-vis" class="text">ADD TAGS</div>
+      <div id="tags-slide" class="tags-input slide hidden">
+        <form id="tag-form">
+          <input
+            class="tags-go-here"
+            id="tags"
+            type="text"
+            class="tags"
+            value="  <% emojiTags.forEach(tag =>{ %>
             <%=tag.name%>,
             <%})%>"
-          style="display: none"
-        />
-        <input type="hidden" id="form-name-id" value="<%=emojiData.id%>" />
-        <button type="button" value="Submit" id="submit">Submit</button>
-      </form>
+            style="display: none"
+          />
+          <input type="hidden" id="form-name-id" value="<%=emojiData.id%>" />
+          <button type="button" value="Submit" id="submit">Submit</button>
+        </form>
 
-      <ul
-        class="tag-list"
-        class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"
-        role="listbox"
-        aria-activedescendant="ui-active-menuitem"
-        style="z-index: 1; top: 0px; left: 0px; display: none"
-      ></ul>
+        <ul
+          class="tag-list"
+          class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"
+          role="listbox"
+          aria-activedescendant="ui-active-menuitem"
+          style="z-index: 1; top: 0px; left: 0px; display: none"
+        ></ul>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -162,18 +154,20 @@ background-color: #dedede;
       width: 'auto',
       onChange: function (elem, elem_tags) {
         // make a call to db to get the existing tags
-        var specialTags = ['owo', 'uwu'];
-        $('#tags').val(specialTags);
-        $('.tag', elem_tags).each(function () {
-          if (
-            $(this)
-              .text()
-              .search(new RegExp('\\b(' + specialTags.join('|') + ')\\b')) >= 0
-          )
-            $(this).css({ 'background-color': '#7289da', color: 'white' });
-        });
+        // var specialTags = ['owo', 'uwu'];
+        // $('#tags').val(specialTags);
+        // $('.tag', elem_tags).each(function () {
+        //   if (
+        //     $(this)
+        //       .text()
+        //       .search(new RegExp('\\b(' + specialTags.join('|') + ')\\b')) >= 0
+        //   )
+        //     $(this).css({ 'background-color': '#7289da', color: 'white' });
+        // });
       },
+
     });
+    console.log($('#tags').val())
   });
 
   $(document).ready(function () {
@@ -184,10 +178,11 @@ background-color: #dedede;
           url: '/create/edit/tags',
           data: { tags: $('#tags').val(), id: $('#form-name-id').val() },
         });
+
+        console.log($('#tags').val());
       });
     });
   });
-
 
   let active;
 

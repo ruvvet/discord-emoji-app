@@ -75,6 +75,11 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
+
+
+  .active{
+    border: 10px solid white;
+  }
 </style>
 
 <div id="guild" class="guild scrollbar">
@@ -87,6 +92,7 @@
 ></script>
 
 <script>
+
   window.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('/guilds').catch(() => null);
     const data = await response.json();
@@ -104,7 +110,7 @@
         updateSelectedGuild(guild.id);
 
         document.querySelector('.guild-btn').setAttribute('class', 'guild-btn');
-        guildBtn.setAttribute('class', 'guild-btn guild-selected');
+        guildBtn.setAttribute('class', 'guild-btn active');
       });
       guildLI.appendChild(guildBtn);
 
@@ -139,7 +145,7 @@
     }
   });
 
-  // TODO: ????????????????????
+  // TODO:
   //jquery
   // $(document).ready(function () {
 

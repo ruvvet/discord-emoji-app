@@ -25,6 +25,7 @@ router.put('/edit/name', editEmojiName); // updates the emoji's name
 router.put('/edit/tags', editEmojiTags); // updates the emoji's tags
 router.get('/tags', getEmojiTags); // gets all the emoji's tags
 router.delete('/delete', deleteEmoji); // deletes an emoji
+router.get('/myemojis', getUserEmoji); //gets the user's emojis that were uploaded
 
 // FUNCTIONS /////////////////////////////////////////////////////////////
 
@@ -124,6 +125,7 @@ async function getEmojiTags(req, res) {
 
 // update the emojis tags in the db
 function editEmojiTags(req, res) {
+  console.log(req.body.tags);
   // get the list of tags
   const tags = req.body.tags.split(',');
 
@@ -133,8 +135,6 @@ function editEmojiTags(req, res) {
       .findOrCreate({
         where: {
           name: tag,
-        },
-        defaults: {
           discord_emoji: req.body.id,
         },
       })
