@@ -21,11 +21,6 @@
     justify-content: center;
   }
 
-  .edit-btn {
-    height: 50px;
-    width: 50px;
-  }
-
   div#tags_tagsinput.tagsinput,
   input#name {
     border: 3px solid #7289da;
@@ -43,10 +38,65 @@
     text-transform: uppercase;
     margin: 10px;
     box-sizing: border-box;
+    color: #7289da;
   }
 
   button:hover {
+    filter: opacity(100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     background-color: #7289da;
+    color: white;
+  }
+
+  button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+    border-radius: 50%;
+  }
+
+  button:focus {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .edit-btn {
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    filter: opacity(70%);
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+  }
+
+  .edit-btn:hover {
+    filter: opacity(100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+  }
+
+  .edit-btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    border: none;
+    border-radius: 50%;
+  }
+
+  .edit-btn:focus {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .edit-btn-img {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
   }
 
   .slide {
@@ -89,7 +139,7 @@
           class="edit-btn"
           id="deleteEmoji"
         >
-          <img class="edit-btn" src="/img/delete-1.png" />
+          <img class="edit-btn-img" src="/img/delete-1.png" />
         </button>
       </div>
 
@@ -165,9 +215,8 @@
         //     $(this).css({ 'background-color': '#7289da', color: 'white' });
         // });
       },
-
     });
-    console.log($('#tags').val())
+    console.log($('#tags').val());
   });
 
   $(document).ready(function () {
@@ -179,7 +228,7 @@
           data: { tags: $('#tags').val(), id: $('#form-name-id').val() },
         });
 
-        console.log($('#tags').val());
+        location.reload();
       });
     });
   });
@@ -210,6 +259,7 @@
         'Content-Type': 'application/json',
       },
     }).catch(console.log);
+    window.location.replace('/');
   }
 
   function gotoEdit() {
@@ -233,6 +283,6 @@
         },
       }).catch(console.log);
 
-      // location.reload();
+      location.reload();
     });
 </script>
